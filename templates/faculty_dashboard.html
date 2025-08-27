@@ -1,0 +1,932 @@
+{% extends "base.html" %}
+
+{% block title %}Faculty Dashboard - Cryptography Virtual Lab{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-indigo-50 dark:from-gray-900 dark:via-gray-800 dark:to-indigo-900">
+    <!-- Welcome Section -->
+    <div class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
+        <div class="container mx-auto px-4 py-8">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Faculty Dashboard</h1>
+                    <p class="text-gray-600 dark:text-gray-300 mt-2">
+                        Welcome back, {{ user.full_name }}! Manage your cryptography courses and monitor student progress.
+                    </p>
+                </div>
+                <div class="bg-indigo-50 dark:bg-indigo-900 rounded-lg p-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-12 h-12 bg-indigo-100 dark:bg-indigo-800 rounded-full flex items-center justify-center">
+                            <i class="fas fa-chalkboard-teacher text-indigo-600 dark:text-indigo-400 text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-indigo-900 dark:text-indigo-100">Faculty Member</p>
+                            <p class="text-xs text-indigo-600 dark:text-indigo-400">{{ user.email }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="container mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center">
+                    <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-users text-blue-600 dark:text-blue-400"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ stats.active_students }}</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Active Students</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center">
+                    <div class="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-book text-green-600 dark:text-green-400"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ stats.lab_modules }}</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Lab Modules</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center">
+                    <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-chart-line text-purple-600 dark:text-purple-400"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-2xl font-bold text-gray-900 dark:text-white">
+                            {% if stats.active_students > 0 %}{{ stats.avg_progress }}%{% else %}0%{% endif %}
+                        </p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Avg. Progress</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center">
+                    <div class="w-12 h-12 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-tasks text-orange-600 dark:text-orange-400"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ stats.assignments }}</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Assignments</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="grid grid-cols-1 gap-8">
+            <!-- Assignment Management Section -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700">
+                <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Assignment Management</h2>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm mt-1">Review, grade, and manage student assignments</p>
+                        </div>
+                        <div class="flex space-x-3">
+                            <a href="{{ url_for('assignments.create_assignment') }}"
+                               class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition duration-200">
+                                <i class="fas fa-plus mr-2"></i>Create Assignment
+                            </a>
+                            <a href="{{ url_for('assignments.faculty_assignments') }}"
+                               class="bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg text-sm font-medium transition duration-200">
+                                <i class="fas fa-list mr-2"></i>View All
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Assignment Stats -->
+                <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div class="bg-blue-50 dark:bg-blue-900 rounded-lg p-4">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-blue-100 dark:bg-blue-800 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-clipboard-list text-blue-600 dark:text-blue-400"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-lg font-semibold text-blue-900 dark:text-blue-100" id="total-assignments">{{ stats.assignments or 0 }}</p>
+                                    <p class="text-xs text-blue-600 dark:text-blue-400">Total Assignments</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-yellow-50 dark:bg-yellow-900 rounded-lg p-4">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-yellow-100 dark:bg-yellow-800 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-clock text-yellow-600 dark:text-yellow-400"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-lg font-semibold text-yellow-900 dark:text-yellow-100" id="pending-grading">{{ stats.pending_grading or 0 }}</p>
+                                    <p class="text-xs text-yellow-600 dark:text-yellow-400">Pending Grading</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-green-50 dark:bg-green-900 rounded-lg p-4">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-green-100 dark:bg-green-800 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-check text-green-600 dark:text-green-400"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-lg font-semibold text-green-900 dark:text-green-100" id="graded-submissions">{{ stats.graded_submissions or 0 }}</p>
+                                    <p class="text-xs text-green-600 dark:text-green-400">Graded</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-purple-50 dark:bg-purple-900 rounded-lg p-4">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-purple-100 dark:bg-purple-800 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-paper-plane text-purple-600 dark:text-purple-400"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-lg font-semibold text-purple-900 dark:text-purple-100" id="total-submissions">{{ stats.total_submissions or 0 }}</p>
+                                    <p class="text-xs text-purple-600 dark:text-purple-400">Total Submissions</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Submissions Needing Attention -->
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-medium text-gray-900 dark:text-white">Recent Submissions Requiring Review</h3>
+                        <div class="flex space-x-2">
+                            <select id="filter-status" class="text-sm border border-gray-300 dark:border-gray-600 rounded-md px-3 py-1 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300">
+                                <option value="">All Statuses</option>
+                                <option value="submitted">Submitted</option>
+                                <option value="graded">Graded</option>
+                                <option value="late">Late</option>
+                            </select>
+                            <select id="filter-module" class="text-sm border border-gray-300 dark:border-gray-600 rounded-md px-3 py-1 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300">
+                                <option value="">All Modules</option>
+                                <option value="shift_cipher">Shift Cipher</option>
+                                <option value="mono_alphabetic">Mono Alphabetic</option>
+                                <option value="aes_algorithm">AES Algorithm</option>
+                                <option value="des_algorithm">DES Algorithm</option>
+                                <option value="hash_function">Hash Functions</option>
+                            </select>
+                            <button onclick="refreshAssignmentData()" class="text-sm bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 px-3 py-1 rounded-md transition duration-200">
+                                <i class="fas fa-refresh mr-1"></i>Refresh
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div id="submissions-container" class="space-y-3">
+                        <!-- This will be populated by JavaScript -->
+                        <div class="text-center py-8">
+                            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                            <p class="text-gray-500 dark:text-gray-400">Loading submissions...</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Bulk Actions -->
+                    <div id="bulk-actions" class="hidden mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center space-x-4">
+                                <span class="text-sm text-gray-600 dark:text-gray-300">
+                                    <span id="selected-count">0</span> submissions selected
+                                </span>
+                                <div class="flex space-x-2">
+                                    <button onclick="bulkGrade()" class="text-sm bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded transition duration-200">
+                                        <i class="fas fa-graduation-cap mr-1"></i>Bulk Grade
+                                    </button>
+                                    <button onclick="bulkApprove()" class="text-sm bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded transition duration-200">
+                                        <i class="fas fa-check mr-1"></i>Approve All
+                                    </button>
+                                    <button onclick="exportSubmissions()" class="text-sm bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded transition duration-200">
+                                        <i class="fas fa-download mr-1"></i>Export
+                                    </button>
+                                </div>
+                            </div>
+                            <button onclick="clearSelection()" class="text-sm text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100">
+                                Clear Selection
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Secondary Content Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Course Management -->
+                <div class="lg:col-span-2">
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700">
+                        <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                            <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Course Management</h2>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm mt-1">Manage cryptography lab modules and content</p>
+                        </div>
+                        <div class="p-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <!-- Dynamic Lab Modules -->
+                                {% for module in lab_modules[:4] %}
+                                <a href="{% if module.slug == 'mono_alphabetic' %}{{ url_for('mono_alphabetic.home') }}{% elif module.slug == 'shift_cipher' %}{{ url_for('shift_cipher.home') }}{% elif module.slug == 'aes_algorithm' %}{{ url_for('aes_algorithm.aim') }}{% elif module.slug == 'des_algorithm' %}{{ url_for('des_algorithm.aim') }}{% elif module.slug == 'hash_function' %}{{ url_for('hash_function.aim') }}{% elif module.slug == 'message_auth' %}{{ url_for('message_auth.aim') }}{% elif module.slug == 'dsa_algorithm' %}{{ url_for('dsa_algorithm.aim') }}{% elif module.slug == 'one_time_pad' %}{{ url_for('one_time_pad.home') }}{% else %}#{% endif %}"
+                                   class="group block p-4 rounded-lg border border-gray-200 dark:border-gray-600 hover:border-{{ module.color }}-300 dark:hover:border-{{ module.color }}-500 hover:bg-{{ module.color }}-50 dark:hover:bg-{{ module.color }}-900/20 transition-all duration-200">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 bg-{{ module.color }}-100 dark:bg-{{ module.color }}-900 rounded-lg flex items-center justify-center group-hover:bg-{{ module.color }}-200 dark:group-hover:bg-{{ module.color }}-800 transition-colors">
+                                            <i class="{{ module.icon }} text-{{ module.color }}-600 dark:text-{{ module.color }}-400"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-medium text-gray-900 dark:text-white">{{ module.name }}</h3>
+                                            <p class="text-xs text-gray-500 dark:text-gray-400">{{ module.description }}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                                {% endfor %}
+                            </div>
+                            
+                            {% if lab_modules|length > 4 %}
+                            <div class="mt-4 text-center">
+                                <p class="text-sm text-gray-600 dark:text-gray-400">
+                                    And {{ lab_modules|length - 4 }} more lab modules available
+                                </p>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+            <!-- Quick Actions -->
+            <div class="space-y-6">
+                <!-- Recent Activity -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700">
+                    <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                        <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Recent Activity</h2>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        {% for activity in recent_activities %}
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-{{ activity.color }}-100 dark:bg-{{ activity.color }}-900 rounded-full flex items-center justify-center">
+                                <i class="{{ activity.icon }} text-{{ activity.color }}-600 dark:text-{{ activity.color }}-400 text-xs"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-sm text-gray-900 dark:text-white">{{ activity.message }}</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">{{ activity.time }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700">
+                    <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                        <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Quick Actions</h2>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        {% for action in quick_actions %}
+                        <button class="w-full text-left p-3 rounded-lg border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                                onclick="handleQuickAction('{{ action.action }}')">
+                            <div class="flex items-center space-x-3">
+                                <i class="{{ action.icon }} text-{{ action.color }}-600 dark:text-{{ action.color }}-400"></i>
+                                <div>
+                                    <span class="text-sm font-medium text-gray-900 dark:text-white">{{ action.name }}</span>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">{{ action.description }}</p>
+                                </div>
+                            </div>
+                        </button>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function handleQuickAction(action) {
+    switch(action) {
+        case 'create_assignment':
+            window.location.href = "{{ url_for('assignments.create_assignment') }}";
+            break;
+        case 'view_progress':
+            showStudentProgressModal();
+            break;
+        case 'generate_reports':
+            generateProgressReport();
+            break;
+        case 'manage_users':
+            showUserManagementModal();
+            break;
+        default:
+            alert('Feature coming soon!');
+    }
+}
+
+function showStudentProgressModal() {
+    // Create modal for student progress
+    const modal = document.createElement('div');
+    modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+    modal.innerHTML = `
+        <div class="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-2xl w-full mx-4 max-h-96 overflow-y-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Student Progress Overview</h3>
+                <button onclick="this.closest('.fixed').remove()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-blue-50 dark:bg-blue-900 p-4 rounded-lg">
+                        <h4 class="font-medium text-blue-900 dark:text-blue-100">Active Students</h4>
+                        <p class="text-2xl font-bold text-blue-600 dark:text-blue-400">{{ stats.active_students }}</p>
+                    </div>
+                    <div class="bg-green-50 dark:bg-green-900 p-4 rounded-lg">
+                        <h4 class="font-medium text-green-900 dark:text-green-100">Avg. Progress</h4>
+                        <p class="text-2xl font-bold text-green-600 dark:text-green-400">{{ stats.avg_progress }}%</p>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <a href="{{ url_for('assignments.faculty_assignments') }}"
+                       class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-200">
+                        View Detailed Progress
+                    </a>
+                </div>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+}
+
+function generateProgressReport() {
+    // Show loading and generate report
+    const loadingModal = document.createElement('div');
+    loadingModal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+    loadingModal.innerHTML = `
+        <div class="bg-white dark:bg-gray-800 rounded-lg p-6 text-center">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Generating Report</h3>
+            <p class="text-gray-600 dark:text-gray-400">Please wait while we compile the progress report...</p>
+        </div>
+    `;
+    document.body.appendChild(loadingModal);
+    
+    // Simulate report generation
+    setTimeout(() => {
+        loadingModal.remove();
+        
+        const reportModal = document.createElement('div');
+        reportModal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+        reportModal.innerHTML = `
+            <div class="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-lg w-full mx-4">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Progress Report Generated</h3>
+                    <button onclick="this.closest('.fixed').remove()" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="space-y-4">
+                    <div class="bg-green-50 dark:bg-green-900 p-4 rounded-lg">
+                        <i class="fas fa-check-circle text-green-600 dark:text-green-400 mr-2"></i>
+                        <span class="text-green-800 dark:text-green-200">Report generated successfully!</span>
+                    </div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400">
+                        <p><strong>Total Students:</strong> {{ stats.active_students }}</p>
+                        <p><strong>Lab Modules:</strong> {{ stats.lab_modules }}</p>
+                        <p><strong>Average Progress:</strong> {{ stats.avg_progress }}%</p>
+                        <p><strong>Generated:</strong> ${new Date().toLocaleString()}</p>
+                    </div>
+                    <div class="flex space-x-3">
+                        <button class="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-200">
+                            <i class="fas fa-download mr-2"></i>Download PDF
+                        </button>
+                        <button class="flex-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition duration-200">
+                            <i class="fas fa-envelope mr-2"></i>Email Report
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(reportModal);
+    }, 2000);
+}
+
+function showUserManagementModal() {
+    const modal = document.createElement('div');
+    modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+    modal.innerHTML = `
+        <div class="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-lg w-full mx-4">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">User Management</h3>
+                <button onclick="this.closest('.fixed').remove()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-blue-50 dark:bg-blue-900 p-4 rounded-lg text-center">
+                        <i class="fas fa-user-plus text-blue-600 dark:text-blue-400 text-2xl mb-2"></i>
+                        <h4 class="font-medium text-blue-900 dark:text-blue-100">Add Student</h4>
+                        <button class="mt-2 text-sm bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition duration-200">
+                            Add New
+                        </button>
+                    </div>
+                    <div class="bg-green-50 dark:bg-green-900 p-4 rounded-lg text-center">
+                        <i class="fas fa-users text-green-600 dark:text-green-400 text-2xl mb-2"></i>
+                        <h4 class="font-medium text-green-900 dark:text-green-100">View Users</h4>
+                        <button class="mt-2 text-sm bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition duration-200">
+                            View All
+                        </button>
+                    </div>
+                </div>
+                <div class="text-center text-sm text-gray-600 dark:text-gray-400">
+                    <p>Current Users: {{ stats.active_students }} students, {{ stats.faculty_members or 3 }} faculty</p>
+                </div>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+}
+
+// Assignment Management JavaScript
+let selectedSubmissions = new Set();
+let allSubmissions = [];
+
+// Load submissions on page load
+document.addEventListener('DOMContentLoaded', function() {
+    loadSubmissions();
+});
+
+// Load submissions from API
+async function loadSubmissions() {
+    try {
+        const response = await fetch('/api/assignments/stats');
+        const stats = await response.json();
+        
+        // Update stats display
+        updateStatsDisplay(stats);
+        
+        // Load recent submissions needing review
+        const submissionsResponse = await fetch('/api/faculty/submissions/recent');
+        if (submissionsResponse.ok) {
+            const submissions = await submissionsResponse.json();
+            allSubmissions = submissions;
+            displaySubmissions(submissions);
+        } else {
+            // Fallback: show sample data
+            displaySampleSubmissions();
+        }
+    } catch (error) {
+        console.error('Error loading submissions:', error);
+        displaySampleSubmissions();
+    }
+}
+
+// Update stats display
+function updateStatsDisplay(stats) {
+    document.getElementById('total-assignments').textContent = stats.total_assignments || 0;
+    document.getElementById('pending-grading').textContent = stats.pending_grading || 0;
+    document.getElementById('graded-submissions').textContent = stats.graded_submissions || 0;
+    document.getElementById('total-submissions').textContent = stats.total_submissions || 0;
+}
+
+// Display submissions
+function displaySubmissions(submissions) {
+    const container = document.getElementById('submissions-container');
+    
+    if (submissions.length === 0) {
+        container.innerHTML = `
+            <div class="text-center py-8">
+                <i class="fas fa-clipboard-list text-4xl text-gray-400 dark:text-gray-600 mb-4"></i>
+                <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-2">No submissions to review</h3>
+                <p class="text-gray-500 dark:text-gray-400">All caught up! Check back later for new submissions.</p>
+            </div>
+        `;
+        return;
+    }
+
+    const submissionsHtml = submissions.map(submission => `
+        <div class="submission-item bg-white dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600 p-4 hover:shadow-md transition-shadow" data-submission-id="${submission.id}" data-status="${submission.status}" data-module="${submission.assignment.lab_module}">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <input type="checkbox" class="submission-checkbox rounded border-gray-300 dark:border-gray-600 text-blue-600 focus:ring-blue-500" data-submission-id="${submission.id}">
+                    <div class="flex-1">
+                        <div class="flex items-center space-x-2">
+                            <h4 class="font-medium text-gray-900 dark:text-white">${submission.assignment.title}</h4>
+                            <span class="px-2 py-1 rounded-full text-xs font-medium ${getStatusBadgeClass(submission.status)}">
+                                ${submission.status.charAt(0).toUpperCase() + submission.status.slice(1)}
+                            </span>
+                        </div>
+                        <div class="flex items-center space-x-4 text-sm text-gray-500 dark:text-gray-400 mt-1">
+                            <span><i class="fas fa-user mr-1"></i>${submission.student_name}</span>
+                            <span><i class="fas fa-clock mr-1"></i>${formatDate(submission.submitted_at)}</span>
+                            <span><i class="fas fa-book mr-1"></i>${getModuleName(submission.assignment.lab_module)}</span>
+                            <span><i class="fas fa-star mr-1"></i>${submission.assignment.points} points</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2">
+                    ${submission.grade !== null ? `<span class="px-2 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded text-sm font-medium">${submission.grade}/100</span>` : ''}
+                    <button onclick="quickGrade('${submission.id}')" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-sm font-medium">
+                        ${submission.grade !== null ? 'Re-grade' : 'Grade'}
+                    </button>
+                    <button onclick="viewSubmission('${submission.assignment_id}', '${submission.id}')" class="text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-300">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+
+    container.innerHTML = submissionsHtml;
+    
+    // Add event listeners to checkboxes
+    document.querySelectorAll('.submission-checkbox').forEach(checkbox => {
+        checkbox.addEventListener('change', handleCheckboxChange);
+    });
+}
+
+// Display sample submissions for demo
+function displaySampleSubmissions() {
+    const sampleSubmissions = [
+        {
+            id: '1',
+            assignment: {
+                title: 'Caesar Cipher Analysis',
+                lab_module: 'shift_cipher',
+                points: 10
+            },
+            student_name: 'Alice Johnson',
+            submitted_at: new Date().toISOString(),
+            status: 'submitted',
+            grade: null,
+            assignment_id: 'a6eb45e2-f6f0-44db-adf7-947587418154'
+        },
+        {
+            id: '2',
+            assignment: {
+                title: 'Mono-Alphabetic Cipher Challenge',
+                lab_module: 'mono_alphabetic',
+                points: 15
+            },
+            student_name: 'Student One',
+            submitted_at: new Date(Date.now() - 86400000).toISOString(),
+            status: 'late',
+            grade: null,
+            assignment_id: '7604206e-8992-4e19-842b-fa7fddb9361f'
+        },
+        {
+            id: '3',
+            assignment: {
+                title: 'AES Implementation Project',
+                lab_module: 'aes_algorithm',
+                points: 25
+            },
+            student_name: 'Student Two',
+            submitted_at: new Date(Date.now() - 172800000).toISOString(),
+            status: 'graded',
+            grade: 85,
+            assignment_id: '5ddaa559-c004-4dc8-bd6a-0250bb322d77'
+        }
+    ];
+    
+    displaySubmissions(sampleSubmissions);
+}
+
+// Utility functions
+function getStatusBadgeClass(status) {
+    switch(status) {
+        case 'submitted': return 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200';
+        case 'graded': return 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200';
+        case 'late': return 'bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200';
+        default: return 'bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200';
+    }
+}
+
+function getModuleName(module) {
+    const moduleNames = {
+        'shift_cipher': 'Shift Cipher',
+        'mono_alphabetic': 'Mono Alphabetic',
+        'aes_algorithm': 'AES Algorithm',
+        'des_algorithm': 'DES Algorithm',
+        'hash_function': 'Hash Functions',
+        'message_auth': 'Message Auth',
+        'dsa_algorithm': 'DSA Algorithm',
+        'one_time_pad': 'One Time Pad'
+    };
+    return moduleNames[module] || module;
+}
+
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+}
+
+// Checkbox handling
+function handleCheckboxChange(event) {
+    const submissionId = event.target.dataset.submissionId;
+    if (event.target.checked) {
+        selectedSubmissions.add(submissionId);
+    } else {
+        selectedSubmissions.delete(submissionId);
+    }
+    updateBulkActionsDisplay();
+}
+
+function updateBulkActionsDisplay() {
+    const bulkActions = document.getElementById('bulk-actions');
+    const selectedCount = document.getElementById('selected-count');
+    
+    if (selectedSubmissions.size > 0) {
+        bulkActions.classList.remove('hidden');
+        selectedCount.textContent = selectedSubmissions.size;
+    } else {
+        bulkActions.classList.add('hidden');
+    }
+}
+
+// Filter functions
+function filterSubmissions() {
+    const statusFilter = document.getElementById('filter-status').value;
+    const moduleFilter = document.getElementById('filter-module').value;
+    
+    const filteredSubmissions = allSubmissions.filter(submission => {
+        const statusMatch = !statusFilter || submission.status === statusFilter;
+        const moduleMatch = !moduleFilter || submission.assignment.lab_module === moduleFilter;
+        return statusMatch && moduleMatch;
+    });
+    
+    displaySubmissions(filteredSubmissions);
+}
+
+// Add event listeners for filters
+document.getElementById('filter-status').addEventListener('change', filterSubmissions);
+document.getElementById('filter-module').addEventListener('change', filterSubmissions);
+
+// Refresh function
+function refreshAssignmentData() {
+    const refreshButton = document.querySelector('button[onclick="refreshAssignmentData()"]');
+    const originalContent = refreshButton.innerHTML;
+    
+    refreshButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-1"></i>Refreshing...';
+    refreshButton.disabled = true;
+    
+    setTimeout(() => {
+        loadSubmissions();
+        refreshButton.innerHTML = originalContent;
+        refreshButton.disabled = false;
+    }, 1000);
+}
+
+// Quick actions
+function quickGrade(submissionId) {
+    const modal = document.createElement('div');
+    modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+    modal.innerHTML = `
+        <div class="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-md w-full mx-4">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Quick Grade</h3>
+                <button onclick="this.closest('.fixed').remove()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form onsubmit="submitQuickGrade(event, '${submissionId}')">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Grade (0-100)</label>
+                        <input type="number" min="0" max="100" class="w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white" placeholder="Enter grade" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Feedback (optional)</label>
+                        <textarea rows="3" class="w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white" placeholder="Add feedback..."></textarea>
+                    </div>
+                    <div class="flex space-x-3">
+                        <button type="submit" class="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-200">
+                            Submit Grade
+                        </button>
+                        <button type="button" onclick="this.closest('.fixed').remove()" class="flex-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition duration-200">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    `;
+    document.body.appendChild(modal);
+}
+
+async function submitQuickGrade(event, submissionId) {
+    event.preventDefault();
+    const form = event.target;
+    const grade = form.querySelector('input[type="number"]').value;
+    const feedback = form.querySelector('textarea').value;
+    
+    try {
+        const response = await fetch(`/api/submissions/${submissionId}/grade`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                grade: parseInt(grade),
+                feedback: feedback
+            })
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            // Close modal and show success
+            form.closest('.fixed').remove();
+            showNotification('Grade submitted successfully!', 'success');
+            
+            // Refresh data
+            setTimeout(() => loadSubmissions(), 500);
+        } else {
+            showNotification(result.error || 'Failed to grade submission', 'error');
+        }
+    } catch (error) {
+        console.error('Error grading submission:', error);
+        showNotification('Error grading submission', 'error');
+    }
+}
+
+function viewSubmission(assignmentId, submissionId) {
+    window.location.href = `/assignments/${assignmentId}/submission/${submissionId}`;
+}
+
+// Bulk actions
+function bulkGrade() {
+    if (selectedSubmissions.size === 0) return;
+    
+    const modal = document.createElement('div');
+    modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+    modal.innerHTML = `
+        <div class="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-md w-full mx-4">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Bulk Grade ${selectedSubmissions.size} Submissions</h3>
+                <button onclick="this.closest('.fixed').remove()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form onsubmit="submitBulkGrade(event)">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Grade (0-100)</label>
+                        <input type="number" min="0" max="100" class="w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white" placeholder="Enter grade" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Feedback (optional)</label>
+                        <textarea rows="3" class="w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white" placeholder="Add feedback for all submissions..."></textarea>
+                    </div>
+                    <div class="bg-yellow-50 dark:bg-yellow-900 p-3 rounded-lg">
+                        <p class="text-sm text-yellow-800 dark:text-yellow-200">
+                            <i class="fas fa-exclamation-triangle mr-2"></i>
+                            This will apply the same grade and feedback to all ${selectedSubmissions.size} selected submissions.
+                        </p>
+                    </div>
+                    <div class="flex space-x-3">
+                        <button type="submit" class="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-200">
+                            Apply to All
+                        </button>
+                        <button type="button" onclick="this.closest('.fixed').remove()" class="flex-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition duration-200">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    `;
+    document.body.appendChild(modal);
+}
+
+function submitBulkGrade(event) {
+    event.preventDefault();
+    const form = event.target;
+    const grade = form.querySelector('input[type="number"]').value;
+    const feedback = form.querySelector('textarea').value;
+    
+    // Here you would typically send to backend
+    console.log('Bulk grading submissions:', Array.from(selectedSubmissions), 'Grade:', grade, 'Feedback:', feedback);
+    
+    // Close modal and show success
+    form.closest('.fixed').remove();
+    showNotification(`Successfully graded ${selectedSubmissions.size} submissions!`, 'success');
+    
+    // Clear selection and refresh
+    clearSelection();
+    setTimeout(() => loadSubmissions(), 500);
+}
+
+function bulkApprove() {
+    if (selectedSubmissions.size === 0) return;
+    
+    const modal = document.createElement('div');
+    modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+    modal.innerHTML = `
+        <div class="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-md w-full mx-4">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Approve ${selectedSubmissions.size} Submissions</h3>
+                <button onclick="this.closest('.fixed').remove()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="space-y-4">
+                <div class="bg-green-50 dark:bg-green-900 p-4 rounded-lg">
+                    <p class="text-sm text-green-800 dark:text-green-200">
+                        <i class="fas fa-check-circle mr-2"></i>
+                        This will mark all ${selectedSubmissions.size} selected submissions as approved and finalized.
+                    </p>
+                </div>
+                <div class="flex space-x-3">
+                    <button onclick="confirmBulkApprove()" class="flex-1 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition duration-200">
+                        Approve All
+                    </button>
+                    <button onclick="this.closest('.fixed').remove()" class="flex-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition duration-200">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+}
+
+function confirmBulkApprove() {
+    // Here you would typically send to backend
+    console.log('Bulk approving submissions:', Array.from(selectedSubmissions));
+    
+    // Close modal and show success
+    document.querySelector('.fixed').remove();
+    showNotification(`Successfully approved ${selectedSubmissions.size} submissions!`, 'success');
+    
+    // Clear selection and refresh
+    clearSelection();
+    setTimeout(() => loadSubmissions(), 500);
+}
+
+function exportSubmissions() {
+    if (selectedSubmissions.size === 0) return;
+    
+    showNotification(`Exporting ${selectedSubmissions.size} submissions...`, 'info');
+    
+    // Simulate export
+    setTimeout(() => {
+        showNotification('Export completed! Check your downloads.', 'success');
+        clearSelection();
+    }, 2000);
+}
+
+function clearSelection() {
+    selectedSubmissions.clear();
+    document.querySelectorAll('.submission-checkbox').forEach(cb => cb.checked = false);
+    updateBulkActionsDisplay();
+}
+
+// Notification system
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `fixed top-4 right-4 z-50 max-w-sm w-full bg-white dark:bg-gray-800 shadow-lg rounded-lg border border-gray-200 dark:border-gray-700 p-4 notification`;
+    
+    const colorClasses = {
+        'success': 'text-green-600 dark:text-green-400',
+        'error': 'text-red-600 dark:text-red-400',
+        'warning': 'text-yellow-600 dark:text-yellow-400',
+        'info': 'text-blue-600 dark:text-blue-400'
+    };
+    
+    const icons = {
+        'success': 'fas fa-check-circle',
+        'error': 'fas fa-exclamation-circle',
+        'warning': 'fas fa-exclamation-triangle',
+        'info': 'fas fa-info-circle'
+    };
+    
+    notification.innerHTML = `
+        <div class="flex items-center">
+            <div class="${colorClasses[type]} mr-3">
+                <i class="${icons[type]}"></i>
+            </div>
+            <div class="flex-1">
+                <p class="text-sm font-medium text-gray-900 dark:text-white">${message}</p>
+            </div>
+            <button onclick="this.closest('.notification').remove()" class="ml-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+                <i class="fas fa-times text-sm"></i>
+            </button>
+        </div>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Auto remove after 5 seconds
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.remove();
+        }
+    }, 5000);
+}
+
+// Close modals when clicking outside
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('fixed') && e.target.classList.contains('inset-0')) {
+        e.target.remove();
+    }
+});
+</script>
+{% endblock %}

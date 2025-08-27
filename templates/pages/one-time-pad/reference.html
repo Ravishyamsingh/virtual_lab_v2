@@ -1,0 +1,73 @@
+{% extends "pages/one-time-pad/base_one_time_pad.html" %}
+
+{% block page_content %}
+<div class="space-y-6">
+    <h1 class="text-2xl font-bold text-white mb-6">References and Further Reading</h1>
+
+    <div class="space-y-6">
+        <section class="bg-gray-700 p-6 rounded-lg">
+            <h2 class="text-xl font-semibold text-blue-300 mb-4">Academic Papers</h2>
+            <ul class="space-y-4 text-gray-300">
+                <li class="border-b border-gray-600 pb-4">
+                    <p class="font-semibold">Shannon, C.E. (1949)</p>
+                    <p class="text-blue-300">"Communication Theory of Secrecy Systems"</p>
+                    <p class="text-sm">Bell System Technical Journal, 28(4), 656-715</p>
+                </li>
+                <li class="border-b border-gray-600 pb-4">
+                    <p class="font-semibold">Vernam, G.S. (1926)</p>
+                    <p class="text-blue-300">"Cipher Printing Telegraph Systems"</p>
+                    <p class="text-sm">Transactions of the American Institute of Electrical Engineers, 45, 295-301</p>
+                </li>
+            </ul>
+        </section>
+
+        <section class="bg-gray-700 p-6 rounded-lg">
+            <h2 class="text-xl font-semibold text-green-300 mb-4">Online Resources</h2>
+            <ul class="space-y-4 text-gray-300">
+                <li class="border-b border-gray-600 pb-4">
+                    <a href="#" class="text-blue-300 hover:text-blue-400">Cryptography and Network Security Principles</a>
+                    <p class="text-sm">Comprehensive guide to cryptographic principles</p>
+                </li>
+                <li class="border-b border-gray-600 pb-4">
+                    <a href="#" class="text-blue-300 hover:text-blue-400">One-Time Pad Calculator Tool</a>
+                    <p class="text-sm">Interactive tool for OTP encryption/decryption</p>
+                </li>
+                <li class="border-b border-gray-600 pb-4">
+                    <a href="#" class="text-blue-300 hover:text-blue-400">NIST Random Number Generation Guidelines</a>
+                    <p class="text-sm">Standards for cryptographic random number generation</p>
+                </li>
+            </ul>
+        </section>
+
+        <section class="bg-gray-700 p-6 rounded-lg">
+            <h2 class="text-xl font-semibold text-purple-300 mb-4">Recommended Books</h2>
+            <ul class="space-y-4 text-gray-300">
+                <li class="border-b border-gray-600 pb-4">
+                    <p class="font-semibold">Applied Cryptography</p>
+                    <p class="text-sm">By Bruce Schneier</p>
+                    <p class="text-sm">ISBN: 978-1119096726</p>
+                </li>
+                <li class="border-b border-gray-600 pb-4">
+                    <p class="font-semibold">Handbook of Applied Cryptography</p>
+                    <p class="text-sm">By Alfred J. Menezes, Paul C. van Oorschot, and Scott A. Vanstone</p>
+                    <p class="text-sm">ISBN: 978-0849385230</p>
+                </li>
+            </ul>
+        </section>
+
+        <section class="bg-gray-700 p-6 rounded-lg">
+            <h2 class="text-xl font-semibold text-yellow-300 mb-4">Video Lectures</h2>
+            <ul class="space-y-4 text-gray-300">
+                <li class="border-b border-gray-600 pb-4">
+                    <a href="#" class="text-blue-300 hover:text-blue-400">Introduction to One-Time Pad</a>
+                    <p class="text-sm">Duration: 45 minutes</p>
+                </li>
+                <li class="border-b border-gray-600 pb-4">
+                    <a href="#" class="text-blue-300 hover:text-blue-400">Perfect Secrecy and OTP Implementation</a>
+                    <p class="text-sm">Duration: 60 minutes</p>
+                </li>
+            </ul>
+        </section>
+    </div>
+</div>
+{% endblock %}

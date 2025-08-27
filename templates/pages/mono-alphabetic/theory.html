@@ -1,0 +1,97 @@
+{% extends "pages/mono-alphabetic/base_mono_alphabetic.html" %}
+
+{% block cipher_content %}
+<div class="prose max-w-none dark:prose-invert">
+    <h1 class="text-2xl font-bold text-white mb-6">Mono-alphabetic Substitution Cipher Theory</h1>
+
+    <div class="space-y-6">
+        <section>
+            <h2 class="text-xl font-semibold text-gray-300 mb-3">What is a Mono-alphabetic Substitution Cipher?</h2>
+            <p class="text-gray-300 leading-relaxed">
+                A mono-alphabetic substitution cipher is a method of encryption where each letter in the plaintext is replaced by another letter consistently throughout the message. It's a simple substitution cipher where one letter is substituted for another based on a fixed pattern.
+            </p>
+        </section>
+
+        <section class="bg-gray-700 p-6 rounded-lg">
+            <h2 class="text-xl font-semibold text-blue-300 mb-3">Key Characteristics</h2>
+            <ul class="list-disc list-inside space-y-2 text-gray-300">
+                <li>Each letter in the plaintext maps to exactly one letter in the ciphertext</li>
+                <li>The substitution remains constant throughout the message</li>
+                <li>The alphabet can be scrambled in any of 26! different ways</li>
+                <li>Once the substitution pattern is known, decryption is straightforward</li>
+            </ul>
+        </section>
+
+        <section class="bg-gray-700 p-6 rounded-lg">
+            <h2 class="text-xl font-semibold text-blue-300 mb-3">Mathematical Foundation</h2>
+            <p class="text-gray-300 leading-relaxed">
+                For each plaintext letter p, the ciphertext letter c is generated using a fixed substitution function:
+            </p>
+            <div class="bg-gray-800 p-4 rounded-lg my-4">
+                <code class="text-blue-300 font-mono">c = f(p)</code>
+                <p class="text-gray-400 mt-2">
+                    where f is a one-to-one mapping from the set of plaintext letters to the set of ciphertext letters.
+                </p>
+            </div>
+        </section>
+
+        <section class="bg-gray-700 p-6 rounded-lg">
+            <h2 class="text-xl font-semibold text-blue-300 mb-3">Security Considerations</h2>
+            <div class="space-y-4">
+                <p class="text-gray-300">The cipher has several vulnerabilities that make it unsuitable for modern use:</p>
+                <ul class="list-disc list-inside space-y-2 text-gray-300">
+                    <li>Vulnerable to frequency analysis attacks</li>
+                    <li>Pattern recognition can break the cipher</li>
+                    <li>Common letter patterns and word structures can be identified</li>
+                    <li>Not suitable for modern cryptographic applications</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="bg-gray-700 p-6 rounded-lg">
+            <h2 class="text-xl font-semibold text-blue-300 mb-3">Frequency Analysis</h2>
+            <div class="space-y-4">
+                <p class="text-gray-300">Common letter frequencies in English text:</p>
+                <div class="bg-gray-800 p-4 rounded-lg">
+                    <div class="grid grid-cols-2 gap-4 text-gray-300">
+                        <div>
+                            <p class="font-mono">E: 12.7%</p>
+                            <p class="font-mono">T: 9.1%</p>
+                            <p class="font-mono">A: 8.2%</p>
+                            <p class="font-mono">O: 7.5%</p>
+                        </div>
+                        <div>
+                            <p class="font-mono">I: 7.0%</p>
+                            <p class="font-mono">N: 6.7%</p>
+                            <p class="font-mono">S: 6.3%</p>
+                            <p class="font-mono">H: 6.1%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-gray-700 p-6 rounded-lg">
+            <h2 class="text-xl font-semibold text-blue-300 mb-3">Historical Significance</h2>
+            <p class="text-gray-300 leading-relaxed">
+                Mono-alphabetic substitution ciphers have been used throughout history, from ancient civilizations to medieval times. They were considered secure until frequency analysis techniques were developed by Arab mathematicians in the 9th century.
+            </p>
+            <div class="bg-gray-800 p-4 rounded-lg mt-4">
+                <p class="text-gray-400 italic">
+                    "The mono-alphabetic cipher was a revolutionary step in the evolution of cryptography, marking humanity's first systematic attempt at secure communication."
+                </p>
+            </div>
+        </section>
+
+        <div class="bg-blue-900 p-6 rounded-lg mt-8">
+            <h3 class="text-lg font-semibold text-blue-300 mb-3">Key Takeaways:</h3>
+            <ul class="list-disc list-inside space-y-2 text-gray-300">
+                <li>Simple but historically significant encryption method</li>
+                <li>Vulnerable to statistical analysis</li>
+                <li>Important foundation for understanding modern cryptography</li>
+                <li>Excellent teaching tool for basic cryptographic concepts</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %} 

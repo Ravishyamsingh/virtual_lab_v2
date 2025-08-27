@@ -1,0 +1,46 @@
+{
+    "users": [
+        {
+            "username": "ravishyam121",
+            "password": "shyam810",
+            "role": "faculty",
+            "email": "ravishyam121@faculty.edu",
+            "full_name": "Ravi Shyam"
+        },
+        {
+            "username": "admin",
+            "password": "admin123",
+            "role": "faculty",
+            "email": "admin@faculty.edu",
+            "full_name": "Administrator"
+        },
+        {
+            "username": "user1",
+            "password": "password123",
+            "role": "student",
+            "email": "user1@student.edu",
+            "full_name": "Student One"
+        },
+        {
+            "username": "user2",
+            "password": "password456",
+            "role": "student",
+            "email": "user2@student.edu",
+            "full_name": "Student Two"
+        },
+        {
+            "username": "faculty1",
+            "password": "faculty123",
+            "role": "faculty",
+            "email": "faculty1@faculty.edu",
+            "full_name": "Dr. John Smith"
+        },
+        {
+            "username": "student1",
+            "password": "student123",
+            "role": "student",
+            "email": "student1@student.edu",
+            "full_name": "Alice Johnson"
+        }
+    ]
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} - Cryptography Virtual Lab</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-blue-50 min-h-screen flex items-center justify-center p-4">
+    <div class="max-w-md w-full">
+        <!-- Error Card -->
+        <div class="bg-white rounded-xl shadow-2xl p-8 text-center">
+            <!-- Error Icon -->
+            <div class="inline-block p-6 rounded-full bg-orange-50 mb-6">
+                <svg class="w-16 h-16 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                          d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+                </svg>
+            </div>
+            
+            <!-- Error Details -->
+            <h1 class="text-2xl font-bold text-gray-800 mb-4">{{ title }}</h1>
+            <p class="text-gray-600 mb-6 leading-relaxed">{{ message }}</p>
+            
+            <!-- Error Code -->
+            <div class="bg-gray-50 rounded-lg p-4 mb-6">
+                <p class="text-sm text-gray-500">Error Code: {{ status_code }}</p>
+                {% if error_id %}
+                <p class="text-xs text-gray-400 mt-1">Reference ID: {{ error_id }}</p>
+                {% endif %}
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="space-y-3">
+                <button onclick="history.back()" 
+                        class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition duration-200 flex items-center justify-center">
+                    <i class="fas fa-arrow-left mr-2"></i>
+                    Go Back
+                </button>
+                
+                <a href="{{ url_for('home') }}" 
+                   class="w-full bg-gray-100 text-gray-700 py-3 px-4 rounded-lg hover:bg-gray-200 transition duration-200 flex items-center justify-center">
+                    <i class="fas fa-home mr-2"></i>
+                    Home Page
+                </a>
+            </div>
+        </div>
+        
+        <!-- Help Section -->
+        <div class="mt-6 text-center">
+            <p class="text-sm text-gray-600">
+                Need help? 
+                <a href="mailto:support@cryptolab.edu" class="text-blue-600 hover:text-blue-700">Contact Support</a>
+            </p>
+        </div>
+    </div>
+    
+    <!-- Auto-refresh for temporary errors -->
+    {% if status_code in [429, 503] %}
+    <script>
+        // Auto-refresh after 30 seconds for temporary errors
+        setTimeout(function() {
+            if (confirm('Would you like to try again?')) {
+                location.reload();
+            }
+        }, 30000);
+    </script>
+    {% endif %}
+</body>
+</html>

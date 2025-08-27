@@ -1,0 +1,24 @@
+{% extends "pages/message-authentication/base_message_auth.html" %}
+
+{% block page_content %}
+<div class="bg-gray-800 text-white rounded-lg shadow-lg p-6">
+    <h1 class="text-3xl font-bold mb-6">Objectives</h1>
+    <div class="space-y-4 text-gray-300">
+        <p>After completing this laboratory, you will be able to:</p>
+        <ul class="list-decimal list-inside space-y-3 ml-4">
+            <li>Understand the importance of message authentication in secure communications</li>
+            <li>Learn different types of message authentication techniques:
+                <ul class="list-disc list-inside ml-6 mt-2 space-y-1">
+                    <li>Message Authentication Codes (MACs)</li>
+                    <li>Hash-based Message Authentication Codes (HMACs)</li>
+                    <li>Digital Signatures</li>
+                </ul>
+            </li>
+            <li>Implement and analyze various message authentication algorithms</li>
+            <li>Verify message integrity using different authentication methods</li>
+            <li>Understand the differences between various authentication techniques</li>
+            <li>Learn about common attacks on message authentication systems</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

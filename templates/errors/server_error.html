@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} - Cryptography Virtual Lab</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body class="bg-gradient-to-br from-red-50 to-pink-50 min-h-screen flex items-center justify-center p-4">
+    <div class="max-w-md w-full">
+        <!-- Error Card -->
+        <div class="bg-white rounded-xl shadow-2xl p-8 text-center">
+            <!-- Error Icon -->
+            <div class="inline-block p-6 rounded-full bg-red-50 mb-6">
+                <svg class="w-16 h-16 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                          d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+            </div>
+            
+            <!-- Error Details -->
+            <h1 class="text-2xl font-bold text-gray-800 mb-4">{{ title }}</h1>
+            <p class="text-gray-600 mb-6 leading-relaxed">{{ message }}</p>
+            
+            <!-- Error Code -->
+            <div class="bg-gray-50 rounded-lg p-4 mb-6">
+                <p class="text-sm text-gray-500">Error Code: {{ status_code }}</p>
+                {% if error_id %}
+                <p class="text-xs text-gray-400 mt-1">Reference ID: {{ error_id }}</p>
+                <p class="text-xs text-gray-400 mt-1">Our team has been notified</p>
+                {% endif %}
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="space-y-3">
+                <button onclick="location.reload()" 
+                        class="w-full bg-red-600 text-white py-3 px-4 rounded-lg hover:bg-red-700 transition duration-200 flex items-center justify-center">
+                    <i class="fas fa-redo mr-2"></i>
+                    Try Again
+                </button>
+                
+                <a href="{{ url_for('home') }}" 
+                   class="w-full bg-gray-100 text-gray-700 py-3 px-4 rounded-lg hover:bg-gray-200 transition duration-200 flex items-center justify-center">
+                    <i class="fas fa-home mr-2"></i>
+                    Home Page
+                </a>
+            </div>
+        </div>
+        
+        <!-- Help Section -->
+        <div class="mt-6 text-center">
+            <p class="text-sm text-gray-600">
+                If this problem persists, please 
+                <a href="mailto:support@cryptolab.edu?subject=Server Error {{ error_id }}" 
+                   class="text-red-600 hover:text-red-700">contact our support team</a>
+            </p>
+        </div>
+    </div>
+    
+    <!-- Auto-retry for server errors -->
+    <script>
+        let retryCount = 0;
+        const maxRetries = 3;
+        
+        function autoRetry() {
+            if (retryCount < maxRetries) {
+                retryCount++;
+                setTimeout(function() {
+                    console.log(`Auto-retry attempt ${retryCount}/${maxRetries}`);
+                    location.reload();
+                }, 5000 * retryCount); // Exponential backoff
+            }
+        }
+        
+        // Only auto-retry for 500 errors, not for 502/503 which might be persistent
+        {% if status_code == 500 %}
+        autoRetry();
+        {% endif %}
+    </script>
+</body>
+</html>

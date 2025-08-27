@@ -1,0 +1,124 @@
+{% extends "pages/aes-algorithm/base_aes_algorithm.html" %}
+
+{% block page_content %}
+<div class="bg-gray-800 shadow-xl rounded-lg overflow-hidden">
+    <div class="p-6">
+        <h1 class="text-2xl font-bold text-white mb-6">Advanced Encryption Standard (AES) - Theory</h1>
+        
+        <div class="space-y-6 text-gray-300">
+            <!-- Introduction -->
+            <div class="bg-gray-700 p-4 rounded-lg">
+                <h2 class="text-xl font-semibold text-white mb-3">Introduction</h2>
+                <p class="mb-4">
+                    The Advanced Encryption Standard (AES) is a symmetric block cipher algorithm established by the U.S. National Institute of Standards 
+                    and Technology (NIST) in 2001. It processes data blocks of 128 bits using cipher keys of 128, 192, or 256 bits. AES replaced the 
+                    Data Encryption Standard (DES) as the approved standard for a wide range of applications.
+                </p>
+            </div>
+
+            <!-- Algorithm Structure -->
+            <div class="bg-gray-700 p-4 rounded-lg">
+                <h2 class="text-xl font-semibold text-white mb-3">Algorithm Structure</h2>
+                <ul class="list-disc pl-6 space-y-2">
+                    <li>128-bit block size organized as a 4×4 matrix of bytes</li>
+                    <li>Key sizes: 128 bits (10 rounds), 192 bits (12 rounds), or 256 bits (14 rounds)</li>
+                    <li>Each round consists of four transformations (except the final round)</li>
+                    <li>State array undergoes transformations in each round</li>
+                </ul>
+            </div>
+
+            <!-- Round Transformations -->
+            <div class="bg-gray-700 p-4 rounded-lg">
+                <h2 class="text-xl font-semibold text-white mb-3">Round Transformations</h2>
+                
+                <div class="space-y-4">
+                    <div>
+                        <h3 class="text-lg font-medium text-white mb-2">1. SubBytes Transformation</h3>
+                        <p>A non-linear substitution where each byte is replaced with another according to a lookup table (S-box)</p>
+                        <ul class="list-disc pl-6 mt-2">
+                            <li>Provides confusion</li>
+                            <li>Uses multiplicative inverse in GF(2⁸)</li>
+                            <li>Followed by an affine transformation</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-medium text-white mb-2">2. ShiftRows Transformation</h3>
+                        <p>A cyclic shifting operation on the rows of the state:</p>
+                        <ul class="list-disc pl-6 mt-2">
+                            <li>Row 0: no shift</li>
+                            <li>Row 1: 1-byte shift left</li>
+                            <li>Row 2: 2-byte shift left</li>
+                            <li>Row 3: 3-byte shift left</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-medium text-white mb-2">3. MixColumns Transformation</h3>
+                        <p>A linear mixing operation operating on columns:</p>
+                        <ul class="list-disc pl-6 mt-2">
+                            <li>Each column is treated as a polynomial</li>
+                            <li>Multiplied modulo x⁴ + 1 with a fixed polynomial</li>
+                            <li>Provides diffusion in the cipher</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-medium text-white mb-2">4. AddRoundKey Transformation</h3>
+                        <p>Key addition operation:</p>
+                        <ul class="list-disc pl-6 mt-2">
+                            <li>Bitwise XOR with the round key</li>
+                            <li>Round keys derived from the cipher key</li>
+                            <li>Different round key for each round</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Expansion -->
+            <div class="bg-gray-700 p-4 rounded-lg">
+                <h2 class="text-xl font-semibold text-white mb-3">Key Expansion</h2>
+                <p class="mb-4">
+                    The AES key expansion algorithm generates a series of Round Keys from the Cipher Key:
+                </p>
+                <ul class="list-disc pl-6 space-y-2">
+                    <li>Takes the cipher key and produces a key schedule</li>
+                    <li>Uses key expansion function to generate round keys</li>
+                    <li>Each round key is 128 bits</li>
+                    <li>Number of round keys depends on key size</li>
+                </ul>
+            </div>
+
+            <!-- Security Features -->
+            <div class="bg-gray-700 p-4 rounded-lg">
+                <h2 class="text-xl font-semibold text-white mb-3">Security Features</h2>
+                <ul class="list-disc pl-6 space-y-2">
+                    <li>Strong resistance against known attacks</li>
+                    <li>No practical attacks that break AES</li>
+                    <li>Mathematical properties ensure security:</li>
+                    <ul class="list-disc pl-6 mt-2">
+                        <li>Non-linearity of S-box</li>
+                        <li>Diffusion through MixColumns</li>
+                        <li>Key mixing in each round</li>
+                    </ul>
+                </ul>
+            </div>
+
+            <!-- Implementation Considerations -->
+            <div class="bg-gray-700 p-4 rounded-lg">
+                <h2 class="text-xl font-semibold text-white mb-3">Implementation Considerations</h2>
+                <ul class="list-disc pl-6 space-y-2">
+                    <li>Hardware and software implementations possible</li>
+                    <li>Optimization techniques available:</li>
+                    <ul class="list-disc pl-6 mt-2">
+                        <li>T-table approach</li>
+                        <li>Bit-slicing</li>
+                        <li>Hardware acceleration</li>
+                    </ul>
+                    <li>Side-channel attack protections needed</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

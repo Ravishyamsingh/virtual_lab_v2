@@ -1,0 +1,161 @@
+{% extends "pages/aes-algorithm/base_aes_algorithm.html" %}
+
+{% block page_content %}
+<div class="bg-gray-800 shadow-xl rounded-lg overflow-hidden">
+    <div class="p-6">
+        <h1 class="text-2xl font-bold text-white mb-6">Advanced Encryption Standard (AES) - Procedure</h1>
+        
+        <div class="space-y-6 text-gray-300">
+            <!-- Overview -->
+            <div class="bg-gray-700 p-4 rounded-lg">
+                <h2 class="text-xl font-semibold text-white mb-3">Overview</h2>
+                <p class="mb-4">
+                    This procedure guide outlines the step-by-step process of implementing and using the AES algorithm. 
+                    Follow these steps carefully to understand and work with AES encryption and decryption.
+                </p>
+            </div>
+
+            <!-- Preparation -->
+            <div class="bg-gray-700 p-4 rounded-lg">
+                <h2 class="text-xl font-semibold text-white mb-3">1. Preparation</h2>
+                <ol class="list-decimal pl-6 space-y-2">
+                    <li>Understand the input requirements:
+                        <ul class="list-disc pl-6 mt-2">
+                            <li>Plaintext must be exactly 128 bits (16 bytes)</li>
+                            <li>Key size can be 128, 192, or 256 bits</li>
+                            <li>Input can be in various formats (hex, ASCII)</li>
+                        </ul>
+                    </li>
+                    <li>Prepare the state array:
+                        <ul class="list-disc pl-6 mt-2">
+                            <li>Organize data in 4×4 matrix of bytes</li>
+                            <li>Fill in column-major order</li>
+                            <li>Convert input format if necessary</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+
+            <!-- Key Expansion -->
+            <div class="bg-gray-700 p-4 rounded-lg">
+                <h2 class="text-xl font-semibold text-white mb-3">2. Key Expansion</h2>
+                <ol class="list-decimal pl-6 space-y-2">
+                    <li>Generate the key schedule:
+                        <ul class="list-disc pl-6 mt-2">
+                            <li>Take the initial cipher key</li>
+                            <li>Apply key expansion routine</li>
+                            <li>Generate required number of round keys</li>
+                        </ul>
+                    </li>
+                    <li>For each round key:
+                        <ul class="list-disc pl-6 mt-2">
+                            <li>Apply RotWord operation</li>
+                            <li>Apply SubWord operation</li>
+                            <li>XOR with round constant (Rcon)</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+
+            <!-- Encryption Process -->
+            <div class="bg-gray-700 p-4 rounded-lg">
+                <h2 class="text-xl font-semibold text-white mb-3">3. Encryption Process</h2>
+                <ol class="list-decimal pl-6 space-y-2">
+                    <li>Initial round:
+                        <ul class="list-disc pl-6 mt-2">
+                            <li>AddRoundKey with initial key</li>
+                        </ul>
+                    </li>
+                    <li>Main rounds (9, 11, or 13 rounds):
+                        <ul class="list-disc pl-6 mt-2">
+                            <li>SubBytes transformation</li>
+                            <li>ShiftRows transformation</li>
+                            <li>MixColumns transformation</li>
+                            <li>AddRoundKey transformation</li>
+                        </ul>
+                    </li>
+                    <li>Final round:
+                        <ul class="list-disc pl-6 mt-2">
+                            <li>SubBytes transformation</li>
+                            <li>ShiftRows transformation</li>
+                            <li>AddRoundKey transformation</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+
+            <!-- Decryption Process -->
+            <div class="bg-gray-700 p-4 rounded-lg">
+                <h2 class="text-xl font-semibold text-white mb-3">4. Decryption Process</h2>
+                <ol class="list-decimal pl-6 space-y-2">
+                    <li>Use inverse operations:
+                        <ul class="list-disc pl-6 mt-2">
+                            <li>InvSubBytes</li>
+                            <li>InvShiftRows</li>
+                            <li>InvMixColumns</li>
+                        </ul>
+                    </li>
+                    <li>Apply round keys in reverse order:
+                        <ul class="list-disc pl-6 mt-2">
+                            <li>Start with final round key</li>
+                            <li>Work backwards through round keys</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+
+            <!-- Implementation Steps -->
+            <div class="bg-gray-700 p-4 rounded-lg">
+                <h2 class="text-xl font-semibold text-white mb-3">5. Implementation Steps</h2>
+                <ol class="list-decimal pl-6 space-y-2">
+                    <li>Set up the environment:
+                        <ul class="list-disc pl-6 mt-2">
+                            <li>Initialize necessary tables (S-box, etc.)</li>
+                            <li>Prepare data structures</li>
+                        </ul>
+                    </li>
+                    <li>Implement core functions:
+                        <ul class="list-disc pl-6 mt-2">
+                            <li>Key expansion routine</li>
+                            <li>Round transformations</li>
+                            <li>Inverse transformations</li>
+                        </ul>
+                    </li>
+                    <li>Add helper functions:
+                        <ul class="list-disc pl-6 mt-2">
+                            <li>Data conversion routines</li>
+                            <li>Matrix operations</li>
+                            <li>Utility functions</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+
+            <!-- Testing and Validation -->
+            <div class="bg-gray-700 p-4 rounded-lg">
+                <h2 class="text-xl font-semibold text-white mb-3">6. Testing and Validation</h2>
+                <ol class="list-decimal pl-6 space-y-2">
+                    <li>Use test vectors:
+                        <ul class="list-disc pl-6 mt-2">
+                            <li>NIST test vectors</li>
+                            <li>Known plaintext-ciphertext pairs</li>
+                        </ul>
+                    </li>
+                    <li>Verify intermediate values:
+                        <ul class="list-disc pl-6 mt-2">
+                            <li>Check state after each round</li>
+                            <li>Validate round keys</li>
+                        </ul>
+                    </li>
+                    <li>Test edge cases:
+                        <ul class="list-disc pl-6 mt-2">
+                            <li>Different key sizes</li>
+                            <li>Special input patterns</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

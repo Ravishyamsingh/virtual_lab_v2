@@ -1,0 +1,68 @@
+{% extends "pages/one-time-pad/base_one_time_pad.html" %}
+
+{% block page_content %}
+<div class="prose max-w-none dark:prose-invert">
+    <h1 class="text-2xl font-bold text-white mb-6">One-Time Pad (OTP) Theory</h1>
+
+    <div class="space-y-6">
+        <section>
+            <h2 class="text-xl font-semibold text-gray-300 mb-3">What is a One-Time Pad?</h2>
+            <p class="text-gray-300 leading-relaxed">
+                A One-Time Pad (OTP) is an encryption technique that uses a random key of the same length as the plaintext, where each key is used exactly once. When implemented correctly, it provides perfect secrecy, making it theoretically impossible to break even with unlimited computational power.
+            </p>
+        </section>
+
+        <section class="bg-gray-700 p-6 rounded-lg">
+            <h2 class="text-xl font-semibold text-blue-300 mb-3">Key Characteristics</h2>
+            <ul class="list-disc list-inside space-y-2 text-gray-300">
+                <li>The key must be truly random</li>
+                <li>The key must be at least as long as the message</li>
+                <li>Each key must be used only once</li>
+                <li>The key must be kept completely secret</li>
+                <li>The key must be securely shared between parties</li>
+            </ul>
+        </section>
+
+        <section class="bg-gray-700 p-6 rounded-lg">
+            <h2 class="text-xl font-semibold text-blue-300 mb-3">Mathematical Foundation</h2>
+            <p class="text-gray-300 leading-relaxed">
+                The One-Time Pad uses modular addition for encryption and subtraction for decryption:
+            </p>
+            <div class="bg-gray-800 p-4 rounded-lg my-4">
+                <code class="text-blue-300 font-mono">Encryption: Ci = (Pi + Ki) mod 26</code>
+                <br>
+                <code class="text-blue-300 font-mono">Decryption: Pi = (Ci - Ki) mod 26</code>
+                <p class="text-gray-400 mt-2">
+                    where Pi is the plaintext letter, Ki is the key letter, and Ci is the ciphertext letter (all converted to numbers 0-25).
+                </p>
+            </div>
+        </section>
+
+        <section class="bg-gray-700 p-6 rounded-lg">
+            <h2 class="text-xl font-semibold text-blue-300 mb-3">Perfect Secrecy</h2>
+            <div class="space-y-4">
+                <p class="text-gray-300">The One-Time Pad achieves perfect secrecy because:</p>
+                <ul class="list-disc list-inside space-y-2 text-gray-300">
+                    <li>Every possible plaintext is equally likely given any ciphertext</li>
+                    <li>The key is truly random and as long as the message</li>
+                    <li>Each key is used only once</li>
+                    <li>The ciphertext provides no information about the plaintext</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="bg-gray-700 p-6 rounded-lg">
+            <h2 class="text-xl font-semibold text-blue-300 mb-3">Practical Limitations</h2>
+            <div class="space-y-4">
+                <p class="text-gray-300">Despite its perfect security, OTP has practical challenges:</p>
+                <ul class="list-disc list-inside space-y-2 text-gray-300">
+                    <li>Key generation must be truly random</li>
+                    <li>Key distribution is challenging</li>
+                    <li>Key management for large messages is difficult</li>
+                    <li>Keys must be securely stored and never reused</li>
+                </ul>
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}

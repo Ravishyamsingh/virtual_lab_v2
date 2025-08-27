@@ -1,0 +1,117 @@
+{% extends "pages/des-algorithm/base_des_algorithm.html" %}
+
+{% block page_content %}
+<div class="bg-gray-800 shadow-xl rounded-lg overflow-hidden">
+    <div class="p-6">
+        <h1 class="text-2xl font-bold text-white mb-4">Learning Objectives</h1>
+        
+        <div class="prose prose-invert max-w-none">
+            <section class="mb-8">
+                <h2 class="text-xl font-semibold text-white mb-4">Primary Objectives</h2>
+                <div class="space-y-4">
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">1. Understanding DES Architecture</h3>
+                        <ul class="list-disc pl-6 text-gray-300 space-y-1">
+                            <li>Comprehend the overall structure of DES</li>
+                            <li>Understand the Feistel network architecture</li>
+                            <li>Learn about the role of permutations and substitutions</li>
+                            <li>Master the key schedule generation process</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">2. Implementation Details</h3>
+                        <ul class="list-disc pl-6 text-gray-300 space-y-1">
+                            <li>Learn to implement the DES round function</li>
+                            <li>Understand S-box operations and their importance</li>
+                            <li>Master the key generation process</li>
+                            <li>Practice implementing the complete encryption/decryption process</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">3. Security Analysis</h3>
+                        <ul class="list-disc pl-6 text-gray-300 space-y-1">
+                            <li>Evaluate DES security features</li>
+                            <li>Understand potential vulnerabilities</li>
+                            <li>Learn about cryptanalysis techniques</li>
+                            <li>Compare DES with modern encryption standards</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-xl font-semibold text-white mb-4">Learning Outcomes</h2>
+                <div class="bg-gray-700 p-4 rounded-lg">
+                    <p class="text-gray-300">After completing this lab, students will be able to:</p>
+                    <ul class="list-disc pl-6 text-gray-300 mt-2 space-y-1">
+                        <li>Explain the complete DES encryption and decryption process</li>
+                        <li>Implement key components of the DES algorithm</li>
+                        <li>Analyze the security properties of DES</li>
+                        <li>Understand the historical significance of DES</li>
+                        <li>Evaluate when and how to use DES (or its variants)</li>
+                        <li>Identify the limitations and vulnerabilities of DES</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-semibold text-white mb-4">Prerequisite Knowledge</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">Required Concepts</h3>
+                        <ul class="list-disc pl-6 text-gray-300 space-y-1">
+                            <li>Basic cryptography principles</li>
+                            <li>Binary operations (XOR, shift, rotation)</li>
+                            <li>Block cipher fundamentals</li>
+                            <li>Basic number theory</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">Technical Skills</h3>
+                        <ul class="list-disc pl-6 text-gray-300 space-y-1">
+                            <li>Understanding of bit manipulation</li>
+                            <li>Basic programming knowledge</li>
+                            <li>Familiarity with logical operations</li>
+                            <li>Algorithm analysis skills</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mt-8">
+                <h2 class="text-xl font-semibold text-white mb-4">Skills Development</h2>
+                <div class="bg-gray-700 p-4 rounded-lg">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-gray-800 p-4 rounded-lg">
+                            <h3 class="text-lg font-medium text-blue-400 mb-2">Technical</h3>
+                            <ul class="list-disc pl-4 text-gray-300 space-y-1">
+                                <li>Algorithm implementation</li>
+                                <li>Optimization techniques</li>
+                                <li>Security analysis</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-800 p-4 rounded-lg">
+                            <h3 class="text-lg font-medium text-green-400 mb-2">Analytical</h3>
+                            <ul class="list-disc pl-4 text-gray-300 space-y-1">
+                                <li>Problem-solving</li>
+                                <li>Critical thinking</li>
+                                <li>Performance evaluation</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-800 p-4 rounded-lg">
+                            <h3 class="text-lg font-medium text-purple-400 mb-2">Practical</h3>
+                            <ul class="list-disc pl-4 text-gray-300 space-y-1">
+                                <li>Implementation skills</li>
+                                <li>Testing methods</li>
+                                <li>Documentation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock %}

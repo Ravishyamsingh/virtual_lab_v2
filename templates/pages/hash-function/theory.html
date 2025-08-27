@@ -1,0 +1,105 @@
+{% extends "pages/hash-function/base_hash_function.html" %}
+
+{% block page_content %}
+<div class="bg-gray-800 shadow-xl rounded-lg overflow-hidden">
+    <div class="p-6">
+        <h1 class="text-2xl font-bold text-white mb-4">Theory: Cryptographic Hash Functions</h1>
+        
+        <div class="prose prose-invert max-w-none">
+            <section class="mb-8">
+                <h2 class="text-xl font-semibold text-white mb-4">What is a Hash Function?</h2>
+                <p class="text-gray-300">
+                    A cryptographic hash function is a mathematical algorithm that maps data of arbitrary size to a fixed-size output (hash value). 
+                    It's designed to be a one-way function, making it computationally infeasible to reverse the process.
+                </p>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-xl font-semibold text-white mb-4">Key Properties</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">1. Deterministic</h3>
+                        <p class="text-gray-300">The same input will always produce the same hash value.</p>
+                    </div>
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">2. Quick Computation</h3>
+                        <p class="text-gray-300">It should be fast to calculate the hash value for any given input.</p>
+                    </div>
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">3. Pre-image Resistance</h3>
+                        <p class="text-gray-300">It should be computationally infeasible to find an input that hashes to a specific output.</p>
+                    </div>
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">4. Collision Resistance</h3>
+                        <p class="text-gray-300">It should be computationally infeasible to find two different inputs that hash to the same output.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-xl font-semibold text-white mb-4">Common Hash Functions</h2>
+                <div class="space-y-4">
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">MD5 (Message Digest Algorithm 5)</h3>
+                        <p class="text-gray-300">
+                            - 128-bit hash value<br>
+                            - No longer considered cryptographically secure<br>
+                            - Still used for checksums and data integrity verification
+                        </p>
+                    </div>
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">SHA-1 (Secure Hash Algorithm 1)</h3>
+                        <p class="text-gray-300">
+                            - 160-bit hash value<br>
+                            - Deprecated for security applications<br>
+                            - Practical collision attacks have been demonstrated
+                        </p>
+                    </div>
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">SHA-256</h3>
+                        <p class="text-gray-300">
+                            - 256-bit hash value<br>
+                            - Part of the SHA-2 family<br>
+                            - Widely used in modern security applications<br>
+                            - No known practical attacks
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-xl font-semibold text-white mb-4">The Avalanche Effect</h2>
+                <div class="bg-gray-700 p-4 rounded-lg">
+                    <p class="text-gray-300">
+                        The avalanche effect is a desirable property of cryptographic hash functions where if an input is changed slightly, 
+                        the output hash changes significantly. For example, changing a single bit in the input should change approximately 
+                        half of the bits in the output hash.
+                    </p>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-semibold text-white mb-4">Applications</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">Password Storage</h3>
+                        <p class="text-gray-300">Storing hashed passwords instead of plaintext for security.</p>
+                    </div>
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">Digital Signatures</h3>
+                        <p class="text-gray-300">Creating message digests for digital signatures.</p>
+                    </div>
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">Blockchain</h3>
+                        <p class="text-gray-300">Creating unique block identifiers and maintaining chain integrity.</p>
+                    </div>
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">File Integrity</h3>
+                        <p class="text-gray-300">Verifying file integrity through hash comparison.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock %}

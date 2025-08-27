@@ -1,0 +1,45 @@
+# Core Flask dependencies
+Flask==2.3.3
+Werkzeug==2.3.7
+
+# Security and validation
+WTF-Forms==1.1.1
+Flask-WTF==1.1.1
+
+# Session management and security
+Flask-Session==0.5.0
+itsdangerous==2.1.2
+
+# Rate limiting (optional, for production)
+Flask-Limiter==3.5.0
+
+# Logging and monitoring
+python-json-logger==2.0.7
+
+# Development and testing dependencies
+pytest==7.4.2
+pytest-flask==1.2.0
+pytest-cov==4.1.0
+
+# Code quality
+flake8==6.1.0
+black==23.9.1
+
+# Environment management
+python-dotenv==1.0.0
+
+# Email support (for future features)
+Flask-Mail==0.9.1
+
+# Database support (for future migration)
+Flask-SQLAlchemy==3.0.5
+Flask-Migrate==4.0.5
+
+# API documentation (for future API)
+Flask-RESTX==1.2.0
+
+# Production server
+gunicorn==21.2.0
+
+# Security headers
+Flask-Talisman==1.1.0

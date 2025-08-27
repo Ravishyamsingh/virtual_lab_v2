@@ -1,0 +1,115 @@
+{% extends "pages/hash-function/base_hash_function.html" %}
+
+{% block page_content %}
+<div class="bg-gray-800 shadow-xl rounded-lg overflow-hidden">
+    <div class="p-6">
+        <h1 class="text-2xl font-bold text-white mb-6">Assignments</h1>
+
+        <div class="space-y-8">
+            <!-- Practice Exercises -->
+            <section>
+                <h2 class="text-xl font-semibold text-white mb-4">Practice Exercises</h2>
+                
+                <div class="space-y-6">
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-3">Exercise 1: Basic Hash Properties</h3>
+                        <div class="text-gray-300 space-y-2">
+                            <p>Using the simulation tool, complete the following tasks:</p>
+                            <ol class="list-decimal pl-6 space-y-1">
+                                <li>Generate MD5, SHA-1, and SHA-256 hashes for the text "Hello, World!"</li>
+                                <li>Compare the length of each hash output</li>
+                                <li>Document the time taken for each hash function</li>
+                                <li>Explain the differences you observe</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-3">Exercise 2: Avalanche Effect</h3>
+                        <div class="text-gray-300 space-y-2">
+                            <p>Demonstrate the avalanche effect:</p>
+                            <ol class="list-decimal pl-6 space-y-1">
+                                <li>Generate a SHA-256 hash for a sentence of your choice</li>
+                                <li>Change one character in your input</li>
+                                <li>Generate the new hash</li>
+                                <li>Compare the two hashes and calculate what percentage of bits changed</li>
+                                <li>Explain why this property is important for cryptographic hash functions</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-3">Exercise 3: Collision Resistance</h3>
+                        <div class="text-gray-300 space-y-2">
+                            <p>Explore collision resistance:</p>
+                            <ol class="list-decimal pl-6 space-y-1">
+                                <li>Generate MD5 hashes for 10 different inputs of your choice</li>
+                                <li>Try to find two inputs that produce similar hash patterns</li>
+                                <li>Explain why finding collisions is computationally difficult</li>
+                                <li>Research and discuss why MD5 is no longer considered cryptographically secure</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Challenge Problems -->
+            <section>
+                <h2 class="text-xl font-semibold text-white mb-4">Challenge Problems</h2>
+                
+                <div class="space-y-6">
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-3">Challenge 1: Hash Chain</h3>
+                        <div class="text-gray-300 space-y-2">
+                            <p>Create a hash chain:</p>
+                            <ol class="list-decimal pl-6 space-y-1">
+                                <li>Start with an initial value</li>
+                                <li>Create a chain of 5 hashes where each hash is the input for the next hash</li>
+                                <li>Document each step in the chain</li>
+                                <li>Explain potential applications of hash chains</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-3">Challenge 2: Password Security</h3>
+                        <div class="text-gray-300 space-y-2">
+                            <p>Analyze password hashing:</p>
+                            <ol class="list-decimal pl-6 space-y-1">
+                                <li>Create three different passwords of varying complexity</li>
+                                <li>Generate SHA-256 hashes for each password</li>
+                                <li>Analyze the relationship between password complexity and hash patterns</li>
+                                <li>Discuss why salting is important in password hashing</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Submission Guidelines -->
+            <section>
+                <h2 class="text-xl font-semibold text-white mb-4">Submission Guidelines</h2>
+                
+                <div class="bg-gray-700 p-4 rounded-lg">
+                    <div class="text-gray-300 space-y-3">
+                        <p>Your submission should include:</p>
+                        <ul class="list-disc pl-6 space-y-2">
+                            <li>Complete solutions to all exercises and challenges</li>
+                            <li>Screenshots of your simulation results</li>
+                            <li>Detailed explanations of your observations</li>
+                            <li>Analysis of the results and conclusions drawn</li>
+                        </ul>
+                        
+                        <div class="mt-4 p-3 bg-gray-800 rounded">
+                            <p class="text-sm text-gray-400">
+                                Submit your work as a single PDF document named: 
+                                <span class="font-mono">HashFunction_Assignment_[YourName].pdf</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock %}

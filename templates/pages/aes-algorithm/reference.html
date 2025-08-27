@@ -1,0 +1,154 @@
+{% extends "pages/aes-algorithm/base_aes_algorithm.html" %}
+
+{% block page_content %}
+<div class="bg-gray-800 shadow-xl rounded-lg overflow-hidden">
+    <div class="p-6">
+        <h1 class="text-2xl font-bold text-white mb-6">Advanced Encryption Standard (AES) - References</h1>
+
+        <div class="space-y-8">
+            <!-- Official Documentation -->
+            <section>
+                <h2 class="text-xl font-semibold text-white mb-4">Official Documentation</h2>
+                <div class="space-y-4">
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <ul class="list-disc pl-6 space-y-3 text-gray-300">
+                            <li>
+                                <p class="font-semibold">FIPS 197: Advanced Encryption Standard (AES)</p>
+                                <p class="text-sm text-gray-400">National Institute of Standards and Technology</p>
+                                <p class="text-sm text-gray-400">The official specification of the AES algorithm.</p>
+                                <a href="https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.197.pdf" class="text-blue-400 hover:text-blue-300" target="_blank">NIST Publication</a>
+                            </li>
+                            <li>
+                                <p class="font-semibold">SP 800-38A: Recommendation for Block Cipher Modes of Operation</p>
+                                <p class="text-sm text-gray-400">NIST Special Publication</p>
+                                <p class="text-sm text-gray-400">Detailed information about various modes of operation for AES.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Books -->
+            <section>
+                <h2 class="text-xl font-semibold text-white mb-4">Books</h2>
+                <div class="space-y-4">
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <ul class="list-disc pl-6 space-y-3 text-gray-300">
+                            <li>
+                                <p class="font-semibold">Cryptography and Network Security: Principles and Practice (8th Edition)</p>
+                                <p class="text-sm text-gray-400">by William Stallings</p>
+                                <p class="text-sm text-gray-400">Comprehensive coverage of AES, including mathematical foundations and practical applications.</p>
+                            </li>
+                            <li>
+                                <p class="font-semibold">Understanding Cryptography</p>
+                                <p class="text-sm text-gray-400">by Christof Paar and Jan Pelzl</p>
+                                <p class="text-sm text-gray-400">Excellent explanation of AES with practical examples and exercises.</p>
+                            </li>
+                            <li>
+                                <p class="font-semibold">The Design of Rijndael: AES - The Advanced Encryption Standard</p>
+                                <p class="text-sm text-gray-400">by Joan Daemen and Vincent Rijmen</p>
+                                <p class="text-sm text-gray-400">Written by the creators of AES, provides deep insights into the design principles.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Research Papers -->
+            <section>
+                <h2 class="text-xl font-semibold text-white mb-4">Research Papers</h2>
+                <div class="space-y-4">
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <ul class="list-disc pl-6 space-y-3 text-gray-300">
+                            <li>
+                                <p class="font-semibold">"The Rijndael Block Cipher"</p>
+                                <p class="text-sm text-gray-400">by Joan Daemen and Vincent Rijmen</p>
+                                <p class="text-sm text-gray-400">The original AES proposal document.</p>
+                            </li>
+                            <li>
+                                <p class="font-semibold">"A Performance Study of AES Candidates on Smart Cards"</p>
+                                <p class="text-sm text-gray-400">Various implementations and performance analyses.</p>
+                            </li>
+                            <li>
+                                <p class="font-semibold">"Side-Channel Analysis of AES"</p>
+                                <p class="text-sm text-gray-400">Security analysis and implementation considerations.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Online Resources -->
+            <section>
+                <h2 class="text-xl font-semibold text-white mb-4">Online Resources</h2>
+                <div class="space-y-4">
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <ul class="list-disc pl-6 space-y-3 text-gray-300">
+                            <li>
+                                <p class="font-semibold">Cryptography Stack Exchange - AES Topics</p>
+                                <p class="text-sm text-gray-400">Community questions and expert answers about AES.</p>
+                                <a href="https://crypto.stackexchange.com/questions/tagged/aes" class="text-blue-400 hover:text-blue-300" target="_blank">View Discussions</a>
+                            </li>
+                            <li>
+                                <p class="font-semibold">Computerphile - AES Explanation</p>
+                                <p class="text-sm text-gray-400">Video explanations of AES concepts.</p>
+                            </li>
+                            <li>
+                                <p class="font-semibold">Practical Cryptography</p>
+                                <p class="text-sm text-gray-400">Interactive tutorials and implementation examples.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Implementation Resources -->
+            <section>
+                <h2 class="text-xl font-semibold text-white mb-4">Implementation Resources</h2>
+                <div class="space-y-4">
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <ul class="list-disc pl-6 space-y-3 text-gray-300">
+                            <li>
+                                <p class="font-semibold">OpenSSL AES Implementation</p>
+                                <p class="text-sm text-gray-400">Reference implementation in C.</p>
+                                <a href="https://github.com/openssl/openssl" class="text-blue-400 hover:text-blue-300" target="_blank">GitHub Repository</a>
+                            </li>
+                            <li>
+                                <p class="font-semibold">Bouncy Castle</p>
+                                <p class="text-sm text-gray-400">Java implementation of cryptographic algorithms.</p>
+                            </li>
+                            <li>
+                                <p class="font-semibold">Python Cryptography Library</p>
+                                <p class="text-sm text-gray-400">Python implementations and bindings.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Testing Resources -->
+            <section>
+                <h2 class="text-xl font-semibold text-white mb-4">Testing Resources</h2>
+                <div class="space-y-4">
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <ul class="list-disc pl-6 space-y-3 text-gray-300">
+                            <li>
+                                <p class="font-semibold">NIST Test Vectors</p>
+                                <p class="text-sm text-gray-400">Official test vectors for AES validation.</p>
+                            </li>
+                            <li>
+                                <p class="font-semibold">CAVP</p>
+                                <p class="text-sm text-gray-400">Cryptographic Algorithm Validation Program.</p>
+                            </li>
+                            <li>
+                                <p class="font-semibold">Test Suite Tools</p>
+                                <p class="text-sm text-gray-400">Various tools for testing AES implementations.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock %}

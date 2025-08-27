@@ -1,0 +1,119 @@
+{% extends "pages/hash-function/base_hash_function.html" %}
+
+{% block page_content %}
+<div class="bg-gray-800 shadow-xl rounded-lg overflow-hidden">
+    <div class="p-6">
+        <h1 class="text-2xl font-bold text-white mb-6">References and Further Reading</h1>
+
+        <div class="space-y-8">
+            <!-- Academic References -->
+            <section>
+                <h2 class="text-xl font-semibold text-white mb-4">Academic References</h2>
+                
+                <div class="space-y-4">
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">Research Papers</h3>
+                        <ul class="list-disc pl-6 text-gray-300 space-y-2">
+                            <li>
+                                Wang, X., & Yu, H. (2005). "How to Break MD5 and Other Hash Functions"
+                                <p class="text-sm text-gray-400 mt-1">EUROCRYPT 2005, Lecture Notes in Computer Science</p>
+                            </li>
+                            <li>
+                                Stevens, M., et al. (2017). "The First Collision for Full SHA-1"
+                                <p class="text-sm text-gray-400 mt-1">CRYPTO 2017, Lecture Notes in Computer Science</p>
+                            </li>
+                            <li>
+                                Rogaway, P., & Shrimpton, T. (2004). "Cryptographic Hash-Function Basics"
+                                <p class="text-sm text-gray-400 mt-1">Fast Software Encryption, Springer</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">Textbooks</h3>
+                        <ul class="list-disc pl-6 text-gray-300 space-y-2">
+                            <li>
+                                "Applied Cryptography" by Bruce Schneier
+                                <p class="text-sm text-gray-400 mt-1">Comprehensive coverage of cryptographic hash functions and their applications</p>
+                            </li>
+                            <li>
+                                "Introduction to Modern Cryptography" by Jonathan Katz and Yehuda Lindell
+                                <p class="text-sm text-gray-400 mt-1">Theoretical foundations of hash functions</p>
+                            </li>
+                            <li>
+                                "Handbook of Applied Cryptography" by Alfred J. Menezes
+                                <p class="text-sm text-gray-400 mt-1">Technical reference for cryptographic hash functions</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Online Resources -->
+            <section>
+                <h2 class="text-xl font-semibold text-white mb-4">Online Resources</h2>
+                
+                <div class="space-y-4">
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">Tutorials and Guides</h3>
+                        <ul class="list-disc pl-6 text-gray-300 space-y-2">
+                            <li>
+                                <a href="https://www.cryptool.org/" class="text-blue-400 hover:underline">CrypTool Portal</a>
+                                <p class="text-sm text-gray-400 mt-1">Interactive learning platform for cryptography</p>
+                            </li>
+                            <li>
+                                <a href="https://csrc.nist.gov/projects/hash-functions" class="text-blue-400 hover:underline">NIST Hash Function Standards</a>
+                                <p class="text-sm text-gray-400 mt-1">Official standards and documentation</p>
+                            </li>
+                            <li>
+                                <a href="https://www.crypto101.io/" class="text-blue-400 hover:underline">Crypto 101</a>
+                                <p class="text-sm text-gray-400 mt-1">Free introductory course in cryptography</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">Tools and Implementations</h3>
+                        <ul class="list-disc pl-6 text-gray-300 space-y-2">
+                            <li>
+                                <a href="https://github.com/openssl/openssl" class="text-blue-400 hover:underline">OpenSSL</a>
+                                <p class="text-sm text-gray-400 mt-1">Open-source cryptography library</p>
+                            </li>
+                            <li>
+                                <a href="https://www.bouncycastle.org/" class="text-blue-400 hover:underline">Bouncy Castle</a>
+                                <p class="text-sm text-gray-400 mt-1">Java cryptography APIs</p>
+                            </li>
+                            <li>
+                                <a href="https://pypi.org/project/pycryptodome/" class="text-blue-400 hover:underline">PyCryptodome</a>
+                                <p class="text-sm text-gray-400 mt-1">Python cryptography library</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Standards and Specifications -->
+            <section>
+                <h2 class="text-xl font-semibold text-white mb-4">Standards and Specifications</h2>
+                
+                <div class="bg-gray-700 p-4 rounded-lg">
+                    <ul class="list-disc pl-6 text-gray-300 space-y-3">
+                        <li>
+                            RFC 1321 - The MD5 Message-Digest Algorithm
+                            <p class="text-sm text-gray-400 mt-1">Original MD5 specification</p>
+                        </li>
+                        <li>
+                            FIPS 180-4 - Secure Hash Standard (SHS)
+                            <p class="text-sm text-gray-400 mt-1">Official SHA-2 family specification</p>
+                        </li>
+                        <li>
+                            NIST SP 800-107 - Recommendation for Applications Using Approved Hash Algorithms
+                            <p class="text-sm text-gray-400 mt-1">Guidelines for hash function usage</p>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock %}

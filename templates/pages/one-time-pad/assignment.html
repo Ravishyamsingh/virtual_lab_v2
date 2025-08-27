@@ -1,0 +1,62 @@
+{% extends "pages/one-time-pad/base_one_time_pad.html" %}
+
+{% block page_content %}
+<div class="space-y-6">
+    <h1 class="text-2xl font-bold text-white mb-6">One-Time Pad Assignment</h1>
+
+    <div class="bg-gray-700 p-6 rounded-lg mb-6">
+        <h2 class="text-xl font-semibold text-blue-300 mb-4">Practice Questions</h2>
+        <div class="space-y-6 text-gray-300">
+            <div class="space-y-3">
+                <h3 class="text-lg font-medium text-white">Basic Concepts (20 points)</h3>
+                <ol class="list-decimal list-inside space-y-2">
+                    <li>Explain why the One-Time Pad is considered perfectly secure when implemented correctly.</li>
+                    <li>List and explain the three essential requirements for a One-Time Pad key.</li>
+                    <li>What are the main practical limitations of using One-Time Pad in real-world applications?</li>
+                    <li>Describe the importance of true randomness in OTP key generation.</li>
+                </ol>
+            </div>
+
+            <div class="space-y-3">
+                <h3 class="text-lg font-medium text-white">Encryption Exercise (40 points)</h3>
+                <div class="bg-gray-800 p-4 rounded-lg">
+                    <p class="mb-4">Using the One-Time Pad method, encrypt the following message:</p>
+                    <p class="font-mono mb-2">Plaintext: "CRYPTOGRAPHY"</p>
+                    <p class="font-mono">Key: "QWERTASDFGH"</p>
+                    <ul class="list-disc list-inside mt-4 space-y-2">
+                        <li>Show your work step by step</li>
+                        <li>Include the numerical conversions</li>
+                        <li>Show the modular arithmetic</li>
+                        <li>Present the final ciphertext</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="space-y-3">
+                <h3 class="text-lg font-medium text-white">Decryption Challenge (40 points)</h3>
+                <div class="bg-gray-800 p-4 rounded-lg">
+                    <p class="mb-4">Decrypt the following message:</p>
+                    <p class="font-mono mb-2">Ciphertext: "XMELVPSKT"</p>
+                    <p class="font-mono">Key: "SECRETKEY"</p>
+                    <ul class="list-disc list-inside mt-4 space-y-2">
+                        <li>Show complete decryption process</li>
+                        <li>Explain each step</li>
+                        <li>Verify your answer</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-gray-700 p-6 rounded-lg">
+        <h2 class="text-xl font-semibold text-green-300 mb-4">Submission Guidelines</h2>
+        <ul class="list-disc list-inside space-y-2 text-gray-300">
+            <li>Submit your solutions in a clear, step-by-step format</li>
+            <li>Include all calculations and working</li>
+            <li>Explain your reasoning for each answer</li>
+            <li>Due date: One week from assignment date</li>
+            <li>Submit via the online portal</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

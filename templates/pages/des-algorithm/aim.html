@@ -1,0 +1,73 @@
+{% extends "pages/des-algorithm/base_des_algorithm.html" %}
+
+{% block page_content %}
+<div class="bg-gray-800 shadow-xl rounded-lg overflow-hidden">
+    <div class="p-6">
+        <h1 class="text-2xl font-bold text-white mb-4">Aim: Understanding Data Encryption Standard (DES)</h1>
+        
+        <div class="prose prose-invert max-w-none">
+            <p class="text-gray-300">
+                This virtual lab aims to provide hands-on experience with the Data Encryption Standard (DES) algorithm 
+                and its implementation. Students will learn about:
+            </p>
+            
+            <ul class="list-disc pl-6 text-gray-300 mt-4 space-y-2">
+                <li>The fundamental concepts of block ciphers</li>
+                <li>DES algorithm structure and components:
+                    <ul class="list-circle pl-6 mt-2 space-y-1">
+                        <li>Initial Permutation (IP)</li>
+                        <li>16 Rounds of Feistel Network</li>
+                        <li>Final Permutation (IP⁻¹)</li>
+                        <li>Key Schedule Generation</li>
+                    </ul>
+                </li>
+                <li>Step-by-step visualization of:
+                    <ul class="list-circle pl-6 mt-2 space-y-1">
+                        <li>Block processing</li>
+                        <li>Round function operations</li>
+                        <li>Key scheduling</li>
+                        <li>S-box substitutions</li>
+                    </ul>
+                </li>
+                <li>Security considerations and cryptanalysis</li>
+            </ul>
+
+            <div class="mt-6 p-4 bg-gray-700 rounded-lg">
+                <h2 class="text-xl font-semibold text-white mb-2">Expected Outcomes</h2>
+                <p class="text-gray-300">
+                    By the end of this lab, students will be able to:
+                </p>
+                <ul class="list-disc pl-6 text-gray-300 mt-2 space-y-1">
+                    <li>Understand the internal workings of the DES algorithm</li>
+                    <li>Implement the key components of DES</li>
+                    <li>Analyze the security features of block ciphers</li>
+                    <li>Appreciate the historical significance of DES in cryptography</li>
+                    <li>Evaluate the strengths and weaknesses of DES</li>
+                </ul>
+            </div>
+
+            <div class="mt-6 p-4 bg-gray-700 rounded-lg">
+                <h2 class="text-xl font-semibold text-white mb-2">Key Focus Areas</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-blue-400 mb-2">Technical Understanding</h3>
+                        <ul class="list-disc pl-4 text-gray-300 space-y-1">
+                            <li>Block cipher structure</li>
+                            <li>Feistel network operation</li>
+                            <li>Permutation and substitution</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-green-400 mb-2">Practical Skills</h3>
+                        <ul class="list-disc pl-4 text-gray-300 space-y-1">
+                            <li>Implementation techniques</li>
+                            <li>Security analysis</li>
+                            <li>Performance optimization</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

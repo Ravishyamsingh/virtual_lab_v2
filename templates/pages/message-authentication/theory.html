@@ -1,0 +1,49 @@
+{% extends "pages/message-authentication/base_message_auth.html" %}
+
+{% block page_content %}
+<div class="bg-gray-800 text-white rounded-lg shadow-lg p-6">
+    <h1 class="text-3xl font-bold mb-6">Theory</h1>
+    <div class="space-y-6 text-gray-300">
+        <section class="space-y-4">
+            <h2 class="text-2xl font-semibold text-white">Introduction to Message Authentication</h2>
+            <p>Message authentication is a mechanism or service used to verify that a message has not been modified while in transit (integrity) and that the purported source of the message is authentic (authenticity).</p>
+        </section>
+
+        <section class="space-y-4">
+            <h2 class="text-2xl font-semibold text-white">Message Authentication Codes (MACs)</h2>
+            <p>A Message Authentication Code (MAC) is a short piece of information used to authenticate a message. A MAC algorithm accepts as input a secret key and an arbitrary-length message to be authenticated, and outputs a MAC value.</p>
+            <p>The MAC value protects both a message's data integrity and its authenticity by allowing verifiers to detect any changes to the message content.</p>
+        </section>
+
+        <section class="space-y-4">
+            <h2 class="text-2xl font-semibold text-white">Hash-based Message Authentication Codes (HMACs)</h2>
+            <p>HMAC is a specific type of message authentication code involving a cryptographic hash function and a secret cryptographic key. It may be used to simultaneously verify both the data integrity and authenticity of a message.</p>
+            <div class="bg-gray-700 p-4 rounded-lg">
+                <p class="font-mono">HMAC(K,m) = H((K' ⊕ opad) || H((K' ⊕ ipad) || m))</p>
+                <p class="text-sm mt-2">Where:
+                    <br>H = cryptographic hash function
+                    <br>K = secret key
+                    <br>K' = derived key
+                    <br>|| = concatenation
+                    <br>⊕ = XOR
+                    <br>opad = outer padding
+                    <br>ipad = inner padding</p>
+            </div>
+        </section>
+
+        <section class="space-y-4">
+            <h2 class="text-2xl font-semibold text-white">Digital Signatures</h2>
+            <p>Digital signatures are a mathematical scheme for verifying the authenticity of digital messages or documents. A valid digital signature gives the recipient reason to believe that the message was created by a known sender and that it wasn't altered in transit.</p>
+        </section>
+
+        <section class="space-y-4">
+            <h2 class="text-2xl font-semibold text-white">Security Properties</h2>
+            <ul class="list-disc list-inside space-y-2 ml-4">
+                <li>Authenticity: Verifies the origin of the message</li>
+                <li>Integrity: Ensures the message hasn't been modified</li>
+                <li>Non-repudiation: Sender cannot deny sending the message (in case of digital signatures)</li>
+            </ul>
+        </section>
+    </div>
+</div>
+{% endblock %}

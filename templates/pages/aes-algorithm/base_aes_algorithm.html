@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-900">
+    <!-- Navigation -->
+    <nav class="bg-gray-800 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between">
+                <div class="flex space-x-4">
+                    <!-- Navigation Links -->
+                    <a href="{{ url_for('aes_algorithm.aim') }}" 
+                       class="py-4 px-3 text-gray-300 hover:text-white hover:bg-gray-700 {% if request.endpoint == 'aes_algorithm.aim' %}bg-gray-700 text-white{% endif %}">
+                        Aim
+                    </a>
+                    <a href="{{ url_for('aes_algorithm.objective') }}"
+                       class="py-4 px-3 text-gray-300 hover:text-white hover:bg-gray-700 {% if request.endpoint == 'aes_algorithm.objective' %}bg-gray-700 text-white{% endif %}">
+                        Objective
+                    </a>
+                    <a href="{{ url_for('aes_algorithm.theory') }}"
+                       class="py-4 px-3 text-gray-300 hover:text-white hover:bg-gray-700 {% if request.endpoint == 'aes_algorithm.theory' %}bg-gray-700 text-white{% endif %}">
+                        Theory
+                    </a>
+                    <a href="{{ url_for('aes_algorithm.procedure') }}"
+                       class="py-4 px-3 text-gray-300 hover:text-white hover:bg-gray-700 {% if request.endpoint == 'aes_algorithm.procedure' %}bg-gray-700 text-white{% endif %}">
+                        Procedure
+                    </a>
+                    <a href="{{ url_for('aes_algorithm.simulation') }}"
+                       class="py-4 px-3 text-gray-300 hover:text-white hover:bg-gray-700 {% if request.endpoint == 'aes_algorithm.simulation' %}bg-gray-700 text-white{% endif %}">
+                        Simulation
+                    </a>
+                    <a href="{{ url_for('aes_algorithm.assignment') }}"
+                       class="py-4 px-3 text-gray-300 hover:text-white hover:bg-gray-700 {% if request.endpoint == 'aes_algorithm.assignment' %}bg-gray-700 text-white{% endif %}">
+                        Assignment
+                    </a>
+                    <a href="{{ url_for('aes_algorithm.reference') }}"
+                       class="py-4 px-3 text-gray-300 hover:text-white hover:bg-gray-700 {% if request.endpoint == 'aes_algorithm.reference' %}bg-gray-700 text-white{% endif %}">
+                        Reference
+                    </a>
+                    <a href="{{ url_for('aes_algorithm.feedback') }}"
+                       class="py-4 px-3 text-gray-300 hover:text-white hover:bg-gray-700 {% if request.endpoint == 'aes_algorithm.feedback' %}bg-gray-700 text-white{% endif %}">
+                        Feedback
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-8">
+        {% block page_content %}{% endblock %}
+    </div>
+</div>
+{% endblock %}

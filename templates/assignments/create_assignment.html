@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+
+{% block title %}Create Assignment - Cryptography Virtual Lab{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-indigo-50 dark:from-gray-900 dark:via-gray-800 dark:to-indigo-900">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Create Assignment</h1>
+                    <p class="text-gray-600 dark:text-gray-300 mt-2">Create a new assignment for students</p>
+                </div>
+                <a href="{{ url_for('assignments.faculty_assignments') }}" 
+                   class="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition duration-200">
+                    <i class="fas fa-arrow-left mr-2"></i>Back to Assignments
+                </a>
+            </div>
+        </div>
+
+        <!-- Assignment Form -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700">
+            <form method="POST" class="p-8 space-y-6">
+                <!-- Basic Information -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="title" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            Assignment Title *
+                        </label>
+                        <input type="text" id="title" name="title" required
+                               class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+                               placeholder="Enter assignment title">
+                    </div>
+                    
+                    <div>
+                        <label for="lab_module" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            Lab Module *
+                        </label>
+                        <select id="lab_module" name="lab_module" required
+                                class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white">
+                            <option value="">Select a lab module</option>
+                            {% for module in lab_modules %}
+                            <option value="{{ module.value }}">{{ module.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div>
+                    <label for="description" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Description *
+                    </label>
+                    <textarea id="description" name="description" rows="3" required
+                              class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+                              placeholder="Brief description of the assignment"></textarea>
+                </div>
+
+                <!-- Assignment Details -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                        <label for="difficulty" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            Difficulty *
+                        </label>
+                        <select id="difficulty" name="difficulty" required
+                                class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white">
+                            <option value="">Select difficulty</option>
+                            <option value="easy">Easy</option>
+                            <option value="medium">Medium</option>
+                            <option value="hard">Hard</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label for="points" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            Points (1-100) *
+                        </label>
+                        <input type="number" id="points" name="points" min="1" max="100" required
+                               class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+                               placeholder="10">
+                    </div>
+                    
+                    <div>
+                        <label for="due_days" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            Due in (days) *
+                        </label>
+                        <input type="number" id="due_days" name="due_days" min="1" max="365" required
+                               class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+                               placeholder="7" value="7">
+                    </div>
+                </div>
+
+                <!-- Instructions -->
+                <div>
+                    <label for="instructions" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Detailed Instructions *
+                    </label>
+                    <textarea id="instructions" name="instructions" rows="6" required
+                              class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+                              placeholder="Provide detailed instructions for students..."></textarea>
+                </div>
+
+                <!-- Resources -->
+                <div>
+                    <label for="resources" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Resources (Optional)
+                    </label>
+                    <textarea id="resources" name="resources" rows="3"
+                              class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+                              placeholder="Enter resources, one per line (e.g., textbook references, online links, etc.)"></textarea>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Enter each resource on a new line</p>
+                </div>
+
+                <!-- Submit Buttons -->
+                <div class="flex items-center justify-end space-x-4 pt-6 border-t border-gray-200 dark:border-gray-700">
+                    <a href="{{ url_for('assignments.faculty_assignments') }}" 
+                       class="px-6 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition duration-200">
+                        Cancel
+                    </a>
+                    <button type="submit" 
+                            class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200">
+                        <i class="fas fa-plus mr-2"></i>Create Assignment
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+// Auto-generate title suggestions based on lab module
+document.getElementById('lab_module').addEventListener('change', function() {
+    const module = this.value;
+    const titleField = document.getElementById('title');
+    
+    if (!titleField.value && module) {
+        const suggestions = {
+            'mono_alphabetic': 'Mono-Alphabetic Cipher Analysis',
+            'shift_cipher': 'Caesar Cipher Challenge',
+            'one_time_pad': 'One-Time Pad Implementation',
+            'aes_algorithm': 'AES Encryption Project',
+            'des_algorithm': 'DES Algorithm Study',
+            'hash_function': 'Hash Function Analysis',
+            'message_auth': 'Message Authentication Lab',
+            'dsa_algorithm': 'Digital Signature Assignment'
+        };
+        
+        if (suggestions[module]) {
+            titleField.value = suggestions[module];
+        }
+    }
+});
+
+// Form validation
+document.querySelector('form').addEventListener('submit', function(e) {
+    const points = parseInt(document.getElementById('points').value);
+    const dueDays = parseInt(document.getElementById('due_days').value);
+    
+    if (points < 1 || points > 100) {
+        e.preventDefault();
+        alert('Points must be between 1 and 100');
+        return;
+    }
+    
+    if (dueDays < 1 || dueDays > 365) {
+        e.preventDefault();
+        alert('Due days must be between 1 and 365');
+        return;
+    }
+});
+</script>
+{% endblock %}

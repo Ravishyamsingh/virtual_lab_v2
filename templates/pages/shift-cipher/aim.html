@@ -1,0 +1,55 @@
+{% extends "pages/shift-cipher/base_shift_cipher.html" %}
+
+{% block cipher_content %}
+<div class="prose max-w-none dark:prose-invert">
+    <h1 class="text-2xl font-bold text-gray-800 dark:text-white mb-6">Breaking the Shift Cipher</h1>
+
+    <div class="space-y-4">
+        <p class="text-gray-600 dark:text-gray-300">
+            A private-key encryption scheme consists of a set of all possible messages, called the message space M, 
+            and three algorithms, namely:
+        </p>
+        
+        <ul class="list-disc pl-6 text-gray-600 dark:text-gray-300">
+            <li>Gen - Key Generation</li>
+            <li>Enc - Encryption</li>
+            <li>Dec - Decryption</li>
+        </ul>
+
+        <p class="text-gray-600 dark:text-gray-300">
+            The algorithm for key generation <span class="font-semibold">Gen</span> is used to choose a key k at 
+            random from the set of all possible secret keys, denoted by the key space K.
+        </p>
+
+        <p class="text-gray-600 dark:text-gray-300">
+            The algorithm for encryption <span class="font-semibold">Enc</span> takes as inputs the message m and 
+            the secret key k and outputs the ciphertext c.
+        </p>
+
+        <p class="text-gray-600 dark:text-gray-300">
+            The algorithm for decryption <span class="font-semibold">Dec</span> inputs the ciphertext c and the 
+            key k and outputs the message m.
+        </p>
+    </div>
+
+    <h2 class="text-xl font-semibold text-gray-800 dark:text-white mt-8 mb-4">About the experiment:</h2>
+
+    <div class="space-y-4">
+        <p class="text-gray-600 dark:text-gray-300">
+            In this experiment, we work with the shift cipher, a classical encryption method where each letter 
+            in the plaintext is shifted a certain number of positions down or up the alphabet.
+        </p>
+
+        <p class="text-gray-600 dark:text-gray-300">
+            Your task will be to:
+        </p>
+
+        <ul class="list-disc pl-6 text-gray-600 dark:text-gray-300">
+            <li>Understand how the shift cipher works</li>
+            <li>Encrypt messages using different shift values</li>
+            <li>Decrypt messages when you know the shift value</li>
+            <li>Learn how to break the shift cipher through frequency analysis</li>
+        </ul>
+    </div>
+</div>
+{% endblock %} 

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Cryptography Algorithms{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Add dark mode configuration to Tailwind
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        // You can add custom colors here
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Custom styles on top of Tailwind CSS */
+        .card-hover-effect {
+            transform: translateY(0);
+            transition: all 0.3s ease;
+        }
+
+        .card-hover-effect:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Animation for notifications */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .notification {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        /* Custom focus states */
+        .focus-custom:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px #fff, 0 0 0 4px #3b82f6;
+            border-radius: 0.25rem;
+        }
+
+        /* Custom loading spinner */
+        .loader {
+            border: 3px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 3px solid #3498db;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Theme transition */
+        .theme-transition {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 theme-transition">
+    <!-- Navigation -->
+    <nav class="bg-white dark:bg-gray-800 shadow-lg theme-transition">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="/" class="text-xl font-bold text-gray-800 dark:text-white">Cryptography Lab</a>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <!-- Theme Toggle Button -->
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 theme-transition">
+                        <!-- Sun icon -->
+                        <svg id="sun-icon" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"/>
+                        </svg>
+                        <!-- Moon icon -->
+                        <svg id="moon-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
+                        </svg>
+                    </button>
+
+                    <!-- User Dropdown -->
+                    <div class="relative">
+                        <button type="button" 
+                                class="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white focus:outline-none bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded-full py-2 px-3 transition duration-150 ease-in-out" 
+                                id="user-menu-button" 
+                                aria-expanded="false" 
+                                aria-haspopup="true">
+                            <i class="fas fa-user-circle text-2xl text-gray-600"></i>
+                            {% if session.get('user') %}
+                                <span class="text-sm font-medium">{{ session.user.full_name or session.user.username }}</span>
+                                {% if session.user.role %}
+                                    <span class="text-xs px-2 py-1 rounded-full {% if session.user.role == 'faculty' %}bg-indigo-100 text-indigo-800{% else %}bg-blue-100 text-blue-800{% endif %}">
+                                        {{ session.user.role.title() }}
+                                    </span>
+                                {% endif %}
+                            {% else %}
+                                <span class="text-sm font-medium">Guest</span>
+                            {% endif %}
+                            <svg class="h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <div class="hidden origin-top-right absolute right-0 mt-2 w-48 rounded-lg shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 dark:divide-gray-700" 
+                             role="menu" 
+                             aria-orientation="vertical" 
+                             aria-labelledby="user-menu-button" 
+                             tabindex="-1" 
+                             id="user-menu-dropdown">
+                            {% if session.get('user') %}
+                                <div class="py-2 px-4">
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">Signed in as</p>
+                                    <p class="text-sm font-medium text-gray-900 dark:text-white truncate">{{ session.user.full_name or session.user.username }}</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">{{ session.user.email }}</p>
+                                    {% if session.user.role %}
+                                        <span class="inline-block mt-1 text-xs px-2 py-1 rounded-full {% if session.user.role == 'faculty' %}bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200{% else %}bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200{% endif %}">
+                                            {{ session.user.role.title() }} Access
+                                        </span>
+                                    {% endif %}
+                                </div>
+                                <div class="py-1" role="none">
+                                    {% if session.user.role == 'faculty' %}
+                                        <a href="{{ url_for('faculty_dashboard') }}" class="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700" role="menuitem">
+                                            <i class="fas fa-tachometer-alt mr-3 text-gray-500 dark:text-gray-400"></i>
+                                            Faculty Dashboard
+                                        </a>
+                                    {% else %}
+                                        <a href="{{ url_for('student_dashboard') }}" class="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700" role="menuitem">
+                                            <i class="fas fa-graduation-cap mr-3 text-gray-500 dark:text-gray-400"></i>
+                                            Student Dashboard
+                                        </a>
+                                    {% endif %}
+                                    <a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700" role="menuitem">
+                                        <i class="fas fa-user-circle mr-3 text-gray-500 dark:text-gray-400"></i>
+                                        Profile
+                                    </a>
+                                    <a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700" role="menuitem">
+                                        <i class="fas fa-cog mr-3 text-gray-500 dark:text-gray-400"></i>
+                                        Settings
+                                    </a>
+                                </div>
+                                <div class="py-1" role="none">
+                                    <a href="{{ url_for('logout') }}" class="flex items-center px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20" role="menuitem">
+                                        <i class="fas fa-sign-out-alt mr-3 text-red-500 dark:text-red-400"></i>
+                                        Logout
+                                    </a>
+                                </div>
+                            {% else %}
+                                <div class="py-1" role="none">
+                                    <a href="{{ url_for('student_login') }}" class="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700" role="menuitem">
+                                        <i class="fas fa-graduation-cap mr-3 text-gray-500 dark:text-gray-400"></i>
+                                        Student Login
+                                    </a>
+                                    <a href="{{ url_for('faculty_login') }}" class="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700" role="menuitem">
+                                        <i class="fas fa-chalkboard-teacher mr-3 text-gray-500 dark:text-gray-400"></i>
+                                        Faculty Login
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 py-8">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Theme Toggle JavaScript -->
+    <script>
+        // Check for saved theme preference, otherwise use system preference
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            document.getElementById('sun-icon').classList.remove('hidden');
+            document.getElementById('moon-icon').classList.add('hidden');
+        } else {
+            document.documentElement.classList.remove('dark');
+            document.getElementById('moon-icon').classList.remove('hidden');
+            document.getElementById('sun-icon').classList.add('hidden');
+        }
+
+        // Theme toggle button functionality
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const sunIcon = document.getElementById('sun-icon');
+        const moonIcon = document.getElementById('moon-icon');
+
+        themeToggleBtn.addEventListener('click', function() {
+            // Toggle theme
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+                moonIcon.classList.remove('hidden');
+                sunIcon.classList.add('hidden');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+                sunIcon.classList.remove('hidden');
+                moonIcon.classList.add('hidden');
+            }
+        });
+    </script>
+
+    <!-- Existing Dropdown JavaScript -->
+    <script>
+        const userMenuButton = document.getElementById('user-menu-button');
+        const userMenuDropdown = document.getElementById('user-menu-dropdown');
+
+        userMenuButton.addEventListener('click', () => {
+            const isHidden = userMenuDropdown.classList.contains('hidden');
+            
+            // Toggle visibility with animation
+            if (isHidden) {
+                userMenuDropdown.classList.remove('hidden');
+                userMenuDropdown.classList.add('opacity-0', 'scale-95');
+                setTimeout(() => {
+                    userMenuDropdown.classList.remove('opacity-0', 'scale-95');
+                    userMenuDropdown.classList.add('opacity-100', 'scale-100');
+                }, 10);
+            } else {
+                userMenuDropdown.classList.remove('opacity-100', 'scale-100');
+                userMenuDropdown.classList.add('opacity-0', 'scale-95');
+                setTimeout(() => {
+                    userMenuDropdown.classList.add('hidden');
+                }, 150);
+            }
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (event) => {
+            if (!userMenuButton.contains(event.target) && !userMenuDropdown.contains(event.target)) {
+                userMenuDropdown.classList.remove('opacity-100', 'scale-100');
+                userMenuDropdown.classList.add('opacity-0', 'scale-95');
+                setTimeout(() => {
+                    userMenuDropdown.classList.add('hidden');
+                }, 150);
+            }
+        });
+    </script>
+</body>
+</html> 

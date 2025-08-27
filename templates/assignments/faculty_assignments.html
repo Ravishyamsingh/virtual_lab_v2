@@ -1,0 +1,259 @@
+{% extends "base.html" %}
+
+{% block title %}Faculty Assignments - Cryptography Virtual Lab{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-indigo-50 dark:from-gray-900 dark:via-gray-800 dark:to-indigo-900">
+    <!-- Header -->
+    <div class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Assignment Management</h1>
+                    <p class="text-gray-600 dark:text-gray-300 mt-1">Create, manage, and grade student assignments</p>
+                </div>
+                <div class="flex space-x-3">
+                    <a href="{{ url_for('assignments.create_assignment') }}" 
+                       class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-200 flex items-center">
+                        <i class="fas fa-plus mr-2"></i>Create Assignment
+                    </a>
+                    <a href="{{ url_for('faculty_dashboard') }}" 
+                       class="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition duration-200 flex items-center">
+                        <i class="fas fa-arrow-left mr-2"></i>Back to Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="container mx-auto px-4 py-8">
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center">
+                    <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-tasks text-blue-600 dark:text-blue-400"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ assignments|length }}</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Total Assignments</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center">
+                    <div class="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-check-circle text-green-600 dark:text-green-400"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-2xl font-bold text-gray-900 dark:text-white">
+                            {{ assignments|selectattr('status', 'equalto', 'active')|list|length }}
+                        </p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Active Assignments</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center">
+                    <div class="w-12 h-12 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-clock text-orange-600 dark:text-orange-400"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-2xl font-bold text-gray-900 dark:text-white">
+                            {{ assignments|selectattr('status', 'equalto', 'draft')|list|length }}
+                        </p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Draft Assignments</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center">
+                    <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-file-alt text-purple-600 dark:text-purple-400"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-2xl font-bold text-gray-900 dark:text-white">
+                            {% set total_submissions = 0 %}
+                            {% for assignment in assignments %}
+                                {% set total_submissions = total_submissions + (assignment.submissions|length) %}
+                            {% endfor %}
+                            {{ total_submissions }}
+                        </p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Total Submissions</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Assignments List -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700">
+            <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white">All Assignments</h2>
+                    <div class="flex items-center space-x-3">
+                        <select class="bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white text-sm rounded-lg px-3 py-2">
+                            <option value="all">All Status</option>
+                            <option value="active">Active</option>
+                            <option value="draft">Draft</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                        <input type="text" placeholder="Search assignments..." 
+                               class="bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white text-sm rounded-lg px-3 py-2 w-64">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="overflow-x-auto">
+                {% if assignments %}
+                <table class="w-full">
+                    <thead class="bg-gray-50 dark:bg-gray-700">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Assignment</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Module</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Due Date</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Submissions</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                        {% for assignment in assignments %}
+                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div>
+                                    <div class="text-sm font-medium text-gray-900 dark:text-white">{{ assignment.title }}</div>
+                                    <div class="text-sm text-gray-500 dark:text-gray-400">{{ assignment.description[:50] }}{% if assignment.description|length > 50 %}...{% endif %}</div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200">
+                                    {{ assignment.module }}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                                {{ assignment.due_date }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                {% if assignment.status == 'active' %}
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">
+                                        <i class="fas fa-check-circle mr-1"></i>Active
+                                    </span>
+                                {% elif assignment.status == 'draft' %}
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200">
+                                        <i class="fas fa-edit mr-1"></i>Draft
+                                    </span>
+                                {% else %}
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
+                                        <i class="fas fa-archive mr-1"></i>{{ assignment.status|title }}
+                                    </span>
+                                {% endif %}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                                <div class="flex items-center">
+                                    <span class="mr-2">{{ assignment.submissions|length }}</span>
+                                    {% if assignment.submissions|length > 0 %}
+                                        <div class="w-16 bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                            {% set graded = assignment.submissions|selectattr('grade', 'defined')|list|length %}
+                                            {% set progress = (graded / assignment.submissions|length * 100)|round %}
+                                            <div class="bg-blue-600 h-2 rounded-full" style="width: {{ progress }}%"></div>
+                                        </div>
+                                        <span class="ml-2 text-xs text-gray-500 dark:text-gray-400">{{ progress }}% graded</span>
+                                    {% endif %}
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                <div class="flex items-center space-x-2">
+                                    <a href="{{ url_for('assignments.view_assignment', assignment_id=assignment.id) }}" 
+                                       class="text-blue-600 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-300">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a href="{{ url_for('assignments.edit_assignment', assignment_id=assignment.id) }}" 
+                                       class="text-green-600 dark:text-green-400 hover:text-green-900 dark:hover:text-green-300">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <button onclick="deleteAssignment('{{ assignment.id }}')" 
+                                            class="text-red-600 dark:text-red-400 hover:text-red-900 dark:hover:text-red-300">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <div class="text-center py-12">
+                    <i class="fas fa-tasks text-gray-400 text-6xl mb-4"></i>
+                    <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-2">No assignments yet</h3>
+                    <p class="text-gray-500 dark:text-gray-400 mb-6">Get started by creating your first assignment</p>
+                    <a href="{{ url_for('assignments.create_assignment') }}" 
+                       class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-200 inline-flex items-center">
+                        <i class="fas fa-plus mr-2"></i>Create First Assignment
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function deleteAssignment(assignmentId) {
+    if (confirm('Are you sure you want to delete this assignment? This action cannot be undone.')) {
+        fetch(`/assignments/delete/${assignmentId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload();
+            } else {
+                alert('Error deleting assignment: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error deleting assignment');
+        });
+    }
+}
+
+// Search functionality
+document.querySelector('input[placeholder="Search assignments..."]').addEventListener('input', function(e) {
+    const searchTerm = e.target.value.toLowerCase();
+    const rows = document.querySelectorAll('tbody tr');
+    
+    rows.forEach(row => {
+        const title = row.querySelector('td:first-child .text-sm.font-medium').textContent.toLowerCase();
+        const description = row.querySelector('td:first-child .text-sm.text-gray-500').textContent.toLowerCase();
+        const module = row.querySelector('td:nth-child(2) span').textContent.toLowerCase();
+        
+        if (title.includes(searchTerm) || description.includes(searchTerm) || module.includes(searchTerm)) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+});
+
+// Status filter
+document.querySelector('select').addEventListener('change', function(e) {
+    const filterStatus = e.target.value;
+    const rows = document.querySelectorAll('tbody tr');
+    
+    rows.forEach(row => {
+        if (filterStatus === 'all') {
+            row.style.display = '';
+        } else {
+            const statusElement = row.querySelector('td:nth-child(4) span');
+            const status = statusElement.textContent.toLowerCase().includes(filterStatus);
+            row.style.display = status ? '' : 'none';
+        }
+    });
+});
+</script>
+{% endblock %}

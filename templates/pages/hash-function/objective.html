@@ -1,0 +1,80 @@
+{% extends "pages/hash-function/base_hash_function.html" %}
+
+{% block page_content %}
+<div class="bg-gray-800 shadow-xl rounded-lg overflow-hidden">
+    <div class="p-6">
+        <h1 class="text-2xl font-bold text-white mb-4">Learning Objectives</h1>
+        
+        <div class="prose prose-invert max-w-none">
+            <section class="mb-8">
+                <h2 class="text-xl font-semibold text-white mb-4">Primary Objectives</h2>
+                <div class="space-y-4">
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">1. Understanding Hash Functions</h3>
+                        <ul class="list-disc pl-6 text-gray-300 space-y-1">
+                            <li>Define what a hash function is</li>
+                            <li>Identify the key properties of cryptographic hash functions</li>
+                            <li>Understand the one-way nature of hash functions</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">2. Practical Implementation</h3>
+                        <ul class="list-disc pl-6 text-gray-300 space-y-1">
+                            <li>Work with different hash algorithms (MD5, SHA-1, SHA-256)</li>
+                            <li>Understand the process of generating hash values</li>
+                            <li>Compare the output of different hash functions</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">3. Security Analysis</h3>
+                        <ul class="list-disc pl-6 text-gray-300 space-y-1">
+                            <li>Analyze the security properties of hash functions</li>
+                            <li>Understand collision resistance and its importance</li>
+                            <li>Evaluate the strength of different hash algorithms</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-xl font-semibold text-white mb-4">Learning Outcomes</h2>
+                <div class="bg-gray-700 p-4 rounded-lg">
+                    <p class="text-gray-300">After completing this lab, students will be able to:</p>
+                    <ul class="list-disc pl-6 text-gray-300 mt-2 space-y-1">
+                        <li>Explain the concept and importance of cryptographic hash functions</li>
+                        <li>Demonstrate the avalanche effect in hash functions</li>
+                        <li>Compare different hash algorithms and their security levels</li>
+                        <li>Implement hash functions in practical applications</li>
+                        <li>Understand the role of hash functions in modern cryptography</li>
+                        <li>Analyze potential vulnerabilities in hash function applications</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-semibold text-white mb-4">Prerequisite Knowledge</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">Required Concepts</h3>
+                        <ul class="list-disc pl-6 text-gray-300 space-y-1">
+                            <li>Basic cryptography concepts</li>
+                            <li>Binary number system</li>
+                            <li>Basic probability theory</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">Technical Skills</h3>
+                        <ul class="list-disc pl-6 text-gray-300 space-y-1">
+                            <li>Basic programming concepts</li>
+                            <li>Understanding of data types</li>
+                            <li>Basic mathematical operations</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock %}

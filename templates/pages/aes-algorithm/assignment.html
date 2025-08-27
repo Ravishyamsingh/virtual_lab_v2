@@ -1,0 +1,177 @@
+{% extends "pages/aes-algorithm/base_aes_algorithm.html" %}
+
+{% block page_content %}
+<div class="bg-gray-800 shadow-xl rounded-lg overflow-hidden">
+    <div class="p-6">
+        <h1 class="text-2xl font-bold text-white mb-6">AES Algorithm - Assignments</h1>
+
+        <div class="space-y-8">
+            <!-- Practice Exercises -->
+            <section>
+                <h2 class="text-xl font-semibold text-white mb-4">Practice Exercises</h2>
+                
+                <div class="space-y-6">
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-3">Exercise 1: Basic AES Operations</h3>
+                        <div class="text-gray-300 space-y-2">
+                            <p>Complete the following tasks using the simulation tool:</p>
+                            <ol class="list-decimal pl-6 space-y-1">
+                                <li>Perform AES-128 encryption on a given plaintext block</li>
+                                <li>Document the state array after each round</li>
+                                <li>Perform decryption and verify the result</li>
+                                <li>Explain the changes in each round</li>
+                                <li>Compare the avalanche effect with DES</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-3">Exercise 2: Key Schedule Analysis</h3>
+                        <div class="text-gray-300 space-y-2">
+                            <p>Analyze the key expansion process:</p>
+                            <ol class="list-decimal pl-6 space-y-1">
+                                <li>Generate key schedules for different key sizes</li>
+                                <li>Document the round key generation process</li>
+                                <li>Compare the security implications of different key sizes</li>
+                                <li>Identify patterns in the expanded keys</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-3">Exercise 3: S-Box Properties</h3>
+                        <div class="text-gray-300 space-y-2">
+                            <p>Study the AES S-box:</p>
+                            <ol class="list-decimal pl-6 space-y-1">
+                                <li>Analyze the nonlinearity properties</li>
+                                <li>Calculate the difference distribution table</li>
+                                <li>Verify the bijective property</li>
+                                <li>Compare with other S-box designs</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Challenge Problems -->
+            <section>
+                <h2 class="text-xl font-semibold text-white mb-4">Challenge Problems</h2>
+                
+                <div class="space-y-6">
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-3">Challenge 1: Modes of Operation</h3>
+                        <div class="text-gray-300 space-y-2">
+                            <p>Implement and analyze different modes:</p>
+                            <ol class="list-decimal pl-6 space-y-1">
+                                <li>Implement ECB, CBC, CTR modes</li>
+                                <li>Compare security properties</li>
+                                <li>Analyze performance characteristics</li>
+                                <li>Discuss use cases for each mode</li>
+                                <li>Implement padding schemes</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-3">Challenge 2: Performance Analysis</h3>
+                        <div class="text-gray-300 space-y-2">
+                            <p>Analyze AES performance:</p>
+                            <ol class="list-decimal pl-6 space-y-1">
+                                <li>Measure encryption/decryption speeds</li>
+                                <li>Compare different key sizes</li>
+                                <li>Analyze memory usage</li>
+                                <li>Suggest optimization strategies</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-3">Challenge 3: Security Analysis</h3>
+                        <div class="text-gray-300 space-y-2">
+                            <p>Study security aspects:</p>
+                            <ol class="list-decimal pl-6 space-y-1">
+                                <li>Research known attacks on AES</li>
+                                <li>Analyze side-channel vulnerabilities</li>
+                                <li>Implement basic timing attacks</li>
+                                <li>Propose countermeasures</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Implementation Tasks -->
+            <section>
+                <h2 class="text-xl font-semibold text-white mb-4">Implementation Tasks</h2>
+                
+                <div class="space-y-6">
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-3">Task 1: Basic Implementation</h3>
+                        <div class="text-gray-300 space-y-2">
+                            <p>Create a complete AES implementation:</p>
+                            <ol class="list-decimal pl-6 space-y-1">
+                                <li>Implement key expansion</li>
+                                <li>Implement all round transformations</li>
+                                <li>Add encryption/decryption functions</li>
+                                <li>Include test vectors</li>
+                                <li>Document the implementation</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-3">Task 2: Optimization</h3>
+                        <div class="text-gray-300 space-y-2">
+                            <p>Optimize the implementation:</p>
+                            <ol class="list-decimal pl-6 space-y-1">
+                                <li>Implement T-table approach</li>
+                                <li>Use lookup tables for efficiency</li>
+                                <li>Optimize memory usage</li>
+                                <li>Measure performance improvements</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-3">Task 3: Integration</h3>
+                        <div class="text-gray-300 space-y-2">
+                            <p>Create a practical application:</p>
+                            <ol class="list-decimal pl-6 space-y-1">
+                                <li>Build a file encryption tool</li>
+                                <li>Implement secure key management</li>
+                                <li>Add error handling</li>
+                                <li>Create a user interface</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Submission Guidelines -->
+            <section>
+                <h2 class="text-xl font-semibold text-white mb-4">Submission Guidelines</h2>
+                
+                <div class="bg-gray-700 p-4 rounded-lg">
+                    <div class="text-gray-300 space-y-3">
+                        <p>Your submission should include:</p>
+                        <ul class="list-disc pl-6 space-y-2">
+                            <li>Complete solutions to all exercises</li>
+                            <li>Working code implementations</li>
+                            <li>Analysis reports</li>
+                            <li>Performance measurements</li>
+                            <li>Security analysis documentation</li>
+                        </ul>
+                        
+                        <div class="mt-4 p-3 bg-gray-800 rounded">
+                            <p class="text-sm text-gray-400">
+                                Submit your work as a single PDF document named: 
+                                <span class="font-mono">AES_Assignment_[YourName].pdf</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock %}

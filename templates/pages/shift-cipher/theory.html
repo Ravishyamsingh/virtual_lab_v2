@@ -1,0 +1,100 @@
+{% extends "pages/shift-cipher/base_shift_cipher.html" %}
+
+{% block cipher_content %}
+<h1 class="text-2xl font-bold text-gray-800 mb-6">Theory of Shift Cipher</h1>
+
+<div class="prose max-w-none">
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">Understanding Shift Ciphers</h2>
+    
+    <p class="mb-4">
+        The shift cipher, also known as the Caesar cipher, is one of the simplest and most widely known encryption techniques. 
+        It is a type of substitution cipher in which each letter in the plaintext is shifted a certain number of places down 
+        the alphabet.
+    </p>
+
+    <h3 class="text-lg font-semibold text-gray-800 mt-6 mb-3">How it Works</h3>
+    
+    <p class="mb-4">
+        In a shift cipher, the encryption process can be represented mathematically as:
+    </p>
+
+    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+        <code class="text-sm">
+            E(x) = (x + k) mod 26
+        </code>
+        <p class="text-sm text-gray-600 mt-2">
+            Where x is the position of the plaintext letter (A=0, B=1, ..., Z=25),<br>
+            k is the shift value (the key),<br>
+            and E(x) is the position of the ciphertext letter
+        </p>
+    </div>
+
+    <h3 class="text-lg font-semibold text-gray-800 mt-6 mb-3">Vulnerabilities</h3>
+
+    <p class="mb-4">
+        The shift cipher is vulnerable to several attacks due to its small key space and preservation of letter frequencies:
+    </p>
+
+    <ul class="list-disc pl-6 mb-6">
+        <li class="mb-2">
+            <span class="font-semibold">Small Key Space:</span> There are only 26 possible keys (shifts), making it trivial 
+            to try all possibilities (brute force attack).
+        </li>
+        <li class="mb-2">
+            <span class="font-semibold">Frequency Analysis:</span> The cipher preserves the frequency distribution of letters, 
+            making it susceptible to statistical analysis.
+        </li>
+        <li class="mb-2">
+            <span class="font-semibold">Pattern Preservation:</span> Common patterns in English (like "the", "and", etc.) 
+            remain intact, just shifted.
+        </li>
+    </ul>
+
+    <h3 class="text-lg font-semibold text-gray-800 mt-6 mb-3">Breaking the Cipher</h3>
+
+    <p class="mb-4">
+        There are several methods to break a shift cipher:
+    </p>
+
+    <ol class="list-decimal pl-6 mb-6">
+        <li class="mb-3">
+            <span class="font-semibold">Brute Force Attack:</span>
+            <p class="mt-1">
+                Try all 26 possible shifts until readable text is found. This is feasible due to the small key space.
+            </p>
+        </li>
+        <li class="mb-3">
+            <span class="font-semibold">Frequency Analysis:</span>
+            <p class="mt-1">
+                Analyze the frequency of letters in the ciphertext and compare with known English letter frequencies. 
+                The most common letter in English is 'E', followed by 'T', 'A', 'O', 'I', 'N'.
+            </p>
+        </li>
+        <li class="mb-3">
+            <span class="font-semibold">Pattern Recognition:</span>
+            <p class="mt-1">
+                Look for common patterns that might represent frequent English words like "THE", "AND", "THAT".
+            </p>
+        </li>
+    </ol>
+
+    <h3 class="text-lg font-semibold text-gray-800 mt-6 mb-3">Example</h3>
+
+    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+        <p class="mb-2"><span class="font-semibold">Plaintext:</span> HELLO</p>
+        <p class="mb-2"><span class="font-semibold">Key (shift):</span> 3</p>
+        <p class="mb-2"><span class="font-semibold">Ciphertext:</span> KHOOR</p>
+        <p class="text-sm text-gray-600 mt-2">
+            Each letter is shifted 3 positions: H→K, E→H, L→O, L→O, O→R
+        </p>
+    </div>
+
+    <div class="bg-blue-50 p-4 rounded-lg mt-8">
+        <h4 class="text-md font-semibold text-blue-800 mb-2">Historical Note</h4>
+        <p class="text-sm text-blue-900">
+            The shift cipher is named after Julius Caesar, who used it for secret correspondence with a shift of 3. 
+            While revolutionary for its time, modern cryptography has evolved far beyond such simple substitution methods.
+        </p>
+    </div>
+</div>
+{% endblock %} 

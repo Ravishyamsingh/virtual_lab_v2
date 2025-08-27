@@ -1,0 +1,237 @@
+{% extends "pages/dsa-algorithm/base_dsa_algorithm.html" %}
+
+{% block page_content %}
+<div class="content-section">
+    <div class="section-card">
+        <h2 class="section-title">📚 Digital Signature Algorithm (DSA) Theory</h2>
+        
+        <div class="theory-content">
+            <h3>Introduction</h3>
+            <p>The Digital Signature Algorithm (DSA) is a Federal Information Processing Standard (FIPS) for digital signatures, developed by the National Institute of Standards and Technology (NIST). DSA is based on the mathematical concept of modular exponentiation and the discrete logarithm problem.</p>
+            
+            <h3>Mathematical Foundation</h3>
+            <p>DSA relies on the difficulty of computing discrete logarithms in finite fields. The algorithm uses the following mathematical concepts:</p>
+            <ul>
+                <li><strong>Modular Arithmetic:</strong> Operations performed modulo a prime number</li>
+                <li><strong>Discrete Logarithm Problem:</strong> Given g, p, and y where y = g^x mod p, finding x is computationally difficult</li>
+                <li><strong>Finite Fields:</strong> Mathematical structures with a finite number of elements</li>
+                <li><strong>Primitive Roots:</strong> Elements that generate the entire multiplicative group</li>
+            </ul>
+            
+            <h3>DSA Parameters</h3>
+            <div class="parameter-explanation">
+                <h4>Global Parameters (shared by all users)</h4>
+                <ul>
+                    <li><strong>p:</strong> A prime number (512-1024 bits in practice)</li>
+                    <li><strong>q:</strong> A prime divisor of (p-1), typically 160 bits</li>
+                    <li><strong>g:</strong> A generator of order q modulo p</li>
+                </ul>
+                
+                <h4>Per-User Parameters</h4>
+                <ul>
+                    <li><strong>x:</strong> Private key (0 < x < q)</li>
+                    <li><strong>y:</strong> Public key where y = g^x mod p</li>
+                </ul>
+            </div>
+            
+            <h3>Key Generation Process</h3>
+            <div class="algorithm-steps">
+                <h4>Step 1: Choose Prime q</h4>
+                <p>Select a prime number q of appropriate size (typically 160 bits).</p>
+                
+                <h4>Step 2: Choose Prime p</h4>
+                <p>Find a prime p such that q divides (p-1) and p is of appropriate size (512-1024 bits).</p>
+                
+                <h4>Step 3: Find Generator g</h4>
+                <p>Compute g = h^((p-1)/q) mod p where h is any integer with 1 < h < p-1 such that g > 1.</p>
+                
+                <h4>Step 4: Generate Private Key x</h4>
+                <p>Choose a random integer x such that 0 < x < q.</p>
+                
+                <h4>Step 5: Calculate Public Key y</h4>
+                <p>Compute y = g^x mod p.</p>
+            </div>
+            
+            <h3>Signature Generation</h3>
+            <div class="algorithm-steps">
+                <h4>Step 1: Hash the Message</h4>
+                <p>Compute H(m) where H is a cryptographic hash function (like SHA-1).</p>
+                
+                <h4>Step 2: Choose Random k</h4>
+                <p>Select a random integer k such that 0 < k < q.</p>
+                
+                <h4>Step 3: Calculate r</h4>
+                <p>Compute r = (g^k mod p) mod q. If r = 0, choose a new k.</p>
+                
+                <h4>Step 4: Calculate s</h4>
+                <p>Compute s = k^(-1) × (H(m) + x × r) mod q. If s = 0, choose a new k.</p>
+                
+                <h4>Step 5: Output Signature</h4>
+                <p>The signature is the pair (r, s).</p>
+            </div>
+            
+            <h3>Signature Verification</h3>
+            <div class="algorithm-steps">
+                <h4>Step 1: Validate Signature</h4>
+                <p>Verify that 0 < r < q and 0 < s < q.</p>
+                
+                <h4>Step 2: Calculate w</h4>
+                <p>Compute w = s^(-1) mod q.</p>
+                
+                <h4>Step 3: Calculate u1 and u2</h4>
+                <p>Compute u1 = H(m) × w mod q and u2 = r × w mod q.</p>
+                
+                <h4>Step 4: Calculate v</h4>
+                <p>Compute v = ((g^u1 × y^u2) mod p) mod q.</p>
+                
+                <h4>Step 5: Verify</h4>
+                <p>The signature is valid if and only if v = r.</p>
+            </div>
+            
+            <h3>Security Properties</h3>
+            <div class="security-properties">
+                <h4>Authentication</h4>
+                <p>DSA provides proof of the signer's identity through the private key requirement.</p>
+                
+                <h4>Integrity</h4>
+                <p>Any modification to the signed message will result in signature verification failure.</p>
+                
+                <h4>Non-repudiation</h4>
+                <p>The signer cannot deny having signed the message due to the private key requirement.</p>
+                
+                <h4>Security Assumptions</h4>
+                <ul>
+                    <li>Discrete logarithm problem is computationally infeasible</li>
+                    <li>Hash function is collision-resistant</li>
+                    <li>Random number generation is cryptographically secure</li>
+                    <li>Private key is kept secret</li>
+                </ul>
+            </div>
+            
+            <h3>Advantages and Disadvantages</h3>
+            <div class="comparison">
+                <h4>Advantages</h4>
+                <ul>
+                    <li>Standardized by NIST (Federal Information Processing Standard)</li>
+                    <li>Compact signature size (320 bits for 160-bit q)</li>
+                    <li>Based on well-studied mathematical problems</li>
+                    <li>Efficient verification process</li>
+                </ul>
+                
+                <h4>Disadvantages</h4>
+                <ul>
+                    <li>Slower than RSA for signature generation</li>
+                    <li>Requires careful implementation to avoid timing attacks</li>
+                    <li>Vulnerable if random number k is reused or predictable</li>
+                    <li>Complex parameter generation process</li>
+                </ul>
+            </div>
+            
+            <h3>Implementation Considerations</h3>
+            <div class="implementation">
+                <h4>Random Number Generation</h4>
+                <p>The random number k must be cryptographically secure and never reused, as reuse can lead to private key recovery.</p>
+                
+                <h4>Parameter Selection</h4>
+                <p>Proper selection of p and q is crucial for security. Standard parameter sets are recommended.</p>
+                
+                <h4>Side-Channel Attacks</h4>
+                <p>Implementations must be resistant to timing attacks and other side-channel vulnerabilities.</p>
+                
+                <h4>Hash Function Choice</h4>
+                <p>The hash function must be collision-resistant. SHA-256 or stronger is recommended for new implementations.</p>
+            </div>
+            
+            <h3>Comparison with Other Signature Schemes</h3>
+            <table class="comparison-table">
+                <tr>
+                    <th>Aspect</th>
+                    <th>DSA</th>
+                    <th>RSA</th>
+                    <th>ECDSA</th>
+                </tr>
+                <tr>
+                    <td>Key Size</td>
+                    <td>1024-3072 bits</td>
+                    <td>2048-4096 bits</td>
+                    <td>256-521 bits</td>
+                </tr>
+                <tr>
+                    <td>Signature Size</td>
+                    <td>320-640 bits</td>
+                    <td>2048-4096 bits</td>
+                    <td>512-1042 bits</td>
+                </tr>
+                <tr>
+                    <td>Sign Speed</td>
+                    <td>Moderate</td>
+                    <td>Fast</td>
+                    <td>Fast</td>
+                </tr>
+                <tr>
+                    <td>Verify Speed</td>
+                    <td>Fast</td>
+                    <td>Very Fast</td>
+                    <td>Moderate</td>
+                </tr>
+                <tr>
+                    <td>Security Basis</td>
+                    <td>Discrete Log</td>
+                    <td>Integer Factorization</td>
+                    <td>Elliptic Curve Discrete Log</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<style>
+.theory-content {
+    line-height: 1.6;
+    color: #e5e7eb;
+}
+
+.theory-content h3 {
+    color: #3b82f6;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.theory-content h4 {
+    color: #10b981;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.parameter-explanation, .algorithm-steps, .security-properties, .comparison, .implementation {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background: rgba(55, 65, 81, 0.3);
+    border-radius: 8px;
+    border-left: 4px solid #3b82f6;
+}
+
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    background: rgba(55, 65, 81, 0.3);
+}
+
+.comparison-table th, .comparison-table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #374151;
+}
+
+.comparison-table th {
+    background: rgba(59, 130, 246, 0.2);
+    color: #3b82f6;
+    font-weight: 600;
+}
+
+.comparison-table tr:hover {
+    background: rgba(75, 85, 99, 0.3);
+}
+</style>
+{% endblock %}

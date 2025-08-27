@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-900">
+    <nav class="bg-gray-800 border-b border-gray-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <h1 class="text-white text-lg font-semibold">Hash Function Lab</h1>
+                    </div>
+                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                        <a href="{{ url_for('hash_function.aim') }}" 
+                           class="{% if request.endpoint == 'hash_function.aim' %}border-indigo-500 text-white{% else %}border-transparent text-gray-300 hover:border-gray-300 hover:text-white{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Aim
+                        </a>
+                        <a href="{{ url_for('hash_function.theory') }}"
+                           class="{% if request.endpoint == 'hash_function.theory' %}border-indigo-500 text-white{% else %}border-transparent text-gray-300 hover:border-gray-300 hover:text-white{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Theory
+                        </a>
+                        <a href="{{ url_for('hash_function.objective') }}"
+                           class="{% if request.endpoint == 'hash_function.objective' %}border-indigo-500 text-white{% else %}border-transparent text-gray-300 hover:border-gray-300 hover:text-white{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Objective
+                        </a>
+                        <a href="{{ url_for('hash_function.procedure') }}"
+                           class="{% if request.endpoint == 'hash_function.procedure' %}border-indigo-500 text-white{% else %}border-transparent text-gray-300 hover:border-gray-300 hover:text-white{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Procedure
+                        </a>
+                        <a href="{{ url_for('hash_function.simulation') }}"
+                           class="{% if request.endpoint == 'hash_function.simulation' %}border-indigo-500 text-white{% else %}border-transparent text-gray-300 hover:border-gray-300 hover:text-white{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Simulation
+                        </a>
+                        <a href="{{ url_for('hash_function.assignment') }}"
+                           class="{% if request.endpoint == 'hash_function.assignment' %}border-indigo-500 text-white{% else %}border-transparent text-gray-300 hover:border-gray-300 hover:text-white{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Assignment
+                        </a>
+                        <a href="{{ url_for('hash_function.reference') }}"
+                           class="{% if request.endpoint == 'hash_function.reference' %}border-indigo-500 text-white{% else %}border-transparent text-gray-300 hover:border-gray-300 hover:text-white{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Reference
+                        </a>
+                        <a href="{{ url_for('hash_function.feedback') }}"
+                           class="{% if request.endpoint == 'hash_function.feedback' %}border-indigo-500 text-white{% else %}border-transparent text-gray-300 hover:border-gray-300 hover:text-white{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Feedback
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="py-10">
+        <main>
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                {% block page_content %}{% endblock %}
+            </div>
+        </main>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Cryptography Virtual Lab</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body class="bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-100 min-h-screen">
+    <div class="min-h-screen flex items-center justify-center p-4">
+        <div class="max-w-4xl w-full">
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <h1 class="text-5xl font-bold text-gray-800 mb-4">Cryptography Virtual Lab</h1>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Interactive learning platform for cryptographic algorithms and security concepts
+                </p>
+            </div>
+
+            <!-- Login Options -->
+            <div class="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+                <!-- Student Login -->
+                <div class="group">
+                    <a href="{{ url_for('student_login') }}" 
+                       class="block bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 p-8 border border-gray-100">
+                        <div class="text-center">
+                            <div class="inline-block p-6 rounded-full bg-blue-50 group-hover:bg-blue-100 transition-colors duration-300 mb-6">
+                                <svg class="w-16 h-16 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                          d="M12 14l9-5-9-5-9 5 9 5z M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+                                </svg>
+                            </div>
+                            <h2 class="text-2xl font-bold text-gray-800 mb-4">Student Portal</h2>
+                            <p class="text-gray-600 mb-6 leading-relaxed">
+                                Access interactive simulations, practice exercises, and learn cryptographic algorithms at your own pace.
+                            </p>
+                            <div class="flex items-center justify-center text-blue-600 group-hover:text-blue-700 font-semibold">
+                                <span>Login as Student</span>
+                                <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Faculty Login -->
+                <div class="group">
+                    <a href="{{ url_for('faculty_login') }}" 
+                       class="block bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 p-8 border border-gray-100">
+                        <div class="text-center">
+                            <div class="inline-block p-6 rounded-full bg-indigo-50 group-hover:bg-indigo-100 transition-colors duration-300 mb-6">
+                                <svg class="w-16 h-16 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                          d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                                </svg>
+                            </div>
+                            <h2 class="text-2xl font-bold text-gray-800 mb-4">Faculty Portal</h2>
+                            <p class="text-gray-600 mb-6 leading-relaxed">
+                                Access instructor dashboard, manage course content, monitor student progress, and administrative tools.
+                            </p>
+                            <div class="flex items-center justify-center text-indigo-600 group-hover:text-indigo-700 font-semibold">
+                                <span>Login as Faculty</span>
+                                <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Features Section -->
+            <div class="mt-16 text-center">
+                <h3 class="text-2xl font-semibold text-gray-800 mb-8">Platform Features</h3>
+                <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                    <div class="bg-white/70 backdrop-blur-sm rounded-lg p-6 shadow-lg">
+                        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-lock text-green-600 text-xl"></i>
+                        </div>
+                        <h4 class="font-semibold text-gray-800 mb-2">Interactive Simulations</h4>
+                        <p class="text-sm text-gray-600">Hands-on experience with cryptographic algorithms</p>
+                    </div>
+                    <div class="bg-white/70 backdrop-blur-sm rounded-lg p-6 shadow-lg">
+                        <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-chart-line text-purple-600 text-xl"></i>
+                        </div>
+                        <h4 class="font-semibold text-gray-800 mb-2">Progress Tracking</h4>
+                        <p class="text-sm text-gray-600">Monitor learning progress and achievements</p>
+                    </div>
+                    <div class="bg-white/70 backdrop-blur-sm rounded-lg p-6 shadow-lg">
+                        <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-users text-orange-600 text-xl"></i>
+                        </div>
+                        <h4 class="font-semibold text-gray-800 mb-2">Role-Based Access</h4>
+                        <p class="text-sm text-gray-600">Customized experience for students and faculty</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="text-center mt-12">
+                <p class="text-gray-600">© 2024 Cryptography Virtual Lab. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Decorative elements -->
+    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-indigo-500"></div>
+    <div class="fixed bottom-0 right-0 p-8 opacity-5 pointer-events-none">
+        <svg class="w-64 h-64" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5" 
+                  d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+        </svg>
+    </div>
+</body>
+</html>

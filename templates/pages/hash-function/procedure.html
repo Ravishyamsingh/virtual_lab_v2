@@ -1,0 +1,96 @@
+{% extends "pages/hash-function/base_hash_function.html" %}
+
+{% block page_content %}
+<div class="bg-gray-800 shadow-xl rounded-lg overflow-hidden">
+    <div class="p-6">
+        <h1 class="text-2xl font-bold text-white mb-4">Procedure: Working with Hash Functions</h1>
+        
+        <div class="prose prose-invert max-w-none">
+            <section class="mb-8">
+                <h2 class="text-xl font-semibold text-white mb-4">Step-by-Step Guide</h2>
+                
+                <div class="space-y-6">
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">Step 1: Understanding the Interface</h3>
+                        <ul class="list-disc pl-6 text-gray-300 space-y-1">
+                            <li>Navigate to the Simulation tab</li>
+                            <li>Familiarize yourself with the input areas and hash function options</li>
+                            <li>Note the different visualization sections</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">Step 2: Basic Hash Generation</h3>
+                        <ul class="list-disc pl-6 text-gray-300 space-y-1">
+                            <li>Enter a text input in the provided field</li>
+                            <li>Select a hash function (MD5, SHA-1, or SHA-256)</li>
+                            <li>Click "Generate Hash" to see the result</li>
+                            <li>Observe the output hash value and its properties</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">Step 3: Exploring the Avalanche Effect</h3>
+                        <ul class="list-disc pl-6 text-gray-300 space-y-1">
+                            <li>Generate a hash for your initial input</li>
+                            <li>Make a small change to the input (e.g., change one character)</li>
+                            <li>Generate a new hash and compare the results</li>
+                            <li>Observe how small input changes lead to significant hash changes</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">Step 4: Comparing Hash Functions</h3>
+                        <ul class="list-disc pl-6 text-gray-300 space-y-1">
+                            <li>Enter the same input for different hash functions</li>
+                            <li>Compare the output length and characteristics</li>
+                            <li>Note the differences in processing time</li>
+                            <li>Observe the unique patterns in each hash function's output</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">Step 5: Visualization Analysis</h3>
+                        <ul class="list-disc pl-6 text-gray-300 space-y-1">
+                            <li>Study the bit-level visualization of the hash process</li>
+                            <li>Observe how input bits affect output bits</li>
+                            <li>Analyze the distribution of hash values</li>
+                            <li>Understand the internal state transitions</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-xl font-semibold text-white mb-4">Important Notes</h2>
+                <div class="bg-gray-700 p-4 rounded-lg">
+                    <ul class="list-disc pl-6 text-gray-300 space-y-1">
+                        <li>Pay attention to the visual representations of the hash process</li>
+                        <li>Take note of the differences between hash functions</li>
+                        <li>Experiment with various input types and sizes</li>
+                        <li>Document your observations for the assignment section</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-semibold text-white mb-4">Tips for Better Understanding</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">Experiment Systematically</h3>
+                        <p class="text-gray-300">
+                            Start with simple inputs and gradually increase complexity to understand the patterns.
+                        </p>
+                    </div>
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">Record Observations</h3>
+                        <p class="text-gray-300">
+                            Keep track of interesting patterns or behaviors you notice during the simulation.
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends "pages/mono-alphabetic/base_mono_alphabetic.html" %}
+
+{% block cipher_content %}
+<div class="space-y-6">
+    <h1 class="text-3xl font-bold text-gray-900 mb-6">Mono-alphabetic Substitution Cipher Procedure</h1>
+
+    <div class="space-y-4">
+        <section>
+            <h2 class="text-2xl font-semibold text-gray-800 mb-3">Encryption Process</h2>
+            <ol class="list-decimal list-inside space-y-3 text-gray-700">
+                <li class="pl-4">Create a substitution key:
+                    <ul class="list-disc list-inside ml-6 mt-2">
+                        <li>Write out the standard alphabet (A-Z)</li>
+                        <li>Create a randomly shuffled version of the alphabet below it</li>
+                        <li>This creates your substitution mapping</li>
+                    </ul>
+                </li>
+                <li class="pl-4">For each letter in your plaintext:
+                    <ul class="list-disc list-inside ml-6 mt-2">
+                        <li>Find the letter in the standard alphabet</li>
+                        <li>Replace it with the corresponding letter in your substitution alphabet</li>
+                        <li>Maintain spacing and punctuation as is</li>
+                    </ul>
+                </li>
+            </ol>
+        </section>
+
+        <section>
+            <h2 class="text-2xl font-semibold text-gray-800 mb-3">Decryption Process</h2>
+            <ol class="list-decimal list-inside space-y-3 text-gray-700">
+                <li class="pl-4">With Known Key:
+                    <ul class="list-disc list-inside ml-6 mt-2">
+                        <li>Use the substitution key in reverse</li>
+                        <li>Map each ciphertext letter back to its original</li>
+                    </ul>
+                </li>
+                <li class="pl-4">Without Key (Cryptanalysis):
+                    <ul class="list-disc list-inside ml-6 mt-2">
+                        <li>Perform frequency analysis on the ciphertext</li>
+                        <li>Identify common patterns and letter frequencies</li>
+                        <li>Compare with known language statistics</li>
+                        <li>Make educated guesses and verify</li>
+                    </ul>
+                </li>
+            </ol>
+        </section>
+
+        <section>
+            <h2 class="text-2xl font-semibold text-gray-800 mb-3">Important Guidelines</h2>
+            <ul class="list-disc list-inside space-y-2 text-gray-700">
+                <li>Always keep the substitution key secure</li>
+                <li>Ensure the substitution is one-to-one (each letter maps to exactly one other letter)</li>
+                <li>Maintain consistency throughout the encryption process</li>
+                <li>Document the process for future reference</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2 class="text-2xl font-semibold text-gray-800 mb-3">Example Workflow</h2>
+            <div class="bg-gray-50 p-4 rounded-lg">
+                <p class="text-gray-700 mb-2">1. Original alphabet:</p>
+                <code class="block bg-gray-100 p-2 rounded">A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</code>
+                <p class="text-gray-700 mb-2 mt-3">2. Substitution alphabet (example):</p>
+                <code class="block bg-gray-100 p-2 rounded">Q W E R T Y U I O P A S D F G H J K L Z X C V B N M</code>
+                <p class="text-gray-700 mt-3">Using this key, 'HELLO' would become 'ITSSG'</p>
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %} 

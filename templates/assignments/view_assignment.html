@@ -1,0 +1,222 @@
+{% extends "base.html" %}
+
+{% block title %}{{ assignment.title }} - Cryptography Virtual Lab{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-indigo-50 dark:from-gray-900 dark:via-gray-800 dark:to-indigo-900">
+    <!-- Header -->
+    <div class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-900 dark:text-white">{{ assignment.title }}</h1>
+                    <p class="text-gray-600 dark:text-gray-300 mt-1">{{ assignment.lab_module }} Assignment</p>
+                </div>
+                <div class="flex space-x-3">
+                    {% if user.role == 'faculty' %}
+                        <a href="{{ url_for('assignments.faculty_assignments') }}" 
+                           class="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition duration-200 flex items-center">
+                            <i class="fas fa-arrow-left mr-2"></i>Back to Assignments
+                        </a>
+                    {% else %}
+                        {% if assignment.status == 'pending' %}
+                            <a href="{{ url_for('assignments.submit_assignment', assignment_id=assignment.id) }}" 
+                               class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-200 flex items-center">
+                                <i class="fas fa-paper-plane mr-2"></i>Submit Assignment
+                            </a>
+                        {% elif assignment.status == 'submitted' or assignment.status == 'graded' %}
+                            {% if submission %}
+                            <a href="{{ url_for('assignments.view_submission', assignment_id=assignment.id, submission_id=submission.id) }}" 
+                               class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition duration-200 flex items-center">
+                                <i class="fas fa-file-alt mr-2"></i>View Submission
+                            </a>
+                            {% endif %}
+                        {% endif %}
+                        <a href="{{ url_for('assignments.student_assignments') }}" 
+                           class="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition duration-200 flex items-center">
+                            <i class="fas fa-arrow-left mr-2"></i>Back to Assignments
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="container mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Assignment Details -->
+            <div class="lg:col-span-2">
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700">
+                    <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                        <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Assignment Details</h2>
+                    </div>
+                    <div class="p-6">
+                        <div class="prose max-w-none dark:prose-invert">
+                            <p class="text-gray-700 dark:text-gray-300">{{ assignment.description }}</p>
+                        </div>
+                        
+                        <!-- Assignment Files -->
+                        {% if assignment.resources %}
+                        <div class="mt-6">
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-3">Resources</h3>
+                            <div class="space-y-2">
+                                {% for resource in assignment.resources %}
+                                <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-file-alt text-gray-500 dark:text-gray-400 mr-3"></i>
+                                        <span class="text-gray-700 dark:text-gray-300">{{ resource }}</span>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
+                        
+                        {% if assignment.instructions %}
+                        <div class="mt-6">
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-3">Instructions</h3>
+                            <div class="prose max-w-none dark:prose-invert bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                                <p class="text-gray-700 dark:text-gray-300">{{ assignment.instructions }}</p>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="space-y-6">
+                <!-- Assignment Info -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700">
+                    <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                        <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Assignment Information</h2>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600 dark:text-gray-400">Status</span>
+                            {% if user.role == 'faculty' %}
+                                {% if assignment.is_active %}
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">
+                                        <i class="fas fa-check-circle mr-1"></i>Active
+                                    </span>
+                                {% else %}
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
+                                        <i class="fas fa-archive mr-1"></i>Inactive
+                                    </span>
+                                {% endif %}
+                            {% else %}
+                                {% if assignment.status == 'pending' %}
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200">
+                                        <i class="fas fa-clock mr-1"></i>Pending
+                                    </span>
+                                {% elif assignment.status == 'submitted' %}
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200">
+                                        <i class="fas fa-paper-plane mr-1"></i>Submitted
+                                    </span>
+                                {% elif assignment.status == 'graded' %}
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">
+                                        <i class="fas fa-check-circle mr-1"></i>Graded
+                                    </span>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600 dark:text-gray-400">Due Date</span>
+                            <span class="font-medium text-gray-900 dark:text-white">{{ assignment.due_date }}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600 dark:text-gray-400">Points</span>
+                            <span class="font-medium text-gray-900 dark:text-white">{{ assignment.points }} points</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600 dark:text-gray-400">Module</span>
+                            <span class="font-medium text-gray-900 dark:text-white">{{ assignment.lab_module }}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600 dark:text-gray-400">Difficulty</span>
+                            <span class="font-medium text-gray-900 dark:text-white">{{ assignment.difficulty|title }}</span>
+                        </div>
+                        {% if user.role == 'faculty' and submissions %}
+                            <div class="flex justify-between">
+                                <span class="text-gray-600 dark:text-gray-400">Submissions</span>
+                                <span class="font-medium text-gray-900 dark:text-white">{{ submissions|length }}</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Timeline (Faculty Only) -->
+                {% if user.role == 'faculty' %}
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700">
+                    <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                        <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Submission Timeline</h2>
+                    </div>
+                    <div class="p-6">
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center mr-3">
+                                    <i class="fas fa-calendar-plus text-blue-600 dark:text-blue-400"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-900 dark:text-white">Created</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">{{ assignment.created_at }}</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center mr-3">
+                                    <i class="fas fa-calendar-check text-green-600 dark:text-green-400"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-900 dark:text-white">Due Date</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">{{ assignment.due_date }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Student Info (Faculty Only) -->
+                {% if user.role == 'faculty' and submission %}
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700">
+                    <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                        <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Student Information</h2>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-indigo-100 dark:bg-indigo-900 rounded-full flex items-center justify-center">
+                                <i class="fas fa-user text-indigo-600 dark:text-indigo-400"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-gray-900 dark:text-white">{{ submission.student_username }}</p>
+                            </div>
+                        </div>
+                        {% if submission.grade is not none %}
+                        <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600 dark:text-gray-400">Grade</span>
+                                <span class="font-medium text-gray-900 dark:text-white">{{ submission.grade }}%</span>
+                            </div>
+                            {% if submission.feedback %}
+                            <div class="mt-2">
+                                <p class="text-gray-600 dark:text-gray-400 text-sm">Feedback</p>
+                                <p class="text-gray-900 dark:text-white text-sm mt-1">{{ submission.feedback }}</p>
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                        <div class="mt-4">
+                            <a href="{{ url_for('assignments.view_submission', assignment_id=assignment.id, submission_id=submission.id) }}" 
+                               class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition duration-200 flex items-center justify-center">
+                                <i class="fas fa-file-alt mr-2"></i>View Full Submission
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

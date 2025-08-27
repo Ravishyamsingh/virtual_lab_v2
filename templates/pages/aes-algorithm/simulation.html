@@ -1,0 +1,260 @@
+{% extends "pages/aes-algorithm/base_aes_algorithm.html" %}
+
+{% block page_content %}
+<div class="bg-gray-800 shadow-xl rounded-lg overflow-hidden">
+    <div class="p-6">
+        <h1 class="text-2xl font-bold text-white mb-6">AES Algorithm Simulation</h1>
+
+        <div class="space-y-8">
+            <!-- Input Section -->
+            <section>
+                <h2 class="text-xl font-semibold text-white mb-4">Input</h2>
+                <div class="bg-gray-700 p-4 rounded-lg space-y-4">
+                    <!-- Key Size Selection -->
+                    <div>
+                        <label class="block text-white mb-2">Key Size:</label>
+                        <div class="flex space-x-4">
+                            <label class="flex items-center">
+                                <input type="radio" name="keySize" value="128" class="form-radio text-blue-500" checked>
+                                <span class="ml-2 text-gray-300">128-bit</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="keySize" value="192" class="form-radio text-blue-500">
+                                <span class="ml-2 text-gray-300">192-bit</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="keySize" value="256" class="form-radio text-blue-500">
+                                <span class="ml-2 text-gray-300">256-bit</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Plaintext Input -->
+                    <div>
+                        <label for="plaintext" class="block text-white mb-2">Plaintext (16 bytes):</label>
+                        <input 
+                            type="text" 
+                            id="plaintext" 
+                            maxlength="32"
+                            class="w-full px-3 py-2 text-gray-300 bg-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            placeholder="Enter 32 hexadecimal characters"
+                            value="00112233445566778899AABBCCDDEEFF"
+                        >
+                        <p class="text-sm text-gray-400 mt-1">Example: 00112233445566778899AABBCCDDEEFF</p>
+                    </div>
+
+                    <!-- Key Input -->
+                    <div>
+                        <label for="key" class="block text-white mb-2">Key:</label>
+                        <input 
+                            type="text" 
+                            id="key" 
+                            maxlength="32"
+                            class="w-full px-3 py-2 text-gray-300 bg-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            placeholder="Enter 32 hexadecimal characters"
+                            value="000102030405060708090A0B0C0D0E0F"
+                        >
+                        <p class="text-sm text-gray-400 mt-1">Example for 128-bit: 000102030405060708090A0B0C0D0E0F</p>
+                    </div>
+
+                    <!-- Operation Selection -->
+                    <div>
+                        <label class="block text-white mb-2">Operation:</label>
+                        <div class="flex space-x-4">
+                            <label class="flex items-center">
+                                <input type="radio" name="operation" value="encrypt" class="form-radio text-blue-500" checked>
+                                <span class="ml-2 text-gray-300">Encrypt</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="operation" value="decrypt" class="form-radio text-blue-500">
+                                <span class="ml-2 text-gray-300">Decrypt</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Animation Speed Control -->
+                    <div>
+                        <label class="block text-white mb-2">Animation Speed:</label>
+                        <div class="flex items-center space-x-4">
+                            <span class="text-gray-300">Slow</span>
+                            <input 
+                                type="range" 
+                                id="speedSlider" 
+                                min="1" 
+                                max="100" 
+                                value="50" 
+                                class="flex-1 h-2 bg-gray-600 rounded-lg appearance-none cursor-pointer"
+                            >
+                            <span class="text-gray-300">Fast</span>
+                            <span id="speedDisplay" class="text-blue-400 font-semibold">Medium</span>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex space-x-4">
+                        <button 
+                            id="startBtn"
+                            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+                        >
+                            Start Simulation
+                        </button>
+                        <button 
+                            id="stepBtn"
+                            class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors"
+                            disabled
+                        >
+                            Next Step
+                        </button>
+                        <button 
+                            id="pauseBtn"
+                            class="px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-colors hidden"
+                        >
+                            Pause
+                        </button>
+                        <button 
+                            id="playBtn"
+                            class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors hidden"
+                        >
+                            Play
+                        </button>
+                        <button 
+                            id="resetBtn"
+                            class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors"
+                        >
+                            Reset
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Visualization Section -->
+            <section>
+                <h2 class="text-xl font-semibold text-white mb-4">Visualization</h2>
+                <div class="bg-gray-700 p-4 rounded-lg">
+                    <!-- Round Display -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-medium text-white mb-2">
+                            <span id="operationMode">Encryption</span> Progress: Round <span id="currentRound">0</span> of <span id="totalRounds">10</span>
+                        </h3>
+                        <div class="w-full bg-gray-800 rounded-full h-3">
+                            <div id="progressBar" class="bg-gradient-to-r from-blue-500 to-green-500 h-3 rounded-full transition-all duration-500 ease-out" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <!-- State Matrix Display -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <h4 class="text-white font-semibold mb-3">State Matrix</h4>
+                            <div class="grid grid-cols-4 gap-2 p-4 bg-gray-800 rounded-lg">
+                                <div id="state00" class="matrix-cell w-14 h-14 bg-gray-700 flex items-center justify-center text-gray-300 font-mono text-sm rounded hover:bg-gray-600 transition-all">00</div>
+                                <div id="state01" class="matrix-cell w-14 h-14 bg-gray-700 flex items-center justify-center text-gray-300 font-mono text-sm rounded hover:bg-gray-600 transition-all">00</div>
+                                <div id="state02" class="matrix-cell w-14 h-14 bg-gray-700 flex items-center justify-center text-gray-300 font-mono text-sm rounded hover:bg-gray-600 transition-all">00</div>
+                                <div id="state03" class="matrix-cell w-14 h-14 bg-gray-700 flex items-center justify-center text-gray-300 font-mono text-sm rounded hover:bg-gray-600 transition-all">00</div>
+                                <div id="state10" class="matrix-cell w-14 h-14 bg-gray-700 flex items-center justify-center text-gray-300 font-mono text-sm rounded hover:bg-gray-600 transition-all">00</div>
+                                <div id="state11" class="matrix-cell w-14 h-14 bg-gray-700 flex items-center justify-center text-gray-300 font-mono text-sm rounded hover:bg-gray-600 transition-all">00</div>
+                                <div id="state12" class="matrix-cell w-14 h-14 bg-gray-700 flex items-center justify-center text-gray-300 font-mono text-sm rounded hover:bg-gray-600 transition-all">00</div>
+                                <div id="state13" class="matrix-cell w-14 h-14 bg-gray-700 flex items-center justify-center text-gray-300 font-mono text-sm rounded hover:bg-gray-600 transition-all">00</div>
+                                <div id="state20" class="matrix-cell w-14 h-14 bg-gray-700 flex items-center justify-center text-gray-300 font-mono text-sm rounded hover:bg-gray-600 transition-all">00</div>
+                                <div id="state21" class="matrix-cell w-14 h-14 bg-gray-700 flex items-center justify-center text-gray-300 font-mono text-sm rounded hover:bg-gray-600 transition-all">00</div>
+                                <div id="state22" class="matrix-cell w-14 h-14 bg-gray-700 flex items-center justify-center text-gray-300 font-mono text-sm rounded hover:bg-gray-600 transition-all">00</div>
+                                <div id="state23" class="matrix-cell w-14 h-14 bg-gray-700 flex items-center justify-center text-gray-300 font-mono text-sm rounded hover:bg-gray-600 transition-all">00</div>
+                                <div id="state30" class="matrix-cell w-14 h-14 bg-gray-700 flex items-center justify-center text-gray-300 font-mono text-sm rounded hover:bg-gray-600 transition-all">00</div>
+                                <div id="state31" class="matrix-cell w-14 h-14 bg-gray-700 flex items-center justify-center text-gray-300 font-mono text-sm rounded hover:bg-gray-600 transition-all">00</div>
+                                <div id="state32" class="matrix-cell w-14 h-14 bg-gray-700 flex items-center justify-center text-gray-300 font-mono text-sm rounded hover:bg-gray-600 transition-all">00</div>
+                                <div id="state33" class="matrix-cell w-14 h-14 bg-gray-700 flex items-center justify-center text-gray-300 font-mono text-sm rounded hover:bg-gray-600 transition-all">00</div>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-semibold mb-3">Round Key</h4>
+                            <div class="grid grid-cols-4 gap-2 p-4 bg-gray-800 rounded-lg">
+                                <div id="key00" class="matrix-cell w-14 h-14 bg-gray-700 flex items-center justify-center text-gray-300 font-mono text-sm rounded hover:bg-gray-600 transition-all">00</div>
+                                <div id="key01" class="matrix-cell w-14 h-14 bg-gray-700 flex items-center justify-center text-gray-300 font-mono text-sm rounded hover:bg-gray-600 transition-all">00</div>
+                                <div id="key02" class="matrix-cell w-14 h-14 bg-gray-700 flex items-center justify-center text-gray-300 font-mono text-sm rounded hover:bg-gray-600 transition-all">00</div>
+                                <div id="key03" class="matrix-cell w-14 h-14 bg-gray-700 flex items-center justify-center text-gray-300 font-mono text-sm rounded hover:bg-gray-600 transition-all">00</div>
+                                <div id="key10" class="matrix-cell w-14 h-14 bg-gray-700 flex items-center justify-center text-gray-300 font-mono text-sm rounded hover:bg-gray-600 transition-all">00</div>
+                                <div id="key11" class="matrix-cell w-14 h-14 bg-gray-700 flex items-center justify-center text-gray-300 font-mono text-sm rounded hover:bg-gray-600 transition-all">00</div>
+                                <div id="key12" class="matrix-cell w-14 h-14 bg-gray-700 flex items-center justify-center text-gray-300 font-mono text-sm rounded hover:bg-gray-600 transition-all">00</div>
+                                <div id="key13" class="matrix-cell w-14 h-14 bg-gray-700 flex items-center justify-center text-gray-300 font-mono text-sm rounded hover:bg-gray-600 transition-all">00</div>
+                                <div id="key20" class="matrix-cell w-14 h-14 bg-gray-700 flex items-center justify-center text-gray-300 font-mono text-sm rounded hover:bg-gray-600 transition-all">00</div>
+                                <div id="key21" class="matrix-cell w-14 h-14 bg-gray-700 flex items-center justify-center text-gray-300 font-mono text-sm rounded hover:bg-gray-600 transition-all">00</div>
+                                <div id="key22" class="matrix-cell w-14 h-14 bg-gray-700 flex items-center justify-center text-gray-300 font-mono text-sm rounded hover:bg-gray-600 transition-all">00</div>
+                                <div id="key23" class="matrix-cell w-14 h-14 bg-gray-700 flex items-center justify-center text-gray-300 font-mono text-sm rounded hover:bg-gray-600 transition-all">00</div>
+                                <div id="key30" class="matrix-cell w-14 h-14 bg-gray-700 flex items-center justify-center text-gray-300 font-mono text-sm rounded hover:bg-gray-600 transition-all">00</div>
+                                <div id="key31" class="matrix-cell w-14 h-14 bg-gray-700 flex items-center justify-center text-gray-300 font-mono text-sm rounded hover:bg-gray-600 transition-all">00</div>
+                                <div id="key32" class="matrix-cell w-14 h-14 bg-gray-700 flex items-center justify-center text-gray-300 font-mono text-sm rounded hover:bg-gray-600 transition-all">00</div>
+                                <div id="key33" class="matrix-cell w-14 h-14 bg-gray-700 flex items-center justify-center text-gray-300 font-mono text-sm rounded hover:bg-gray-600 transition-all">00</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Current Operation Display -->
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="text-white font-semibold mb-2">Current Operation</h4>
+                            <div id="currentOperation" class="font-mono text-gray-300 bg-gray-800 p-3 rounded-lg border-l-4 border-blue-500">
+                                Ready to start...
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-semibold mb-2">Operation Details</h4>
+                            <div id="operationDetails" class="font-mono text-sm text-gray-300 bg-gray-800 p-3 rounded-lg h-20 overflow-y-auto">
+                                Click "Start Simulation" to begin the AES encryption/decryption process.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- S-Box Visualization -->
+            <section>
+                <h2 class="text-xl font-semibold text-white mb-4">S-Box Visualization</h2>
+                <div class="bg-gray-700 p-4 rounded-lg">
+                    <p class="text-gray-300 mb-4">AES S-Box (Substitution Box) - Click to see transformations during SubBytes operation</p>
+                    <div id="sboxContainer" class="grid grid-cols-16 gap-1 p-4 bg-gray-800 rounded-lg max-h-96 overflow-auto">
+                        <!-- S-Box cells will be populated by JavaScript -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Key Schedule Visualization -->
+            <section>
+                <h2 class="text-xl font-semibold text-white mb-4">Key Schedule</h2>
+                <div class="bg-gray-700 p-4 rounded-lg">
+                    <p class="text-gray-300 mb-4">Round keys generated from the original key</p>
+                    <div id="keyScheduleContainer" class="space-y-2 max-h-96 overflow-auto">
+                        <!-- Key schedule will be populated by JavaScript -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Result Section -->
+            <section>
+                <h2 class="text-xl font-semibold text-white mb-4">Result</h2>
+                <div class="bg-gray-700 p-4 rounded-lg">
+                    <div class="space-y-4">
+                        <!-- Output -->
+                        <div>
+                            <label class="block text-white mb-2">Output (Hexadecimal):</label>
+                            <div id="output" class="font-mono text-gray-300 bg-gray-800 p-3 rounded-lg word-break-all">
+                                0000000000000000000000000000000000000000000000000000000000000000
+                            </div>
+                        </div>
+                        <!-- Binary View -->
+                        <div>
+                            <label class="block text-white mb-2">Binary View:</label>
+                            <div id="binaryOutput" class="font-mono text-xs text-gray-300 bg-gray-800 p-3 rounded-lg break-all max-h-32 overflow-auto">
+                                <!-- Binary representation will be shown here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<!-- Message Container for notifications -->
+<div id="messageContainer" class="fixed top-4 right-4 z-50 space-y-2 max-w-md"></div>
+
+<script src="{{ url_for('static', filename='js/aes_simulation.js') }}"></script>
+{% endblock %}

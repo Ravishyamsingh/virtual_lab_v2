@@ -1,0 +1,417 @@
+{% extends "pages/one-time-pad/base_one_time_pad.html" %}
+
+{% block page_content %}
+<h1 class="text-2xl font-bold text-white mb-6">Simulation: One-Time Pad (OTP) Cipher</h1>
+
+<div class="prose max-w-none">
+    <!-- Encryption Section -->
+    <div class="bg-gray-700 p-6 rounded-lg shadow-md mb-8">
+        <h2 class="text-xl font-semibold text-white mb-4">Encryption Tool</h2>
+        <div class="space-y-4">
+            <div class="grid grid-cols-1 gap-4">
+                <div>
+                    <label for="plaintext" class="block text-sm font-medium text-gray-300 mb-1">Enter Plaintext:</label>
+                    <input type="text" id="plaintext" 
+                           class="w-full p-2 bg-gray-800 border border-gray-600 rounded-md text-gray-300" 
+                           placeholder="Enter text to encrypt"
+                           pattern="[A-Za-z]+"
+                           title="Only letters are allowed (A-Z, a-z)">
+                    <p class="text-xs text-gray-400 mt-1">Only letters are allowed (A-Z). Spaces and special characters will be removed.</p>
+                </div>
+            </div>
+
+            <!-- Key Generation and Display -->
+            <div class="bg-gray-800 p-6 rounded-lg border border-gray-600">
+                <h3 class="text-lg font-semibold text-white mb-4 text-center">One-Time Pad Key</h3>
+                <div class="grid grid-cols-1 gap-6">
+                    <div class="bg-gray-700 p-4 rounded-lg shadow-sm">
+                        <div class="text-sm font-medium text-gray-700 mb-3">Generated Random Key:</div>
+                        <div id="random-key" class="font-mono bg-gray-50 p-2 rounded break-all"></div>
+                        <button id="generate-key" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                            Generate New Key
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Enhanced Process Visualization -->
+                <div class="mt-6 bg-gray-700 p-4 rounded-lg shadow-sm">
+                    <h4 class="text-sm font-medium text-white mb-3">Encryption Process Visualization:</h4>
+                    
+                    <!-- Animated Visualization Area -->
+                    <div class="relative min-h-[400px] bg-gray-800 rounded-lg p-6">
+                        <!-- Step 1: Plaintext Input -->
+                        <div class="visualization-step mb-8">
+                            <div class="text-sm text-blue-300 font-semibold mb-2">Input Text</div>
+                            <div id="visual-plaintext" class="flex flex-wrap gap-2 justify-center"></div>
+                        </div>
+
+                        <!-- Step 2: Key Generation -->
+                        <div class="visualization-step mb-8">
+                            <div class="text-sm text-green-300 font-semibold mb-2">One-Time Pad Key</div>
+                            <div id="visual-key" class="flex flex-wrap gap-2 justify-center"></div>
+                        </div>
+
+                        <!-- Step 3: Addition Process -->
+                        <div class="visualization-step mb-8">
+                            <div class="text-sm text-yellow-300 font-semibold mb-2">Addition Process (mod 26)</div>
+                            <div id="visual-process" class="flex flex-wrap gap-4 justify-center">
+                                <!-- Process arrows and calculations will be added here -->
+                            </div>
+                        </div>
+
+                        <!-- Step 4: Result -->
+                        <div class="visualization-step">
+                            <div class="text-sm text-purple-300 font-semibold mb-2">Encrypted Result</div>
+                            <div id="visual-result" class="flex flex-wrap gap-2 justify-center"></div>
+                        </div>
+
+                        <!-- Animation Canvas -->
+                        <div id="animation-canvas" class="absolute inset-0 pointer-events-none">
+                            <!-- Animated elements will be added here -->
+                        </div>
+                    </div>
+
+                    <div class="mt-4 text-center text-sm text-gray-400">
+                        Formula: Ci = (Pi + Ki) mod 26
+                    </div>
+                </div>
+
+                <!-- Add Description Section -->
+                <div class="mt-6 p-4 bg-gray-800 rounded-lg border border-gray-600">
+                    <h4 class="text-sm font-semibold text-blue-300 mb-2">How It Works:</h4>
+                    <div class="text-sm text-gray-300 space-y-2">
+                        <p>
+                            <span class="font-semibold">1.</span> A random key of the same length as your message is generated
+                        </p>
+                        <p>
+                            <span class="font-semibold">2.</span> Each letter is converted to a number (A=0, B=1, etc.)
+                        </p>
+                        <p>
+                            <span class="font-semibold">3.</span> The key and plaintext numbers are added modulo 26
+                        </p>
+                        <p>
+                            <span class="font-semibold">4.</span> The results are converted back to letters
+                        </p>
+                        <p class="text-xs italic mt-2">
+                            Remember: Each key must be used only once and kept secret!
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Encryption/Decryption Controls -->
+            <div class="flex gap-4">
+                <button id="encrypt" class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
+                    Encrypt
+                </button>
+                <button id="decrypt" class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600">
+                    Decrypt
+                </button>
+            </div>
+
+            <!-- Results Display -->
+            <div class="mt-6">
+                <h3 class="text-lg font-semibold text-white mb-2">Results</h3>
+                <div class="bg-gray-800 p-4 rounded-lg">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-300 mb-1">Ciphertext:</label>
+                        <div id="ciphertext-output" class="font-mono bg-gray-700 p-2 rounded border border-gray-600 text-gray-300"></div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-1">Decrypted Text:</label>
+                        <div id="decrypted-output" class="font-mono bg-gray-700 p-2 rounded border border-gray-600 text-gray-300"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    @keyframes burst {
+        0% {
+            transform: scale(1);
+            opacity: 0.7;
+        }
+        100% {
+            transform: scale(1.5);
+            opacity: 0;
+        }
+    }
+
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-5px);
+        }
+    }
+
+    .visualization-step {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInStep 0.5s ease-out forwards;
+    }
+
+    @keyframes fadeInStep {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .char-box {
+        transition: all 0.3s ease-out;
+    }
+
+    .char-box:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 15px rgba(66, 153, 225, 0.5);
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get DOM elements
+        const plaintextInput = document.getElementById('plaintext');
+        const randomKeyDiv = document.getElementById('random-key');
+        const generateKeyBtn = document.getElementById('generate-key');
+        const encryptBtn = document.getElementById('encrypt');
+        const decryptBtn = document.getElementById('decrypt');
+        const plaintextDisplay = document.getElementById('plaintext-display');
+        const keyDisplay = document.getElementById('key-display');
+        const processDisplay = document.getElementById('process-display');
+        const ciphertextDisplay = document.getElementById('ciphertext-display');
+        const ciphertextOutput = document.getElementById('ciphertext-output');
+        const decryptedOutput = document.getElementById('decrypted-output');
+
+        let currentKey = '';
+        let currentCiphertext = '';
+
+        // Function to generate random key
+        function generateRandomKey(length) {
+            const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            let result = '';
+            for (let i = 0; i < length; i++) {
+                result += alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+            }
+            return result;
+        }
+
+        // Function to convert letter to number (A=0, B=1, etc.)
+        function letterToNumber(letter) {
+            return letter.toUpperCase().charCodeAt(0) - 65;
+        }
+
+        // Function to convert number to letter (0=A, 1=B, etc.)
+        function numberToLetter(number) {
+            return String.fromCharCode((number % 26) + 65);
+        }
+
+        // Function to display the encryption process
+        function displayProcess(plaintext, key, ciphertext) {
+            let plaintextHtml = '';
+            let keyHtml = '';
+            let ciphertextHtml = '';
+            let processHtml = '';
+
+            for (let i = 0; i < plaintext.length; i++) {
+                const p = letterToNumber(plaintext[i]);
+                const k = letterToNumber(key[i]);
+                const c = (p + k) % 26;
+
+                plaintextHtml += `<div class="mb-2">
+                    ${plaintext[i]} (${p})
+                </div>`;
+                keyHtml += `<div class="mb-2">
+                    ${key[i]} (${k})
+                </div>`;
+                ciphertextHtml += `<div class="mb-2">
+                    ${ciphertext[i]} (${c})
+                </div>`;
+            }
+
+            processPlaintext.innerHTML = plaintextHtml;
+            processKey.innerHTML = keyHtml;
+            processCiphertext.innerHTML = ciphertextHtml;
+        }
+
+        // Enhanced encryption function with advanced visualization
+        function encrypt() {
+            const plaintext = plaintextInput.value.toUpperCase().replace(/[^A-Z]/g, '');
+            if (!plaintext || !currentKey) return;
+
+            // Clear previous displays
+            document.getElementById('visual-plaintext').innerHTML = '';
+            document.getElementById('visual-key').innerHTML = '';
+            document.getElementById('visual-process').innerHTML = '';
+            document.getElementById('visual-result').innerHTML = '';
+            document.getElementById('animation-canvas').innerHTML = '';
+
+            // Initialize result string
+            let resultText = '';
+            
+            // Create and animate characters one by one
+            let currentIndex = 0;
+            const animationDelay = 1500; // 1.5 seconds per character
+
+            function animateCharacter() {
+                if (currentIndex >= plaintext.length) {
+                    // Animation complete, update the final result
+                    ciphertextOutput.textContent = resultText;
+                    currentCiphertext = resultText;
+                    return;
+                }
+
+                const p = plaintext[currentIndex];
+                const k = currentKey[currentIndex];
+                const pNum = letterToNumber(p);
+                const kNum = letterToNumber(k);
+                const sum = (pNum + kNum) % 26;
+                const c = numberToLetter(sum);
+                resultText += c;
+
+                // Create character boxes with position tracking
+                const pBox = createCharBox(p, 'blue', currentIndex);
+                const kBox = createCharBox(k, 'green', currentIndex);
+                const cBox = createCharBox(c, 'purple', currentIndex);
+
+                // Add boxes to their respective containers
+                document.getElementById('visual-plaintext').appendChild(pBox);
+                document.getElementById('visual-key').appendChild(kBox);
+                document.getElementById('visual-result').appendChild(cBox);
+
+                // Create process visualization
+                const processBox = document.createElement('div');
+                processBox.className = 'flex flex-col items-center justify-center p-4 bg-gray-700 rounded-lg opacity-0 transform scale-95 transition-all duration-500';
+                processBox.innerHTML = `
+                    <div class="text-lg font-mono mb-2">
+                        <span class="text-blue-300">${p}(${pNum})</span>
+                        <span class="text-gray-400">+</span>
+                        <span class="text-green-300">${k}(${kNum})</span>
+                        <span class="text-gray-400">=</span>
+                        <span class="text-purple-300">${c}(${sum})</span>
+                    </div>
+                    <div class="text-xs text-gray-400">mod 26</div>
+                `;
+                document.getElementById('visual-process').appendChild(processBox);
+
+                // Animate the encryption process
+                requestAnimationFrame(() => {
+                    // 1. Fade in the plaintext character
+                    pBox.style.opacity = '1';
+                    pBox.style.transform = 'scale(1) translateY(0)';
+
+                    // 2. Fade in the key character
+                    setTimeout(() => {
+                        kBox.style.opacity = '1';
+                        kBox.style.transform = 'scale(1) translateY(0)';
+                    }, 300);
+
+                    // 3. Show the process
+                    setTimeout(() => {
+                        processBox.style.opacity = '1';
+                        processBox.style.transform = 'scale(1)';
+                    }, 600);
+
+                    // 4. Show the result character with a special effect
+                    setTimeout(() => {
+                        cBox.style.opacity = '1';
+                        cBox.style.transform = 'scale(1) translateY(0)';
+                        
+                        // Add a burst effect
+                        const burst = document.createElement('div');
+                        burst.className = 'absolute w-full h-full rounded-lg';
+                        burst.style.border = '2px solid rgb(139, 92, 246)';
+                        burst.style.animation = 'burst 0.5s ease-out forwards';
+                        cBox.appendChild(burst);
+                    }, 900);
+
+                    // Setup next character animation
+                    currentIndex++;
+                    setTimeout(animateCharacter, animationDelay);
+                });
+            }
+
+            // Start the animation sequence
+            animateCharacter();
+        }
+
+        // Helper function to create animated character boxes
+        function createCharBox(char, color, index) {
+            const box = document.createElement('div');
+            box.className = `
+                relative w-12 h-12 flex items-center justify-center
+                bg-gray-700 border-2 border-${color}-500 text-${color}-300
+                rounded-lg opacity-0 transform scale-95 translate-y-4
+                transition-all duration-500 ease-out font-mono text-lg
+            `;
+            box.style.transitionDelay = `${index * 100}ms`;
+            box.textContent = char;
+            return box;
+        }
+
+        // Helper function to create animated boxes
+        function createAnimatedBox(char, color) {
+            const box = document.createElement('div');
+            box.className = `w-12 h-12 flex items-center justify-center font-mono text-lg
+                           bg-gray-700 border-2 border-${color}-500 text-${color}-300
+                           rounded-lg opacity-0 transform scale-90 transition-all duration-500`;
+            box.textContent = char;
+            return box;
+        }
+
+        // Function to decrypt
+        function decrypt(ciphertext, key) {
+            let result = '';
+            for (let i = 0; i < ciphertext.length; i++) {
+                const c = letterToNumber(ciphertext[i]);
+                const k = letterToNumber(key[i]);
+                result += numberToLetter((c - k + 26) % 26);
+            }
+            return result;
+        }
+
+        // Event Listeners
+        plaintextInput.addEventListener('input', function(e) {
+            // Remove non-alphabetic characters and convert to uppercase
+            this.value = this.value.replace(/[^A-Za-z]/g, '').toUpperCase();
+            if (this.value.length > 0) {
+                generateKeyBtn.disabled = false;
+            } else {
+                generateKeyBtn.disabled = true;
+            }
+        });
+
+        generateKeyBtn.addEventListener('click', function() {
+            const plaintext = plaintextInput.value;
+            if (plaintext) {
+                currentKey = generateRandomKey(plaintext.length);
+                randomKeyDiv.textContent = currentKey;
+                encryptBtn.disabled = false;
+            }
+        });
+
+        encryptBtn.addEventListener('click', function() {
+            const plaintext = plaintextInput.value.toUpperCase().replace(/[^A-Z]/g, '');
+            if (plaintext && currentKey) {
+                encrypt();
+                decryptBtn.disabled = false;
+            }
+        });
+
+        decryptBtn.addEventListener('click', function() {
+            if (currentCiphertext && currentKey) {
+                const decrypted = decrypt(currentCiphertext, currentKey);
+                decryptedOutput.textContent = decrypted;
+            }
+        });
+
+        // Initial state
+        generateKeyBtn.disabled = true;
+        encryptBtn.disabled = true;
+        decryptBtn.disabled = true;
+    });
+</script>
+{% endblock %}

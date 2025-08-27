@@ -1,0 +1,173 @@
+{% extends "pages/shift-cipher/base_shift_cipher.html" %}
+
+{% block cipher_content %}
+<h1 class="text-2xl font-bold text-gray-800 mb-6">Feedback Form</h1>
+
+<div class="prose max-w-none">
+    <!-- Introduction -->
+    <div class="bg-blue-50 p-6 rounded-lg mb-8">
+        <p class="text-blue-900">
+            Your feedback is valuable to us! Please take a moment to share your experience with the Breaking the Shift Cipher experiment. 
+            This will help us improve the learning experience for future students.
+        </p>
+    </div>
+
+    <!-- Feedback Form -->
+    <div class="bg-white p-6 rounded-lg shadow-md">
+        <form id="feedbackForm" class="space-y-6">
+            <!-- Overall Experience -->
+            <div>
+                <label class="block text-lg font-semibold text-gray-800 mb-4">Overall Experience</label>
+                <div class="flex space-x-4" id="ratingButtons">
+                    {% for i in range(1, 6) %}
+                    <button type="button" 
+                            class="rating-btn w-12 h-12 rounded-full border-2 border-gray-300 flex items-center justify-center hover:border-blue-500 focus:outline-none"
+                            data-rating="{{ i }}">
+                        {{ i }}
+                    </button>
+                    {% endfor %}
+                </div>
+                <p class="text-sm text-gray-600 mt-2">1 = Poor, 5 = Excellent</p>
+            </div>
+
+            <!-- Specific Aspects -->
+            <div class="space-y-4">
+                <label class="block text-lg font-semibold text-gray-800">Rate the Following Aspects</label>
+                
+                <!-- Content Clarity -->
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Content Clarity</label>
+                    <div class="flex space-x-4">
+                        <input type="range" min="1" max="5" value="3" 
+                               class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                               id="clarityRating">
+                        <span class="text-sm text-gray-600" id="clarityValue">3</span>
+                    </div>
+                </div>
+
+                <!-- Practical Examples -->
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Practical Examples</label>
+                    <div class="flex space-x-4">
+                        <input type="range" min="1" max="5" value="3" 
+                               class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                               id="examplesRating">
+                        <span class="text-sm text-gray-600" id="examplesValue">3</span>
+                    </div>
+                </div>
+
+                <!-- Interactive Elements -->
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Interactive Elements</label>
+                    <div class="flex space-x-4">
+                        <input type="range" min="1" max="5" value="3" 
+                               class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                               id="interactiveRating">
+                        <span class="text-sm text-gray-600" id="interactiveValue">3</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Understanding Improvement -->
+            <div>
+                <label class="block text-lg font-semibold text-gray-800 mb-2">
+                    Did this experiment improve your understanding of shift ciphers?
+                </label>
+                <div class="space-y-2">
+                    <div class="flex items-center">
+                        <input type="radio" name="understanding" value="significantly" id="significantly" class="mr-2">
+                        <label for="significantly">Yes, significantly</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="radio" name="understanding" value="somewhat" id="somewhat" class="mr-2">
+                        <label for="somewhat">Yes, somewhat</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="radio" name="understanding" value="little" id="little" class="mr-2">
+                        <label for="little">Only a little</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="radio" name="understanding" value="not-really" id="not-really" class="mr-2">
+                        <label for="not-really">Not really</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comments -->
+            <div>
+                <label for="comments" class="block text-lg font-semibold text-gray-800 mb-2">
+                    Additional Comments
+                </label>
+                <textarea id="comments" 
+                          rows="4" 
+                          class="w-full p-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                          placeholder="Please share any additional feedback, suggestions, or concerns..."></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <div>
+                <button type="submit" 
+                        class="w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-200">
+                    Submit Feedback
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Initialize rating buttons
+    document.getElementById('ratingButtons').addEventListener('click', function(e) {
+        if (e.target.classList.contains('rating-btn')) {
+            const rating = parseInt(e.target.dataset.rating);
+            rateExperience(rating);
+        }
+    });
+
+    // Handle rating buttons
+    function rateExperience(rating) {
+        document.querySelectorAll('.rating-btn').forEach(btn => {
+            btn.classList.remove('bg-blue-500', 'text-white');
+            if (parseInt(btn.dataset.rating) <= rating) {
+                btn.classList.add('bg-blue-500', 'text-white');
+            }
+        });
+    }
+
+    // Handle range inputs
+    document.querySelectorAll('input[type="range"]').forEach(range => {
+        range.addEventListener('input', function() {
+            document.getElementById(this.id + 'Value').textContent = this.value;
+        });
+    });
+
+    // Handle form submission
+    document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Show success message
+        const successMessage = document.createElement('div');
+        successMessage.className = 'fixed top-4 right-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded';
+        successMessage.innerHTML = `
+            <strong class="font-bold">Thank you!</strong>
+            <span class="block sm:inline"> Your feedback has been submitted successfully.</span>
+        `;
+        document.body.appendChild(successMessage);
+
+        // Remove message after 3 seconds
+        setTimeout(() => {
+            successMessage.remove();
+        }, 3000);
+
+        // Reset form
+        this.reset();
+        document.querySelectorAll('.rating-btn').forEach(btn => {
+            btn.classList.remove('bg-blue-500', 'text-white');
+        });
+        document.querySelectorAll('input[type="range"]').forEach(range => {
+            range.value = 3;
+            document.getElementById(range.id + 'Value').textContent = '3';
+        });
+    });
+</script>
+{% endblock %} 

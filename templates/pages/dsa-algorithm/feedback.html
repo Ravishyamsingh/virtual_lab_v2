@@ -1,0 +1,466 @@
+{% extends "pages/dsa-algorithm/base_dsa_algorithm.html" %}
+
+{% block page_content %}
+<div class="content-section">
+    <div class="section-card">
+        <h2 class="section-title">💬 Feedback</h2>
+        
+        <div class="feedback-content">
+            <h3>Your Feedback Matters</h3>
+            <p>Help us improve the DSA Algorithm simulation by providing your valuable feedback. Your input helps us enhance the learning experience for all users.</p>
+            
+            <form id="feedbackForm" class="feedback-form">
+                <div class="form-section">
+                    <h4>General Information</h4>
+                    
+                    <div class="form-group">
+                        <label for="userRole">Your Role:</label>
+                        <select id="userRole" name="userRole" required>
+                            <option value="">Select your role</option>
+                            <option value="student">Student</option>
+                            <option value="instructor">Instructor</option>
+                            <option value="researcher">Researcher</option>
+                            <option value="professional">Professional</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="experienceLevel">Your Cryptography Experience:</label>
+                        <select id="experienceLevel" name="experienceLevel" required>
+                            <option value="">Select experience level</option>
+                            <option value="beginner">Beginner</option>
+                            <option value="intermediate">Intermediate</option>
+                            <option value="advanced">Advanced</option>
+                            <option value="expert">Expert</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h4>Simulation Experience</h4>
+                    
+                    <div class="form-group">
+                        <label for="overallRating">Overall Rating:</label>
+                        <div class="rating-container">
+                            <input type="radio" id="rating5" name="overallRating" value="5">
+                            <label for="rating5">⭐⭐⭐⭐⭐ Excellent</label>
+                            
+                            <input type="radio" id="rating4" name="overallRating" value="4">
+                            <label for="rating4">⭐⭐⭐⭐ Good</label>
+                            
+                            <input type="radio" id="rating3" name="overallRating" value="3">
+                            <label for="rating3">⭐⭐⭐ Average</label>
+                            
+                            <input type="radio" id="rating2" name="overallRating" value="2">
+                            <label for="rating2">⭐⭐ Poor</label>
+                            
+                            <input type="radio" id="rating1" name="overallRating" value="1">
+                            <label for="rating1">⭐ Very Poor</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="easeOfUse">How easy was it to use the simulation?</label>
+                        <select id="easeOfUse" name="easeOfUse" required>
+                            <option value="">Select difficulty level</option>
+                            <option value="very-easy">Very Easy</option>
+                            <option value="easy">Easy</option>
+                            <option value="moderate">Moderate</option>
+                            <option value="difficult">Difficult</option>
+                            <option value="very-difficult">Very Difficult</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="educationalValue">Educational Value:</label>
+                        <select id="educationalValue" name="educationalValue" required>
+                            <option value="">Select educational value</option>
+                            <option value="excellent">Excellent - Learned a lot</option>
+                            <option value="good">Good - Learned some new concepts</option>
+                            <option value="average">Average - Some learning</option>
+                            <option value="poor">Poor - Limited learning</option>
+                            <option value="very-poor">Very Poor - No learning</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h4>Specific Features</h4>
+                    
+                    <div class="feature-rating">
+                        <div class="feature-item">
+                            <span class="feature-name">User Interface Design:</span>
+                            <div class="rating-buttons">
+                                <input type="radio" id="ui1" name="uiRating" value="1">
+                                <label for="ui1">1</label>
+                                <input type="radio" id="ui2" name="uiRating" value="2">
+                                <label for="ui2">2</label>
+                                <input type="radio" id="ui3" name="uiRating" value="3">
+                                <label for="ui3">3</label>
+                                <input type="radio" id="ui4" name="uiRating" value="4">
+                                <label for="ui4">4</label>
+                                <input type="radio" id="ui5" name="uiRating" value="5">
+                                <label for="ui5">5</label>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <span class="feature-name">Animation Quality:</span>
+                            <div class="rating-buttons">
+                                <input type="radio" id="anim1" name="animationRating" value="1">
+                                <label for="anim1">1</label>
+                                <input type="radio" id="anim2" name="animationRating" value="2">
+                                <label for="anim2">2</label>
+                                <input type="radio" id="anim3" name="animationRating" value="3">
+                                <label for="anim3">3</label>
+                                <input type="radio" id="anim4" name="animationRating" value="4">
+                                <label for="anim4">4</label>
+                                <input type="radio" id="anim5" name="animationRating" value="5">
+                                <label for="anim5">5</label>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <span class="feature-name">Explanation Clarity:</span>
+                            <div class="rating-buttons">
+                                <input type="radio" id="clarity1" name="clarityRating" value="1">
+                                <label for="clarity1">1</label>
+                                <input type="radio" id="clarity2" name="clarityRating" value="2">
+                                <label for="clarity2">2</label>
+                                <input type="radio" id="clarity3" name="clarityRating" value="3">
+                                <label for="clarity3">3</label>
+                                <input type="radio" id="clarity4" name="clarityRating" value="4">
+                                <label for="clarity4">4</label>
+                                <input type="radio" id="clarity5" name="clarityRating" value="5">
+                                <label for="clarity5">5</label>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <span class="feature-name">Mathematical Accuracy:</span>
+                            <div class="rating-buttons">
+                                <input type="radio" id="math1" name="mathRating" value="1">
+                                <label for="math1">1</label>
+                                <input type="radio" id="math2" name="mathRating" value="2">
+                                <label for="math2">2</label>
+                                <input type="radio" id="math3" name="mathRating" value="3">
+                                <label for="math3">3</label>
+                                <input type="radio" id="math4" name="mathRating" value="4">
+                                <label for="math4">4</label>
+                                <input type="radio" id="math5" name="mathRating" value="5">
+                                <label for="math5">5</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h4>Detailed Feedback</h4>
+                    
+                    <div class="form-group">
+                        <label for="mostUseful">What did you find most useful about this simulation?</label>
+                        <textarea id="mostUseful" name="mostUseful" rows="4" placeholder="Please describe what aspects were most helpful..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="improvements">What improvements would you suggest?</label>
+                        <textarea id="improvements" name="improvements" rows="4" placeholder="Please suggest specific improvements..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="difficulties">Did you encounter any difficulties? If so, please describe:</label>
+                        <textarea id="difficulties" name="difficulties" rows="4" placeholder="Please describe any issues you encountered..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="additionalFeatures">What additional features would you like to see?</label>
+                        <textarea id="additionalFeatures" name="additionalFeatures" rows="4" placeholder="Please suggest additional features..."></textarea>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h4>Technical Feedback</h4>
+                    
+                    <div class="form-group">
+                        <label for="browserUsed">Browser Used:</label>
+                        <input type="text" id="browserUsed" name="browserUsed" placeholder="e.g., Chrome 91.0, Firefox 89.0">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="deviceType">Device Type:</label>
+                        <select id="deviceType" name="deviceType">
+                            <option value="">Select device type</option>
+                            <option value="desktop">Desktop</option>
+                            <option value="laptop">Laptop</option>
+                            <option value="tablet">Tablet</option>
+                            <option value="mobile">Mobile Phone</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="technicalIssues">Any technical issues encountered?</label>
+                        <textarea id="technicalIssues" name="technicalIssues" rows="3" placeholder="Please describe any technical problems..."></textarea>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h4>Contact Information (Optional)</h4>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address:</label>
+                        <input type="email" id="email" name="email" placeholder="your.email@example.com">
+                        <small>Optional - only if you'd like us to follow up on your feedback</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="institution">Institution/Organization:</label>
+                        <input type="text" id="institution" name="institution" placeholder="Your school, university, or company">
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Submit Feedback</button>
+                    <button type="reset" class="btn btn-secondary">Clear Form</button>
+                </div>
+            </form>
+            
+            <div id="feedbackResult" class="feedback-result hidden">
+                <div class="success-message">
+                    <h4>Thank you for your feedback!</h4>
+                    <p>Your feedback has been submitted successfully. We appreciate your input and will use it to improve the simulation.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.feedback-content {
+    line-height: 1.6;
+    color: #e5e7eb;
+}
+
+.feedback-content h3 {
+    color: #3b82f6;
+    margin-bottom: 1rem;
+}
+
+.feedback-content h4 {
+    color: #10b981;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.feedback-form {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.form-section {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: rgba(55, 65, 81, 0.3);
+    border-radius: 8px;
+    border-left: 4px solid #3b82f6;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #f3f4f6;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #4b5563;
+    border-radius: 6px;
+    background: rgba(31, 41, 55, 0.8);
+    color: #e5e7eb;
+    font-size: 1rem;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-group small {
+    display: block;
+    margin-top: 0.5rem;
+    color: #9ca3af;
+    font-size: 0.875rem;
+}
+
+.rating-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.rating-container input[type="radio"] {
+    width: auto;
+    margin-right: 0.5rem;
+}
+
+.rating-container label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.rating-container label:hover {
+    background-color: rgba(59, 130, 246, 0.1);
+}
+
+.feature-rating {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.feature-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: rgba(31, 41, 55, 0.5);
+    border-radius: 6px;
+}
+
+.feature-name {
+    font-weight: 500;
+    color: #f3f4f6;
+}
+
+.rating-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.rating-buttons input[type="radio"] {
+    display: none;
+}
+
+.rating-buttons label {
+    width: 32px;
+    height: 32px;
+    border: 2px solid #4b5563;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #9ca3af;
+}
+
+.rating-buttons label:hover {
+    border-color: #3b82f6;
+    background-color: rgba(59, 130, 246, 0.1);
+}
+
+.rating-buttons input[type="radio"]:checked + label {
+    border-color: #3b82f6;
+    background-color: #3b82f6;
+    color: white;
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.btn {
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-primary {
+    background-color: #3b82f6;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #2563eb;
+}
+
+.btn-secondary {
+    background-color: #6b7280;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #4b5563;
+}
+
+.feedback-result {
+    margin-top: 2rem;
+    padding: 2rem;
+    background: rgba(16, 185, 129, 0.1);
+    border-radius: 8px;
+    border: 1px solid #10b981;
+}
+
+.success-message h4 {
+    color: #10b981;
+    margin-bottom: 1rem;
+}
+
+.success-message p {
+    color: #d1d5db;
+}
+
+.hidden {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .feature-item {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+}
+</style>
+
+<script>
+document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Here you would typically send the form data to a server
+    // For this simulation, we'll just show a success message
+    
+    document.getElementById('feedbackForm').style.display = 'none';
+    document.getElementById('feedbackResult').classList.remove('hidden');
+    
+    // Scroll to the result
+    document.getElementById('feedbackResult').scrollIntoView({ behavior: 'smooth' });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block title %}Submit Assignment - {{ assignment.title }}{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-indigo-50 dark:from-gray-900 dark:via-gray-800 dark:to-indigo-900">
+    <!-- Header -->
+    <div class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Submit Assignment</h1>
+                    <p class="text-gray-600 dark:text-gray-300 mt-1">{{ assignment.title }}</p>
+                </div>
+                <a href="/assignments/{{ assignment.id }}" 
+                   class="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition duration-200 flex items-center">
+                    <i class="fas fa-arrow-left mr-2"></i>Back to Assignment
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-3xl mx-auto">
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700">
+                <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Assignment Submission</h2>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm mt-1">Complete and submit your work for this assignment</p>
+                </div>
+                
+                <form method="POST" enctype="multipart/form-data" class="p-6">
+                    <div class="space-y-6">
+                        <!-- Assignment Info -->
+                        <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="font-medium text-gray-900 dark:text-white">{{ assignment.title }}</h3>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">{{ assignment.description[:100] }}{% if assignment.description|length > 100 %}...{% endif %}</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-sm font-medium text-gray-900 dark:text-white">{{ assignment.points }} points</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">Due: {{ assignment.due_date }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Solution Text -->
+                        <div>
+                            <label for="solution_text" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                Solution Text
+                                <span class="text-red-500">*</span>
+                            </label>
+                            <textarea id="solution_text" name="solution_text" rows="8" 
+                                      class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                      placeholder="Enter your solution here..." required>{{ submission.solution_text if submission else '' }}</textarea>
+                            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Provide your written solution to the assignment.</p>
+                        </div>
+
+                        <!-- File Upload -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                Attach Files
+                            </label>
+                            <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 dark:border-gray-600 border-dashed rounded-lg">
+                                <div class="space-y-1 text-center">
+                                    <i class="fas fa-cloud-upload-alt text-gray-400 dark:text-gray-500 text-3xl mb-3"></i>
+                                    <div class="flex text-sm text-gray-600 dark:text-gray-400">
+                                        <label for="files" class="relative cursor-pointer bg-white dark:bg-gray-700 rounded-md font-medium text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300">
+                                            <span>Upload files</span>
+                                            <input id="files" name="files" type="file" class="sr-only" multiple>
+                                        </label>
+                                        <p class="pl-1">or drag and drop</p>
+                                    </div>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">
+                                        PDF, DOC, DOCX, TXT up to 10MB each
+                                    </p>
+                                </div>
+                            </div>
+                            <div id="file-list" class="mt-3 space-y-2"></div>
+                        </div>
+
+                        <!-- Submission Notes -->
+                        <div>
+                            <label for="notes" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                Additional Notes
+                            </label>
+                            <textarea id="notes" name="notes" rows="3" 
+                                      class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                      placeholder="Any additional information for your instructor...">{{ submission.notes if submission else '' }}</textarea>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
+                            <div class="text-sm text-gray-500 dark:text-gray-400">
+                                <i class="fas fa-info-circle mr-1"></i>
+                                Remember to review your submission before submitting
+                            </div>
+                            <button type="submit" 
+                                    class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-200 flex items-center">
+                                <i class="fas fa-paper-plane mr-2"></i>Submit Assignment
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// File upload handling
+document.getElementById('files').addEventListener('change', function(e) {
+    const fileList = document.getElementById('file-list');
+    fileList.innerHTML = '';
+    
+    for (let i = 0; i < e.target.files.length; i++) {
+        const file = e.target.files[i];
+        const fileItem = document.createElement('div');
+        fileItem.className = 'flex items-center justify-between p-2 bg-gray-50 dark:bg-gray-700 rounded';
+        fileItem.innerHTML = `
+            <div class="flex items-center">
+                <i class="fas fa-file-alt text-gray-500 dark:text-gray-400 mr-2"></i>
+                <span class="text-sm text-gray-700 dark:text-gray-300">${file.name}</span>
+            </div>
+            <span class="text-xs text-gray-500 dark:text-gray-400">${(file.size / 1024 / 1024).toFixed(2)} MB</span>
+        `;
+        fileList.appendChild(fileItem);
+    }
+});
+
+// Form validation
+document.querySelector('form').addEventListener('submit', function(e) {
+    const solutionText = document.getElementById('solution_text').value.trim();
+    
+    if (!solutionText) {
+        e.preventDefault();
+        alert('Please provide a solution text before submitting.');
+        return;
+    }
+    
+    if (!confirm('Are you sure you want to submit this assignment? You will not be able to make changes after submission.')) {
+        e.preventDefault();
+    }
+});
+</script>
+{% endblock %}

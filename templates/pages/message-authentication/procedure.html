@@ -1,0 +1,66 @@
+{% extends "pages/message-authentication/base_message_auth.html" %}
+
+{% block page_content %}
+<div class="bg-gray-800 text-white rounded-lg shadow-lg p-6">
+    <h1 class="text-3xl font-bold mb-6">Procedure</h1>
+    <div class="space-y-6 text-gray-300">
+        <section class="space-y-4">
+            <h2 class="text-2xl font-semibold text-white">Steps to Generate and Verify Message Authentication</h2>
+            
+            <div class="space-y-6">
+                <div class="bg-gray-700 p-4 rounded-lg">
+                    <h3 class="text-xl font-semibold mb-3">1. MAC Generation</h3>
+                    <ol class="list-decimal list-inside space-y-2">
+                        <li>Enter the message to be authenticated</li>
+                        <li>Input the secret key</li>
+                        <li>Select the MAC algorithm (HMAC-SHA256, HMAC-SHA512, etc.)</li>
+                        <li>Generate the MAC</li>
+                    </ol>
+                </div>
+
+                <div class="bg-gray-700 p-4 rounded-lg">
+                    <h3 class="text-xl font-semibold mb-3">2. MAC Verification</h3>
+                    <ol class="list-decimal list-inside space-y-2">
+                        <li>Input the received message</li>
+                        <li>Enter the received MAC</li>
+                        <li>Input the shared secret key</li>
+                        <li>Verify the MAC</li>
+                    </ol>
+                </div>
+
+                <div class="bg-gray-700 p-4 rounded-lg">
+                    <h3 class="text-xl font-semibold mb-3">3. Digital Signature Generation</h3>
+                    <ol class="list-decimal list-inside space-y-2">
+                        <li>Generate key pair (if not already done)</li>
+                        <li>Enter the message to be signed</li>
+                        <li>Sign the message using private key</li>
+                        <li>Share the message, signature, and public key</li>
+                    </ol>
+                </div>
+
+                <div class="bg-gray-700 p-4 rounded-lg">
+                    <h3 class="text-xl font-semibold mb-3">4. Digital Signature Verification</h3>
+                    <ol class="list-decimal list-inside space-y-2">
+                        <li>Input the received message</li>
+                        <li>Enter the received signature</li>
+                        <li>Input the sender's public key</li>
+                        <li>Verify the signature</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <section class="mt-8">
+            <div class="bg-blue-900 p-4 rounded-lg">
+                <h3 class="text-xl font-semibold mb-3">Important Notes:</h3>
+                <ul class="list-disc list-inside space-y-2">
+                    <li>Always keep the secret key secure and never share it publicly</li>
+                    <li>Use strong cryptographic algorithms for MAC generation</li>
+                    <li>Verify both the signature and the certificate chain in PKI-based systems</li>
+                    <li>Implement proper key management procedures</li>
+                </ul>
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}

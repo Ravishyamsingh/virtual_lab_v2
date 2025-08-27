@@ -1,0 +1,147 @@
+{% extends "pages/message-authentication/base_message_auth.html" %}
+
+{% block page_content %}
+<div class="bg-gray-800 text-white rounded-lg shadow-lg p-6">
+    <h1 class="text-3xl font-bold mb-6">Message Authentication Simulation</h1>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- MAC Generation Section -->
+        <div class="bg-gray-700 p-6 rounded-lg">
+            <h2 class="text-2xl font-semibold mb-4">MAC Generation</h2>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-2">Message</label>
+                    <textarea id="mac-message" rows="4" class="w-full px-3 py-2 bg-gray-600 text-white rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Enter your message..."></textarea>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Secret Key</label>
+                    <input type="password" id="mac-key" class="w-full px-3 py-2 bg-gray-600 text-white rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Enter secret key...">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Algorithm</label>
+                    <select id="mac-algorithm" class="w-full px-3 py-2 bg-gray-600 text-white rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <option value="HMAC-SHA256">HMAC-SHA256</option>
+                        <option value="HMAC-SHA512">HMAC-SHA512</option>
+                    </select>
+                </div>
+                <button onclick="generateMAC()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200">
+                    Generate MAC
+                </button>
+                <div class="mt-4">
+                    <label class="block text-sm font-medium mb-2">Generated MAC</label>
+                    <input type="text" id="generated-mac" class="w-full px-3 py-2 bg-gray-600 text-white rounded-lg" readonly>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAC Verification Section -->
+        <div class="bg-gray-700 p-6 rounded-lg">
+            <h2 class="text-2xl font-semibold mb-4">MAC Verification</h2>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-2">Received Message</label>
+                    <textarea id="verify-message" rows="4" class="w-full px-3 py-2 bg-gray-600 text-white rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Enter received message..."></textarea>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Received MAC</label>
+                    <input type="text" id="verify-mac" class="w-full px-3 py-2 bg-gray-600 text-white rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Enter received MAC...">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Secret Key</label>
+                    <input type="password" id="verify-key" class="w-full px-3 py-2 bg-gray-600 text-white rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Enter secret key...">
+                </div>
+                <button onclick="verifyMAC()" class="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200">
+                    Verify MAC
+                </button>
+                <div id="verification-result" class="mt-4 p-4 rounded-lg hidden">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+async function generateMAC() {
+    const message = document.getElementById('mac-message').value;
+    const key = document.getElementById('mac-key').value;
+    const algorithm = document.getElementById('mac-algorithm').value;
+
+    if (!message || !key) {
+        alert('Please fill in both message and key fields.');
+        return;
+    }
+
+    try {
+        const encoder = new TextEncoder();
+        const keyData = encoder.encode(key);
+        const messageData = encoder.encode(message);
+
+        const cryptoKey = await crypto.subtle.importKey(
+            'raw',
+            keyData,
+            { name: 'HMAC', hash: algorithm === 'HMAC-SHA256' ? 'SHA-256' : 'SHA-512' },
+            false,
+            ['sign']
+        );
+
+        const signature = await crypto.subtle.sign(
+            'HMAC',
+            cryptoKey,
+            messageData
+        );
+
+        const mac = Array.from(new Uint8Array(signature))
+            .map(b => b.toString(16).padStart(2, '0'))
+            .join('');
+
+        document.getElementById('generated-mac').value = mac;
+    } catch (error) {
+        alert('Error generating MAC: ' + error.message);
+    }
+}
+
+async function verifyMAC() {
+    const message = document.getElementById('verify-message').value;
+    const receivedMac = document.getElementById('verify-mac').value;
+    const key = document.getElementById('verify-key').value;
+    const resultDiv = document.getElementById('verification-result');
+
+    if (!message || !receivedMac || !key) {
+        alert('Please fill in all fields.');
+        return;
+    }
+
+    try {
+        const encoder = new TextEncoder();
+        const keyData = encoder.encode(key);
+        const messageData = encoder.encode(message);
+
+        const cryptoKey = await crypto.subtle.importKey(
+            'raw',
+            keyData,
+            { name: 'HMAC', hash: 'SHA-256' },
+            false,
+            ['sign']
+        );
+
+        const signature = await crypto.subtle.sign(
+            'HMAC',
+            cryptoKey,
+            messageData
+        );
+
+        const generatedMac = Array.from(new Uint8Array(signature))
+            .map(b => b.toString(16).padStart(2, '0'))
+            .join('');
+
+        const isValid = generatedMac === receivedMac.toLowerCase();
+
+        resultDiv.classList.remove('hidden', 'bg-green-800', 'bg-red-800');
+        resultDiv.classList.add(isValid ? 'bg-green-800' : 'bg-red-800');
+        resultDiv.textContent = isValid ? 'MAC Verification Successful! ✓' : 'MAC Verification Failed! ✗';
+    } catch (error) {
+        alert('Error verifying MAC: ' + error.message);
+    }
+}
+</script>
+{% endblock %}

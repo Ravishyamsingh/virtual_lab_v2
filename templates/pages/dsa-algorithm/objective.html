@@ -1,0 +1,221 @@
+{% extends "pages/dsa-algorithm/base_dsa_algorithm.html" %}
+
+{% block page_content %}
+<div class="content-section">
+    <div class="section-card">
+        <h2 class="section-title">🎯 Objective</h2>
+        
+        <div class="objective-content">
+            <h3>Main Objective</h3>
+            <p>To implement and understand the Digital Signature Algorithm (DSA) for secure message signing and verification in cryptographic systems.</p>
+            
+            <h3>Learning Objectives</h3>
+            <div class="objectives-grid">
+                <div class="objective-item">
+                    <div class="objective-number">1</div>
+                    <div class="objective-text">
+                        <h4>Mathematical Understanding</h4>
+                        <p>Comprehend the mathematical foundations of DSA including discrete logarithms, modular arithmetic, and finite field operations.</p>
+                    </div>
+                </div>
+                
+                <div class="objective-item">
+                    <div class="objective-number">2</div>
+                    <div class="objective-text">
+                        <h4>Key Generation</h4>
+                        <p>Learn to generate DSA parameters (p, q, g) and key pairs (private key x, public key y) following proper cryptographic practices.</p>
+                    </div>
+                </div>
+                
+                <div class="objective-item">
+                    <div class="objective-number">3</div>
+                    <div class="objective-text">
+                        <h4>Signature Creation</h4>
+                        <p>Understand the process of creating digital signatures using DSA, including proper randomization and hash function usage.</p>
+                    </div>
+                </div>
+                
+                <div class="objective-item">
+                    <div class="objective-number">4</div>
+                    <div class="objective-text">
+                        <h4>Signature Verification</h4>
+                        <p>Master the verification process to validate digital signatures and ensure message authenticity and integrity.</p>
+                    </div>
+                </div>
+                
+                <div class="objective-item">
+                    <div class="objective-number">5</div>
+                    <div class="objective-text">
+                        <h4>Security Analysis</h4>
+                        <p>Analyze the security properties of DSA including authentication, integrity, and non-repudiation guarantees.</p>
+                    </div>
+                </div>
+                
+                <div class="objective-item">
+                    <div class="objective-number">6</div>
+                    <div class="objective-text">
+                        <h4>Implementation Skills</h4>
+                        <p>Develop practical skills in implementing DSA algorithms with proper error handling and security considerations.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h3>Expected Outcomes</h3>
+            <div class="outcomes-section">
+                <h4>Knowledge Outcomes</h4>
+                <ul>
+                    <li>Understand the theoretical foundations of digital signature algorithms</li>
+                    <li>Explain the role of discrete logarithms in DSA security</li>
+                    <li>Describe the importance of proper parameter selection</li>
+                    <li>Analyze the security implications of different implementation choices</li>
+                </ul>
+                
+                <h4>Practical Skills</h4>
+                <ul>
+                    <li>Generate secure DSA key pairs</li>
+                    <li>Create digital signatures for arbitrary messages</li>
+                    <li>Verify signatures using public keys</li>
+                    <li>Implement proper random number generation</li>
+                    <li>Handle edge cases and error conditions</li>
+                </ul>
+                
+                <h4>Application Understanding</h4>
+                <ul>
+                    <li>Identify scenarios where DSA is appropriate</li>
+                    <li>Compare DSA with other signature schemes</li>
+                    <li>Understand the role of DSA in PKI systems</li>
+                    <li>Recognize security vulnerabilities and mitigation strategies</li>
+                </ul>
+            </div>
+            
+            <h3>Assessment criteria</h3>
+            <div class="assessment-section">
+                <h4>Technical Competency</h4>
+                <ul>
+                    <li>Correct implementation of DSA key generation</li>
+                    <li>Proper signature creation and verification</li>
+                    <li>Understanding of mathematical operations</li>
+                    <li>Appropriate parameter selection</li>
+                </ul>
+                
+                <h4>Security Awareness</h4>
+                <ul>
+                    <li>Recognition of security requirements</li>
+                    <li>Understanding of attack vectors</li>
+                    <li>Proper handling of random numbers</li>
+                    <li>Awareness of implementation pitfalls</li>
+                </ul>
+                
+                <h4>Practical Application</h4>
+                <ul>
+                    <li>Ability to use DSA in real-world scenarios</li>
+                    <li>Integration with existing systems</li>
+                    <li>Performance optimization techniques</li>
+                    <li>Troubleshooting and debugging skills</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.objective-content {
+    line-height: 1.6;
+    color: #e5e7eb;
+}
+
+.objective-content h3 {
+    color: #3b82f6;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.objective-content h4 {
+    color: #10b981;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.objectives-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.objective-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: rgba(55, 65, 81, 0.3);
+    border-radius: 12px;
+    border: 1px solid rgba(75, 85, 99, 0.3);
+    transition: all 0.3s ease;
+}
+
+.objective-item:hover {
+    background: rgba(55, 65, 81, 0.5);
+    border-color: rgba(59, 130, 246, 0.5);
+}
+
+.objective-number {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.objective-text h4 {
+    margin: 0 0 0.5rem 0;
+    color: #f3f4f6;
+}
+
+.objective-text p {
+    margin: 0;
+    color: #d1d5db;
+    font-size: 0.9rem;
+}
+
+.outcomes-section, .assessment-section {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: rgba(55, 65, 81, 0.3);
+    border-radius: 12px;
+    border-left: 4px solid #3b82f6;
+}
+
+.outcomes-section h4, .assessment-section h4 {
+    color: #10b981;
+    margin-bottom: 1rem;
+}
+
+.outcomes-section ul, .assessment-section ul {
+    margin: 0.5rem 0;
+    padding-left: 1.5rem;
+}
+
+.outcomes-section li, .assessment-section li {
+    margin-bottom: 0.5rem;
+    color: #d1d5db;
+}
+
+@media (max-width: 768px) {
+    .objectives-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .objective-item {
+        padding: 1rem;
+    }
+}
+</style>
+{% endblock %}

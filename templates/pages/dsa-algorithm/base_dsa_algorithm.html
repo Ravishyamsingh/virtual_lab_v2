@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8 bg-gray-900">
+    <!-- Navigation Bar -->
+    <nav class="bg-gray-800 shadow-lg rounded-lg mb-6">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap items-center justify-between">
+                <div class="flex-1">
+                    <div class="flex items-center justify-between">
+                        <a class="text-xl font-bold text-white py-4" href="#">DSA Algorithm</a>
+                        
+                        <div class="hidden md:flex md:items-center md:space-x-4">
+                            <a href="{{ url_for('dsa_algorithm.aim') }}" 
+                               class="text-gray-300 hover:text-white px-3 py-2 rounded-md {% if request.endpoint == 'dsa_algorithm.aim' %}bg-gray-700{% endif %}">
+                                Aim
+                            </a>
+                            <a href="{{ url_for('dsa_algorithm.theory') }}" 
+                               class="text-gray-300 hover:text-white px-3 py-2 rounded-md {% if request.endpoint == 'dsa_algorithm.theory' %}bg-gray-700{% endif %}">
+                                Theory
+                            </a>
+                            <a href="{{ url_for('dsa_algorithm.objective') }}" 
+                               class="text-gray-300 hover:text-white px-3 py-2 rounded-md {% if request.endpoint == 'dsa_algorithm.objective' %}bg-gray-700{% endif %}">
+                                Objective
+                            </a>
+                            <a href="{{ url_for('dsa_algorithm.procedure') }}" 
+                               class="text-gray-300 hover:text-white px-3 py-2 rounded-md {% if request.endpoint == 'dsa_algorithm.procedure' %}bg-gray-700{% endif %}">
+                                Procedure
+                            </a>
+                            <a href="{{ url_for('dsa_algorithm.simulation') }}" 
+                               class="text-gray-300 hover:text-white px-3 py-2 rounded-md {% if request.endpoint == 'dsa_algorithm.simulation' %}bg-gray-700{% endif %}">
+                                Simulation
+                            </a>
+                            <a href="{{ url_for('dsa_algorithm.assignment') }}" 
+                               class="text-gray-300 hover:text-white px-3 py-2 rounded-md {% if request.endpoint == 'dsa_algorithm.assignment' %}bg-gray-700{% endif %}">
+                                Assignment
+                            </a>
+                            <a href="{{ url_for('dsa_algorithm.reference') }}" 
+                               class="text-gray-300 hover:text-white px-3 py-2 rounded-md {% if request.endpoint == 'dsa_algorithm.reference' %}bg-gray-700{% endif %}">
+                                Reference
+                            </a>
+                            <a href="{{ url_for('dsa_algorithm.feedback') }}" 
+                               class="text-gray-300 hover:text-white px-3 py-2 rounded-md {% if request.endpoint == 'dsa_algorithm.feedback' %}bg-gray-700{% endif %}">
+                                Feedback
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content Area -->
+    <div class="bg-gray-800 rounded-lg shadow-md p-6">
+        {% block page_content %}{% endblock %}
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock %}

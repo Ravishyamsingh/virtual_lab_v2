@@ -1,0 +1,79 @@
+{% extends "pages/mono-alphabetic/base_mono_alphabetic.html" %}
+
+{% block cipher_content %}
+<div class="prose max-w-none dark:prose-invert">
+    <h1 class="text-2xl font-bold text-gray-800 dark:text-white mb-6">Breaking the Mono-Alphabetic Substitution Cipher</h1>
+
+    <div class="space-y-4">
+        <p class="text-gray-600 dark:text-gray-300">
+            A mono-alphabetic substitution cipher is a method of encryption where each letter in the plaintext 
+            is replaced by a different letter consistently throughout the message. This experiment explores the 
+            techniques to break such ciphers.
+        </p>
+
+        <h2 class="text-xl font-semibold text-gray-800 dark:text-white mt-8 mb-4">Key Components:</h2>
+        
+        <ul class="list-disc pl-6 text-gray-600 dark:text-gray-300">
+            <li>Substitution Key: A one-to-one mapping between plaintext and ciphertext alphabets</li>
+            <li>Encryption Process: Each letter is consistently replaced with its mapped counterpart</li>
+            <li>Decryption Process: Reverse mapping to recover the original text</li>
+        </ul>
+
+        <h2 class="text-xl font-semibold text-gray-800 dark:text-white mt-8 mb-4">Primary Objectives:</h2>
+
+        <div class="bg-blue-50 dark:bg-blue-900 p-6 rounded-lg">
+            <ul class="list-disc pl-6 space-y-3 text-gray-700 dark:text-gray-300">
+                <li>
+                    <span class="font-semibold">Understand the Cipher:</span>
+                    Learn how mono-alphabetic substitution works and its characteristics
+                </li>
+                <li>
+                    <span class="font-semibold">Master Cryptanalysis:</span>
+                    Develop skills in frequency analysis and pattern recognition
+                </li>
+                <li>
+                    <span class="font-semibold">Practice Decryption:</span>
+                    Break encrypted messages using systematic approaches
+                </li>
+                <li>
+                    <span class="font-semibold">Security Analysis:</span>
+                    Evaluate the strengths and weaknesses of the cipher
+                </li>
+            </ul>
+        </div>
+
+        <h2 class="text-xl font-semibold text-gray-800 dark:text-white mt-8 mb-4">Experiment Overview:</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+            <div class="bg-green-50 dark:bg-green-900 p-6 rounded-lg">
+                <h3 class="text-lg font-semibold text-green-800 dark:text-green-200 mb-3">What You'll Learn</h3>
+                <ul class="list-disc pl-6 text-gray-700 dark:text-gray-300">
+                    <li>Frequency analysis techniques</li>
+                    <li>Pattern recognition in text</li>
+                    <li>Systematic decryption methods</li>
+                    <li>Historical cryptography context</li>
+                </ul>
+            </div>
+
+            <div class="bg-purple-50 dark:bg-purple-900 p-6 rounded-lg">
+                <h3 class="text-lg font-semibold text-purple-800 dark:text-purple-200 mb-3">Skills You'll Develop</h3>
+                <ul class="list-disc pl-6 text-gray-700 dark:text-gray-300">
+                    <li>Analytical thinking</li>
+                    <li>Problem-solving strategies</li>
+                    <li>Cryptographic analysis</li>
+                    <li>Statistical methods</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="bg-yellow-50 dark:bg-yellow-900 p-6 rounded-lg mt-8">
+            <h3 class="text-lg font-semibold text-yellow-800 dark:text-yellow-200 mb-3">Important Note:</h3>
+            <p class="text-gray-700 dark:text-gray-300">
+                While this cipher was historically significant, it is now considered cryptographically weak. 
+                However, understanding its principles and breaking methods provides valuable insights into 
+                cryptographic concepts and the evolution of encryption techniques.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %} 

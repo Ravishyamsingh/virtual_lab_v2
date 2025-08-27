@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <!-- Navigation Bar -->
+    <nav class="bg-white dark:bg-gray-800 shadow-lg rounded-lg mb-6">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap items-center justify-between">
+                <div class="flex-1">
+                    <div class="flex items-center justify-between">
+                        <a class="text-xl font-bold text-gray-800 dark:text-white py-4" href="#">Shift Cipher</a>
+                        
+                        <div class="hidden md:flex md:items-center md:space-x-4">
+                            <a href="{{ url_for('shift_cipher.aim') }}" 
+                               class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-3 py-2 rounded-md {% if active_page == 'aim' %}bg-gray-100 dark:bg-gray-700{% endif %}">
+                                Aim
+                            </a>
+                            <a href="{{ url_for('shift_cipher.theory') }}" 
+                               class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-3 py-2 rounded-md {% if active_page == 'theory' %}bg-gray-100 dark:bg-gray-700{% endif %}">
+                                Theory
+                            </a>
+                            <a href="{{ url_for('shift_cipher.objective') }}" 
+                               class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-3 py-2 rounded-md {% if active_page == 'objective' %}bg-gray-100 dark:bg-gray-700{% endif %}">
+                                Objective
+                            </a>
+                            <a href="{{ url_for('shift_cipher.procedure') }}" 
+                               class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-3 py-2 rounded-md {% if active_page == 'procedure' %}bg-gray-100 dark:bg-gray-700{% endif %}">
+                                Procedure
+                            </a>
+                            <a href="{{ url_for('shift_cipher.simulation') }}" 
+                               class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-3 py-2 rounded-md {% if active_page == 'simulation' %}bg-gray-100 dark:bg-gray-700{% endif %}">
+                                Simulation
+                            </a>
+                            <a href="{{ url_for('shift_cipher.assignment') }}" 
+                               class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-3 py-2 rounded-md {% if active_page == 'assignment' %}bg-gray-100 dark:bg-gray-700{% endif %}">
+                                Assignment
+                            </a>
+                            <a href="{{ url_for('shift_cipher.reference') }}" 
+                               class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-3 py-2 rounded-md {% if active_page == 'reference' %}bg-gray-100 dark:bg-gray-700{% endif %}">
+                                Reference
+                            </a>
+                            <a href="{{ url_for('shift_cipher.feedback') }}" 
+                               class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-3 py-2 rounded-md {% if active_page == 'feedback' %}bg-gray-100 dark:bg-gray-700{% endif %}">
+                                Feedback
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content Area -->
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+        {% block cipher_content %}{% endblock %}
+    </div>
+</div>
+{% endblock %} 

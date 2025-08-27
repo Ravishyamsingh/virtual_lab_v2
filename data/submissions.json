@@ -1,0 +1,17 @@
+{
+  "submissions": [
+    {
+      "id": "8353760c-2278-415d-a951-309346c7614b",
+      "assignment_id": "a6eb45e2-f6f0-44db-adf7-947587418154",
+      "student_username": "student1",
+      "submitted_at": "2025-08-27T18:13:40.748911",
+      "content": "Caesar Cipher Analysis",
+      "files": [],
+      "status": "graded",
+      "grade": 100,
+      "feedback": "",
+      "graded_by": "ravishyam121",
+      "graded_at": "2025-08-27T18:39:48.871292"
+    }
+  ]
+}

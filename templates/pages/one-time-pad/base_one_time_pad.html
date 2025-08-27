@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8 bg-gray-900">
+    <!-- Navigation Bar -->
+    <nav class="bg-gray-800 shadow-lg rounded-lg mb-6">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap items-center justify-between">
+                <div class="flex-1">
+                    <div class="flex items-center justify-between">
+                        <a class="text-xl font-bold text-white py-4" href="#">One Time Pad Cipher</a>
+                        
+                        <div class="hidden md:flex md:items-center md:space-x-4">
+                            <a href="{{ url_for('one_time_pad.aim') }}" 
+                               class="text-gray-300 hover:text-white px-3 py-2 rounded-md {% if active_page == 'aim' %}bg-gray-700{% endif %}">
+                                Aim
+                            </a>
+                            <a href="{{ url_for('one_time_pad.theory') }}" 
+                               class="text-gray-300 hover:text-white px-3 py-2 rounded-md {% if active_page == 'theory' %}bg-gray-700{% endif %}">
+                                Theory
+                            </a>
+                            <a href="{{ url_for('one_time_pad.objective') }}" 
+                               class="text-gray-300 hover:text-white px-3 py-2 rounded-md {% if active_page == 'objective' %}bg-gray-700{% endif %}">
+                                Objective
+                            </a>
+                            <a href="{{ url_for('one_time_pad.procedure') }}" 
+                               class="text-gray-300 hover:text-white px-3 py-2 rounded-md {% if active_page == 'procedure' %}bg-gray-700{% endif %}">
+                                Procedure
+                            </a>
+                            <a href="{{ url_for('one_time_pad.simulation') }}" 
+                               class="text-gray-300 hover:text-white px-3 py-2 rounded-md {% if active_page == 'simulation' %}bg-gray-700{% endif %}">
+                                Simulation
+                            </a>
+                            <a href="{{ url_for('one_time_pad.assignment') }}" 
+                               class="text-gray-300 hover:text-white px-3 py-2 rounded-md {% if active_page == 'assignment' %}bg-gray-700{% endif %}">
+                                Assignment
+                            </a>
+                            <a href="{{ url_for('one_time_pad.reference') }}" 
+                               class="text-gray-300 hover:text-white px-3 py-2 rounded-md {% if active_page == 'reference' %}bg-gray-700{% endif %}">
+                                Reference
+                            </a>
+                            <a href="{{ url_for('one_time_pad.feedback') }}" 
+                               class="text-gray-300 hover:text-white px-3 py-2 rounded-md {% if active_page == 'feedback' %}bg-gray-700{% endif %}">
+                                Feedback
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button class="mobile-menu-button text-gray-300 hover:text-white focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div class="mobile-menu hidden md:hidden">
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    <a href="{{ url_for('one_time_pad.aim') }}" 
+                       class="block text-gray-300 hover:text-white px-3 py-2 rounded-md {% if active_page == 'aim' %}bg-gray-700{% endif %}">
+                        Aim
+                    </a>
+                    <a href="{{ url_for('one_time_pad.theory') }}" 
+                       class="block text-gray-300 hover:text-white px-3 py-2 rounded-md {% if active_page == 'theory' %}bg-gray-700{% endif %}">
+                        Theory
+                    </a>
+                    <a href="{{ url_for('one_time_pad.objective') }}" 
+                       class="block text-gray-300 hover:text-white px-3 py-2 rounded-md {% if active_page == 'objective' %}bg-gray-700{% endif %}">
+                        Objective
+                    </a>
+                    <a href="{{ url_for('one_time_pad.procedure') }}" 
+                       class="block text-gray-300 hover:text-white px-3 py-2 rounded-md {% if active_page == 'procedure' %}bg-gray-700{% endif %}">
+                        Procedure
+                    </a>
+                    <a href="{{ url_for('one_time_pad.simulation') }}" 
+                       class="block text-gray-300 hover:text-white px-3 py-2 rounded-md {% if active_page == 'simulation' %}bg-gray-700{% endif %}">
+                        Simulation
+                    </a>
+                    <a href="{{ url_for('one_time_pad.assignment') }}" 
+                       class="block text-gray-300 hover:text-white px-3 py-2 rounded-md {% if active_page == 'assignment' %}bg-gray-700{% endif %}">
+                        Assignment
+                    </a>
+                    <a href="{{ url_for('one_time_pad.reference') }}" 
+                       class="block text-gray-300 hover:text-white px-3 py-2 rounded-md {% if active_page == 'reference' %}bg-gray-700{% endif %}">
+                        Reference
+                    </a>
+                    <a href="{{ url_for('one_time_pad.feedback') }}" 
+                       class="block text-gray-300 hover:text-white px-3 py-2 rounded-md {% if active_page == 'feedback' %}bg-gray-700{% endif %}">
+                        Feedback
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="bg-gray-800 rounded-lg shadow-lg p-6">
+        {% block page_content %}{% endblock %}
+    </div>
+</div>
+
+<script>
+    // Mobile menu toggle
+    const mobileMenuButton = document.querySelector('.mobile-menu-button');
+    const mobileMenu = document.querySelector('.mobile-menu');
+
+    mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,115 @@
+{% extends "pages/des-algorithm/base_des_algorithm.html" %}
+
+{% block page_content %}
+<div class="bg-gray-800 shadow-xl rounded-lg overflow-hidden">
+    <div class="p-6">
+        <h1 class="text-2xl font-bold text-white mb-4">Procedure: Working with DES Algorithm</h1>
+        
+        <div class="prose prose-invert max-w-none">
+            <section class="mb-8">
+                <h2 class="text-xl font-semibold text-white mb-4">Step-by-Step Guide</h2>
+                
+                <div class="space-y-6">
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">Step 1: Initial Setup</h3>
+                        <ul class="list-disc pl-6 text-gray-300 space-y-1">
+                            <li>Navigate to the Simulation tab</li>
+                            <li>Familiarize yourself with the input areas and visualization panels</li>
+                            <li>Review the DES block diagram and components</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">Step 2: Key Generation</h3>
+                        <ul class="list-disc pl-6 text-gray-300 space-y-1">
+                            <li>Enter or generate a 64-bit key (56 bits + 8 parity bits)</li>
+                            <li>Observe the key schedule generation process</li>
+                            <li>Study how each round key is derived</li>
+                            <li>Note the bit rotations and permutations</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">Step 3: Encryption Process</h3>
+                        <ul class="list-disc pl-6 text-gray-300 space-y-1">
+                            <li>Enter a plaintext message (64-bit blocks)</li>
+                            <li>Observe the initial permutation (IP)</li>
+                            <li>Follow each round of the Feistel network</li>
+                            <li>Study the round function operations:
+                                <ul class="list-circle pl-6 mt-2 space-y-1">
+                                    <li>Expansion permutation</li>
+                                    <li>Key mixing (XOR)</li>
+                                    <li>S-box substitution</li>
+                                    <li>P-box permutation</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">Step 4: Analyzing S-box Operations</h3>
+                        <ul class="list-disc pl-6 text-gray-300 space-y-1">
+                            <li>Focus on one S-box transformation</li>
+                            <li>Observe how 6 bits are converted to 4 bits</li>
+                            <li>Study the nonlinear substitution process</li>
+                            <li>Note the impact on the output</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">Step 5: Decryption Process</h3>
+                        <ul class="list-disc pl-6 text-gray-300 space-y-1">
+                            <li>Use the ciphertext as input</li>
+                            <li>Observe how the round keys are used in reverse order</li>
+                            <li>Verify the recovered plaintext</li>
+                            <li>Compare encryption and decryption processes</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">Step 6: Security Analysis</h3>
+                        <ul class="list-disc pl-6 text-gray-300 space-y-1">
+                            <li>Test the avalanche effect by changing one bit</li>
+                            <li>Analyze the impact of weak keys</li>
+                            <li>Study the effect of different key patterns</li>
+                            <li>Examine the strength of the algorithm</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-xl font-semibold text-white mb-4">Important Notes</h2>
+                <div class="bg-gray-700 p-4 rounded-lg">
+                    <ul class="list-disc pl-6 text-gray-300 space-y-1">
+                        <li>Pay attention to the bit-level operations</li>
+                        <li>Understand the role of each component</li>
+                        <li>Document your observations for later reference</li>
+                        <li>Compare results with theoretical expectations</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-semibold text-white mb-4">Tips for Better Understanding</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">Visualization</h3>
+                        <p class="text-gray-300">
+                            Use the interactive visualizations to track bit transformations and understand the flow of data 
+                            through the algorithm.
+                        </p>
+                    </div>
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">Practice</h3>
+                        <p class="text-gray-300">
+                            Try different input patterns and key combinations to better understand how the algorithm behaves
+                            in various scenarios.
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock %}

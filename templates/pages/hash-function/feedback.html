@@ -1,0 +1,158 @@
+{% extends "pages/hash-function/base_hash_function.html" %}
+
+{% block page_content %}
+<div class="bg-gray-800 shadow-xl rounded-lg overflow-hidden">
+    <div class="p-6">
+        <h1 class="text-2xl font-bold text-white mb-6">Feedback Form</h1>
+
+        <div class="space-y-8">
+            <form id="feedback-form" class="space-y-6">
+                <!-- Personal Information -->
+                <div class="bg-gray-700 p-4 rounded-lg">
+                    <h2 class="text-xl font-semibold text-white mb-4">Personal Information</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-300 mb-1">Name</label>
+                            <input type="text" id="name" name="name" required
+                                   class="w-full p-2 bg-gray-800 border border-gray-600 rounded-md text-gray-300">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-300 mb-1">Email</label>
+                            <input type="email" id="email" name="email" required
+                                   class="w-full p-2 bg-gray-800 border border-gray-600 rounded-md text-gray-300">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lab Experience -->
+                <div class="bg-gray-700 p-4 rounded-lg">
+                    <h2 class="text-xl font-semibold text-white mb-4">Lab Experience</h2>
+                    
+                    <!-- Content Quality -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-300 mb-2">Content Quality</label>
+                        <div class="flex space-x-4">
+                            <label class="flex items-center">
+                                <input type="radio" name="content-quality" value="excellent" class="text-blue-500">
+                                <span class="ml-2 text-gray-300">Excellent</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="content-quality" value="good" class="text-blue-500">
+                                <span class="ml-2 text-gray-300">Good</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="content-quality" value="average" class="text-blue-500">
+                                <span class="ml-2 text-gray-300">Average</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="content-quality" value="poor" class="text-blue-500">
+                                <span class="ml-2 text-gray-300">Poor</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Visualization Clarity -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-300 mb-2">Visualization Clarity</label>
+                        <div class="flex space-x-4">
+                            <label class="flex items-center">
+                                <input type="radio" name="visualization" value="excellent" class="text-blue-500">
+                                <span class="ml-2 text-gray-300">Excellent</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="visualization" value="good" class="text-blue-500">
+                                <span class="ml-2 text-gray-300">Good</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="visualization" value="average" class="text-blue-500">
+                                <span class="ml-2 text-gray-300">Average</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="visualization" value="poor" class="text-blue-500">
+                                <span class="ml-2 text-gray-300">Poor</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- User Interface -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-300 mb-2">User Interface</label>
+                        <div class="flex space-x-4">
+                            <label class="flex items-center">
+                                <input type="radio" name="ui" value="excellent" class="text-blue-500">
+                                <span class="ml-2 text-gray-300">Excellent</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="ui" value="good" class="text-blue-500">
+                                <span class="ml-2 text-gray-300">Good</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="ui" value="average" class="text-blue-500">
+                                <span class="ml-2 text-gray-300">Average</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="ui" value="poor" class="text-blue-500">
+                                <span class="ml-2 text-gray-300">Poor</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detailed Feedback -->
+                <div class="bg-gray-700 p-4 rounded-lg">
+                    <h2 class="text-xl font-semibold text-white mb-4">Detailed Feedback</h2>
+                    
+                    <!-- What you liked -->
+                    <div class="mb-4">
+                        <label for="liked" class="block text-sm font-medium text-gray-300 mb-1">What aspects of the lab did you like?</label>
+                        <textarea id="liked" name="liked" rows="3"
+                                class="w-full p-2 bg-gray-800 border border-gray-600 rounded-md text-gray-300"></textarea>
+                    </div>
+
+                    <!-- Improvements -->
+                    <div class="mb-4">
+                        <label for="improvements" class="block text-sm font-medium text-gray-300 mb-1">What could be improved?</label>
+                        <textarea id="improvements" name="improvements" rows="3"
+                                class="w-full p-2 bg-gray-800 border border-gray-600 rounded-md text-gray-300"></textarea>
+                    </div>
+
+                    <!-- Additional Comments -->
+                    <div>
+                        <label for="comments" class="block text-sm font-medium text-gray-300 mb-1">Additional Comments</label>
+                        <textarea id="comments" name="comments" rows="3"
+                                class="w-full p-2 bg-gray-800 border border-gray-600 rounded-md text-gray-300"></textarea>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="flex justify-center">
+                    <button type="submit" 
+                            class="px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors">
+                        Submit Feedback
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('feedback-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Collect form data
+    const formData = new FormData(this);
+    const feedbackData = {};
+    formData.forEach((value, key) => {
+        feedbackData[key] = value;
+    });
+
+    // Here you would typically send this data to your server
+    console.log('Feedback submitted:', feedbackData);
+
+    // Show success message
+    alert('Thank you for your feedback!');
+    this.reset();
+});
+</script>
+{% endblock %}

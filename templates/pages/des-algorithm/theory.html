@@ -1,0 +1,133 @@
+{% extends "pages/des-algorithm/base_des_algorithm.html" %}
+
+{% block page_content %}
+<div class="bg-gray-800 shadow-xl rounded-lg overflow-hidden">
+    <div class="p-6">
+        <h1 class="text-2xl font-bold text-white mb-4">Theory: Data Encryption Standard (DES)</h1>
+        
+        <div class="prose prose-invert max-w-none">
+            <section class="mb-8">
+                <h2 class="text-xl font-semibold text-white mb-4">Introduction to DES</h2>
+                <div class="bg-gray-700 p-4 rounded-lg">
+                    <p class="text-gray-300">
+                        The Data Encryption Standard (DES) is a symmetric-key block cipher that was the federal standard 
+                        for non-classified data in the United States from 1977 to 2002. DES encrypts data in 64-bit blocks 
+                        using a 56-bit key (technically 64 bits with 8 parity bits).
+                    </p>
+                </div>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-xl font-semibold text-white mb-4">Core Components</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">1. Initial Permutation (IP)</h3>
+                        <p class="text-gray-300">
+                            Rearranges the bits of the input block in a fixed pattern. This permutation and its inverse 
+                            are essential for the algorithm's diffusion property.
+                        </p>
+                    </div>
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">2. Feistel Network</h3>
+                        <p class="text-gray-300">
+                            The core structure consisting of 16 rounds, where each round applies the same sequence of 
+                            operations with different round keys.
+                        </p>
+                    </div>
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">3. Round Function (F)</h3>
+                        <p class="text-gray-300">
+                            The heart of DES, including expansion, key mixing, S-box substitution, and permutation operations.
+                        </p>
+                    </div>
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">4. Key Schedule</h3>
+                        <p class="text-gray-300">
+                            Generates 16 different 48-bit round keys from the initial 56-bit key through a series of 
+                            permutations and rotations.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-xl font-semibold text-white mb-4">The DES Round Function</h2>
+                <div class="bg-gray-700 p-4 rounded-lg">
+                    <h3 class="text-lg font-medium text-white mb-2">Steps in Each Round:</h3>
+                    <ol class="list-decimal pl-6 text-gray-300 space-y-2">
+                        <li>
+                            <strong>Expansion (E):</strong> Expands the 32-bit right half to 48 bits by duplicating 
+                            certain bits
+                        </li>
+                        <li>
+                            <strong>Key Mixing:</strong> XOR operation with the round key
+                        </li>
+                        <li>
+                            <strong>S-box Substitution:</strong> Transforms 48 bits into 32 bits using eight 6-to-4 bit 
+                            substitution boxes
+                        </li>
+                        <li>
+                            <strong>Permutation (P):</strong> Rearranges the 32 bits output from the S-boxes
+                        </li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-xl font-semibold text-white mb-4">S-Boxes</h2>
+                <div class="bg-gray-700 p-4 rounded-lg">
+                    <p class="text-gray-300 mb-4">
+                        The S-boxes (Substitution boxes) are the only nonlinear element in DES and are crucial for its 
+                        security. Each S-box:
+                    </p>
+                    <ul class="list-disc pl-6 text-gray-300 space-y-1">
+                        <li>Takes 6 bits input and produces 4 bits output</li>
+                        <li>Uses outer bits (1st and 6th) to select row</li>
+                        <li>Uses inner bits (2nd through 5th) to select column</li>
+                        <li>Contains carefully chosen values to resist cryptanalysis</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-xl font-semibold text-white mb-4">Key Schedule</h2>
+                <div class="bg-gray-700 p-4 rounded-lg">
+                    <div class="space-y-4">
+                        <p class="text-gray-300">
+                            The key schedule generates 16 48-bit round keys from the initial 56-bit key:
+                        </p>
+                        <ol class="list-decimal pl-6 text-gray-300 space-y-2">
+                            <li>Initial permuted choice (PC-1) selects 56 bits from the 64-bit key</li>
+                            <li>Split into 28-bit halves</li>
+                            <li>Each half is rotated left by 1 or 2 positions depending on the round</li>
+                            <li>Permuted choice 2 (PC-2) selects 48 bits from the rotated 56 bits</li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-semibold text-white mb-4">Security Considerations</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">Strengths</h3>
+                        <ul class="list-disc pl-4 text-gray-300 space-y-1">
+                            <li>Strong avalanche effect</li>
+                            <li>Well-studied algorithm</li>
+                            <li>Resistant to differential cryptanalysis</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-2">Limitations</h3>
+                        <ul class="list-disc pl-4 text-gray-300 space-y-1">
+                            <li>56-bit key is too short by modern standards</li>
+                            <li>Vulnerable to exhaustive key search</li>
+                            <li>Replaced by AES for most applications</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock %}

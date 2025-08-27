@@ -1,0 +1,296 @@
+{% extends "pages/dsa-algorithm/base_dsa_algorithm.html" %}
+
+{% block page_content %}
+<div class="content-section">
+    <div class="section-card">
+        <h2 class="section-title">📝 Assignment</h2>
+        
+        <div class="assignment-content">
+            <h3>DSA Algorithm Implementation Assignment</h3>
+            
+            <div class="assignment-overview">
+                <h4>Assignment Overview</h4>
+                <p>This assignment focuses on implementing and understanding the Digital Signature Algorithm (DSA) through hands-on exercises and theoretical analysis.</p>
+            </div>
+            
+            <div class="assignment-tasks">
+                <h4>Task 1: Basic DSA Implementation (25 points)</h4>
+                <div class="task-content">
+                    <p><strong>Objective:</strong> Implement a basic DSA key generation and signature system.</p>
+                    <ul>
+                        <li>Generate DSA parameters (p, q, g) with appropriate sizes</li>
+                        <li>Create a key pair (private key x, public key y)</li>
+                        <li>Sign a given message using your implementation</li>
+                        <li>Verify the signature using the public key</li>
+                    </ul>
+                    <p><strong>Deliverables:</strong> Code implementation with comments explaining each step</p>
+                </div>
+                
+                <h4>Task 2: Security Analysis (20 points)</h4>
+                <div class="task-content">
+                    <p><strong>Objective:</strong> Analyze the security properties of DSA implementation.</p>
+                    <ul>
+                        <li>Explain the role of the discrete logarithm problem in DSA security</li>
+                        <li>Discuss the importance of proper random number generation</li>
+                        <li>Analyze what happens if the same k value is used twice</li>
+                        <li>Compare DSA security with RSA and ECDSA</li>
+                    </ul>
+                    <p><strong>Deliverables:</strong> 2-3 page security analysis report</p>
+                </div>
+                
+                <h4>Task 3: Parameter Analysis (15 points)</h4>
+                <div class="task-content">
+                    <p><strong>Objective:</strong> Understand the relationship between DSA parameters.</p>
+                    <ul>
+                        <li>Experiment with different parameter sizes</li>
+                        <li>Measure the impact of parameter size on performance</li>
+                        <li>Verify that q divides (p-1) for your generated parameters</li>
+                        <li>Test the generator g properties</li>
+                    </ul>
+                    <p><strong>Deliverables:</strong> Parameter analysis with performance measurements</p>
+                </div>
+                
+                <h4>Task 4: Signature Verification Deep Dive (20 points)</h4>
+                <div class="task-content">
+                    <p><strong>Objective:</strong> Understand the mathematical foundation of signature verification.</p>
+                    <ul>
+                        <li>Manually verify a signature using the verification formula</li>
+                        <li>Explain why the verification equation v = r works</li>
+                        <li>Demonstrate what happens with an invalid signature</li>
+                        <li>Show the step-by-step verification process</li>
+                    </ul>
+                    <p><strong>Deliverables:</strong> Mathematical proof and verification examples</p>
+                </div>
+                
+                <h4>Task 5: Practical Implementation (20 points)</h4>
+                <div class="task-content">
+                    <p><strong>Objective:</strong> Create a practical DSA application.</p>
+                    <ul>
+                        <li>Build a simple document signing application</li>
+                        <li>Implement proper error handling and input validation</li>
+                        <li>Add support for different hash functions</li>
+                        <li>Create a user-friendly interface</li>
+                    </ul>
+                    <p><strong>Deliverables:</strong> Working application with user documentation</p>
+                </div>
+            </div>
+            
+            <div class="questions-section">
+                <h4>Theory Questions</h4>
+                
+                <div class="question">
+                    <h5>Question 1: Mathematical Foundation (5 points)</h5>
+                    <p>Explain the discrete logarithm problem and its role in DSA security. Why is it computationally difficult to solve?</p>
+                </div>
+                
+                <div class="question">
+                    <h5>Question 2: Parameter Selection (5 points)</h5>
+                    <p>Why must q divide (p-1) in DSA? What would happen if this condition is not met?</p>
+                </div>
+                
+                <div class="question">
+                    <h5>Question 3: Random Number Importance (5 points)</h5>
+                    <p>What are the security implications if the same random number k is used to sign two different messages?</p>
+                </div>
+                
+                <div class="question">
+                    <h5>Question 4: Signature Verification (5 points)</h5>
+                    <p>Walk through the mathematical steps that prove why the verification equation v = r works in DSA.</p>
+                </div>
+                
+                <div class="question">
+                    <h5>Question 5: Comparison Analysis (5 points)</h5>
+                    <p>Compare DSA with RSA signatures in terms of signature size, computation speed, and security assumptions.</p>
+                </div>
+            </div>
+            
+            <div class="practical-exercises">
+                <h4>Practical Exercises</h4>
+                
+                <div class="exercise">
+                    <h5>Exercise 1: Parameter Generation</h5>
+                    <p>Generate DSA parameters with the following specifications:</p>
+                    <ul>
+                        <li>q: 160-bit prime</li>
+                        <li>p: 1024-bit prime where q divides (p-1)</li>
+                        <li>g: generator of order q modulo p</li>
+                    </ul>
+                    <p>Document the generation process and verify the parameters.</p>
+                </div>
+                
+                <div class="exercise">
+                    <h5>Exercise 2: Signature Analysis</h5>
+                    <p>Sign the message "Hello, DSA!" using your implementation and:</p>
+                    <ul>
+                        <li>Show all intermediate values</li>
+                        <li>Verify the signature manually</li>
+                        <li>Modify one bit of the message and show verification failure</li>
+                    </ul>
+                </div>
+                
+                <div class="exercise">
+                    <h5>Exercise 3: Performance Testing</h5>
+                    <p>Measure the performance of your DSA implementation:</p>
+                    <ul>
+                        <li>Key generation time</li>
+                        <li>Signature generation time</li>
+                        <li>Signature verification time</li>
+                        <li>Compare with different parameter sizes</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="submission-guidelines">
+                <h4>Submission Guidelines</h4>
+                <ul>
+                    <li><strong>Format:</strong> Submit all code, reports, and documentation in a single ZIP file</li>
+                    <li><strong>Code:</strong> Include well-commented source code with clear variable names</li>
+                    <li><strong>Documentation:</strong> Provide README file explaining how to run your implementation</li>
+                    <li><strong>Reports:</strong> Submit reports in PDF format with proper formatting</li>
+                    <li><strong>Testing:</strong> Include test cases demonstrating your implementation works correctly</li>
+                </ul>
+            </div>
+            
+            <div class="grading-rubric">
+                <h4>Grading Rubric</h4>
+                <table class="rubric-table">
+                    <tr>
+                        <th>Criteria</th>
+                        <th>Excellent (A)</th>
+                        <th>Good (B)</th>
+                        <th>Satisfactory (C)</th>
+                        <th>Needs Improvement (D)</th>
+                    </tr>
+                    <tr>
+                        <td>Code Quality</td>
+                        <td>Clean, well-commented, efficient</td>
+                        <td>Good structure, adequate comments</td>
+                        <td>Basic functionality working</td>
+                        <td>Minimal functionality, poor structure</td>
+                    </tr>
+                    <tr>
+                        <td>Mathematical Understanding</td>
+                        <td>Complete understanding of DSA math</td>
+                        <td>Good grasp of key concepts</td>
+                        <td>Basic understanding</td>
+                        <td>Limited understanding</td>
+                    </tr>
+                    <tr>
+                        <td>Security Analysis</td>
+                        <td>Thorough analysis of security aspects</td>
+                        <td>Good security considerations</td>
+                        <td>Basic security awareness</td>
+                        <td>Minimal security analysis</td>
+                    </tr>
+                    <tr>
+                        <td>Documentation</td>
+                        <td>Comprehensive, clear documentation</td>
+                        <td>Good documentation with examples</td>
+                        <td>Basic documentation</td>
+                        <td>Minimal or unclear documentation</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="additional-resources">
+                <h4>Additional Resources</h4>
+                <ul>
+                    <li><strong>NIST DSA Standard:</strong> Review the official DSA specification</li>
+                    <li><strong>Cryptography Textbooks:</strong> Consult standard cryptography references</li>
+                    <li><strong>Online Resources:</strong> Use reputable cryptography websites and papers</li>
+                    <li><strong>Code Libraries:</strong> Study existing DSA implementations for reference</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.assignment-content {
+    line-height: 1.6;
+    color: #e5e7eb;
+}
+
+.assignment-content h3 {
+    color: #3b82f6;
+    margin-bottom: 1rem;
+}
+
+.assignment-content h4 {
+    color: #10b981;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.assignment-content h5 {
+    color: #f59e0b;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.assignment-overview {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: rgba(59, 130, 246, 0.1);
+    border-radius: 8px;
+    border-left: 4px solid #3b82f6;
+}
+
+.task-content {
+    margin-left: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: rgba(55, 65, 81, 0.3);
+    border-radius: 8px;
+}
+
+.question, .exercise {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: rgba(55, 65, 81, 0.3);
+    border-radius: 8px;
+    border-left: 4px solid #f59e0b;
+}
+
+.submission-guidelines {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: rgba(16, 185, 129, 0.1);
+    border-radius: 8px;
+    border-left: 4px solid #10b981;
+}
+
+.rubric-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    background: rgba(55, 65, 81, 0.3);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.rubric-table th, .rubric-table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #374151;
+}
+
+.rubric-table th {
+    background: rgba(59, 130, 246, 0.2);
+    color: #3b82f6;
+    font-weight: 600;
+}
+
+.rubric-table tr:hover {
+    background: rgba(75, 85, 99, 0.3);
+}
+
+.additional-resources {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: rgba(139, 92, 246, 0.1);
+    border-radius: 8px;
+    border-left: 4px solid #8b5cf6;
+}
+</style>
+{% endblock %}

@@ -1,0 +1,302 @@
+{% extends "pages/dsa-algorithm/base_dsa_algorithm.html" %}
+
+{% block page_content %}
+<div class="content-section">
+    <div class="section-card">
+        <h2 class="section-title">📚 References</h2>
+        
+        <div class="references-content">
+            <h3>Academic References</h3>
+            
+            <div class="reference-section">
+                <h4>Primary Sources</h4>
+                
+                <div class="reference-item">
+                    <h5>NIST Digital Signature Standard (DSS)</h5>
+                    <p><strong>Title:</strong> Digital Signature Standard (DSS)</p>
+                    <p><strong>Publisher:</strong> National Institute of Standards and Technology (NIST)</p>
+                    <p><strong>Document:</strong> FIPS PUB 186-4</p>
+                    <p><strong>Date:</strong> July 2013</p>
+                    <p><strong>URL:</strong> <a href="https://csrc.nist.gov/publications/detail/fips/186/4/final" target="_blank">https://csrc.nist.gov/publications/detail/fips/186/4/final</a></p>
+                    <p><strong>Description:</strong> The official NIST standard for digital signatures including DSA, RSA, and ECDSA specifications.</p>
+                </div>
+                
+                <div class="reference-item">
+                    <h5>Original DSA Proposal</h5>
+                    <p><strong>Title:</strong> A Proposed Federal Information Processing Standard for Digital Signature Algorithm</p>
+                    <p><strong>Publisher:</strong> National Institute of Standards and Technology</p>
+                    <p><strong>Document:</strong> FIPS PUB 186</p>
+                    <p><strong>Date:</strong> 1991</p>
+                    <p><strong>Description:</strong> The original DSA proposal that introduced the Digital Signature Algorithm to the cryptographic community.</p>
+                </div>
+            </div>
+            
+            <div class="reference-section">
+                <h4>Textbooks and Academic Sources</h4>
+                
+                <div class="reference-item">
+                    <h5>Introduction to Modern Cryptography</h5>
+                    <p><strong>Authors:</strong> Jonathan Katz and Yehuda Lindell</p>
+                    <p><strong>Publisher:</strong> CRC Press</p>
+                    <p><strong>Edition:</strong> 2nd Edition</p>
+                    <p><strong>Year:</strong> 2014</p>
+                    <p><strong>ISBN:</strong> 978-1466570269</p>
+                    <p><strong>Chapters:</strong> Chapter 13 (Digital Signatures)</p>
+                    <p><strong>Description:</strong> Comprehensive coverage of digital signature schemes including DSA with rigorous mathematical treatment.</p>
+                </div>
+                
+                <div class="reference-item">
+                    <h5>Handbook of Applied Cryptography</h5>
+                    <p><strong>Authors:</strong> Alfred J. Menezes, Paul C. van Oorschot, and Scott A. Vanstone</p>
+                    <p><strong>Publisher:</strong> CRC Press</p>
+                    <p><strong>Year:</strong> 1996</p>
+                    <p><strong>ISBN:</strong> 978-0849385230</p>
+                    <p><strong>Chapters:</strong> Chapter 11 (Digital Signatures)</p>
+                    <p><strong>URL:</strong> <a href="http://cacr.uwaterloo.ca/hac/" target="_blank">http://cacr.uwaterloo.ca/hac/</a></p>
+                    <p><strong>Description:</strong> Authoritative reference on cryptographic algorithms including detailed DSA implementation guidance.</p>
+                </div>
+                
+                <div class="reference-item">
+                    <h5>Cryptography Engineering</h5>
+                    <p><strong>Authors:</strong> Niels Ferguson, Bruce Schneier, and Tadayoshi Kohno</p>
+                    <p><strong>Publisher:</strong> Wiley</p>
+                    <p><strong>Year:</strong> 2010</p>
+                    <p><strong>ISBN:</strong> 978-0470474242</p>
+                    <p><strong>Description:</strong> Practical approach to implementing cryptographic systems with security considerations.</p>
+                </div>
+            </div>
+            
+            <div class="reference-section">
+                <h4>Research Papers</h4>
+                
+                <div class="reference-item">
+                    <h5>The Digital Signature Algorithm</h5>
+                    <p><strong>Author:</strong> Claus P. Schnorr</p>
+                    <p><strong>Journal:</strong> Journal of Cryptology</p>
+                    <p><strong>Volume:</strong> 4</p>
+                    <p><strong>Pages:</strong> 161-174</p>
+                    <p><strong>Year:</strong> 1991</p>
+                    <p><strong>Description:</strong> Foundational paper on the mathematical principles underlying DSA.</p>
+                </div>
+                
+                <div class="reference-item">
+                    <h5>Security Analysis of the DSA</h5>
+                    <p><strong>Authors:</strong> Various cryptographic researchers</p>
+                    <p><strong>Description:</strong> Multiple research papers analyzing the security properties and potential vulnerabilities of DSA.</p>
+                </div>
+            </div>
+            
+            <div class="reference-section">
+                <h4>Online Resources</h4>
+                
+                <div class="reference-item">
+                    <h5>Cryptography Stack Exchange</h5>
+                    <p><strong>URL:</strong> <a href="https://crypto.stackexchange.com/" target="_blank">https://crypto.stackexchange.com/</a></p>
+                    <p><strong>Description:</strong> Community-driven Q&A platform for cryptography questions including DSA implementation and security topics.</p>
+                </div>
+                
+                <div class="reference-item">
+                    <h5>RFC 6979 - Deterministic Usage of DSA</h5>
+                    <p><strong>Title:</strong> Deterministic Usage of the Digital Signature Algorithm (DSA) and Elliptic Curve Digital Signature Algorithm (ECDSA)</p>
+                    <p><strong>Author:</strong> T. Pornin</p>
+                    <p><strong>Date:</strong> August 2013</p>
+                    <p><strong>URL:</strong> <a href="https://tools.ietf.org/html/rfc6979" target="_blank">https://tools.ietf.org/html/rfc6979</a></p>
+                    <p><strong>Description:</strong> Specification for deterministic signature generation to avoid the risks of poor random number generation.</p>
+                </div>
+                
+                <div class="reference-item">
+                    <h5>Cryptopals Challenges</h5>
+                    <p><strong>URL:</strong> <a href="https://cryptopals.com/" target="_blank">https://cryptopals.com/</a></p>
+                    <p><strong>Description:</strong> Hands-on cryptography challenges including DSA implementation and attack scenarios.</p>
+                </div>
+            </div>
+            
+            <div class="reference-section">
+                <h4>Software Libraries and Tools</h4>
+                
+                <div class="reference-item">
+                    <h5>OpenSSL</h5>
+                    <p><strong>URL:</strong> <a href="https://www.openssl.org/" target="_blank">https://www.openssl.org/</a></p>
+                    <p><strong>Description:</strong> Open-source cryptographic library with robust DSA implementation.</p>
+                </div>
+                
+                <div class="reference-item">
+                    <h5>Bouncy Castle</h5>
+                    <p><strong>URL:</strong> <a href="https://www.bouncycastle.org/" target="_blank">https://www.bouncycastle.org/</a></p>
+                    <p><strong>Description:</strong> Comprehensive cryptography library available for Java, C#, and C++.</p>
+                </div>
+                
+                <div class="reference-item">
+                    <h5>PyCrypto/PyCryptodome</h5>
+                    <p><strong>URL:</strong> <a href="https://pycryptodome.readthedocs.io/" target="_blank">https://pycryptodome.readthedocs.io/</a></p>
+                    <p><strong>Description:</strong> Python cryptographic library with DSA implementation.</p>
+                </div>
+            </div>
+            
+            <div class="reference-section">
+                <h4>Standards and Specifications</h4>
+                
+                <div class="reference-item">
+                    <h5>ANSI X9.30</h5>
+                    <p><strong>Title:</strong> Public Key Cryptography for the Financial Services Industry</p>
+                    <p><strong>Publisher:</strong> American National Standards Institute</p>
+                    <p><strong>Description:</strong> Standard that includes DSA specifications for financial applications.</p>
+                </div>
+                
+                <div class="reference-item">
+                    <h5>IEEE P1363</h5>
+                    <p><strong>Title:</strong> Standard Specifications for Public Key Cryptography</p>
+                    <p><strong>Publisher:</strong> Institute of Electrical and Electronics Engineers</p>
+                    <p><strong>Description:</strong> Comprehensive standard for public key cryptography including DSA.</p>
+                </div>
+            </div>
+            
+            <div class="reference-section">
+                <h4>Historical Context</h4>
+                
+                <div class="reference-item">
+                    <h5>The DSA Patent Controversy</h5>
+                    <p><strong>Description:</strong> Historical overview of the patent issues surrounding DSA and their resolution.</p>
+                    <p><strong>Key Points:</strong> Understanding the legal and technical background of DSA adoption.</p>
+                </div>
+                
+                <div class="reference-item">
+                    <h5>NSA's Role in DSA Development</h5>
+                    <p><strong>Description:</strong> Analysis of the National Security Agency's involvement in DSA standardization.</p>
+                    <p><strong>Significance:</strong> Important for understanding the security considerations and trust issues.</p>
+                </div>
+            </div>
+            
+            <div class="reference-section">
+                <h4>Security Analysis and Attacks</h4>
+                
+                <div class="reference-item">
+                    <h5>Known Attacks on DSA</h5>
+                    <p><strong>Topics:</strong></p>
+                    <ul>
+                        <li>Nonce reuse attacks</li>
+                        <li>Timing attacks</li>
+                        <li>Side-channel attacks</li>
+                        <li>Weak random number generation</li>
+                    </ul>
+                </div>
+                
+                <div class="reference-item">
+                    <h5>DSA Security Proofs</h5>
+                    <p><strong>Description:</strong> Mathematical proofs of DSA security under various assumptions.</p>
+                    <p><strong>Key Concepts:</strong> Discrete logarithm problem, random oracle model, security reductions.</p>
+                </div>
+            </div>
+            
+            <div class="reference-section">
+                <h4>Implementation Guidelines</h4>
+                
+                <div class="reference-item">
+                    <h5>Secure Implementation Best Practices</h5>
+                    <ul>
+                        <li>Proper random number generation</li>
+                        <li>Constant-time implementations</li>
+                        <li>Parameter validation</li>
+                        <li>Side-channel attack mitigation</li>
+                    </ul>
+                </div>
+                
+                <div class="reference-item">
+                    <h5>Common Implementation Pitfalls</h5>
+                    <ul>
+                        <li>Weak parameter generation</li>
+                        <li>Predictable nonce values</li>
+                        <li>Insufficient input validation</li>
+                        <li>Timing vulnerabilities</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="reference-section">
+                <h4>Related Algorithms</h4>
+                
+                <div class="reference-item">
+                    <h5>Elliptic Curve DSA (ECDSA)</h5>
+                    <p><strong>Description:</strong> Elliptic curve variant of DSA with smaller key sizes and similar security properties.</p>
+                </div>
+                
+                <div class="reference-item">
+                    <h5>Schnorr Signatures</h5>
+                    <p><strong>Description:</strong> Alternative signature scheme with simpler structure and better security proofs.</p>
+                </div>
+                
+                <div class="reference-item">
+                    <h5>EdDSA</h5>
+                    <p><strong>Description:</strong> Modern signature scheme based on Edwards curves with deterministic signatures.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.references-content {
+    line-height: 1.6;
+    color: #e5e7eb;
+}
+
+.references-content h3 {
+    color: #3b82f6;
+    margin-bottom: 2rem;
+}
+
+.reference-section {
+    margin-bottom: 3rem;
+}
+
+.reference-section h4 {
+    color: #10b981;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #10b981;
+    padding-bottom: 0.5rem;
+}
+
+.reference-item {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: rgba(55, 65, 81, 0.3);
+    border-radius: 8px;
+    border-left: 4px solid #3b82f6;
+}
+
+.reference-item h5 {
+    color: #f59e0b;
+    margin-bottom: 0.5rem;
+}
+
+.reference-item p {
+    margin-bottom: 0.5rem;
+    color: #d1d5db;
+}
+
+.reference-item a {
+    color: #60a5fa;
+    text-decoration: none;
+}
+
+.reference-item a:hover {
+    color: #93c5fd;
+    text-decoration: underline;
+}
+
+.reference-item ul {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    padding-left: 1.5rem;
+}
+
+.reference-item li {
+    margin-bottom: 0.25rem;
+    color: #d1d5db;
+}
+
+.reference-item strong {
+    color: #e5e7eb;
+}
+</style>
+{% endblock %}

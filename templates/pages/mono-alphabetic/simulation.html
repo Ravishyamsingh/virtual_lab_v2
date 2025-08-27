@@ -1,0 +1,592 @@
+{% extends "pages/mono-alphabetic/base_mono_alphabetic.html" %}
+
+{% block cipher_content %}
+<h1 class="text-2xl font-bold text-gray-800 mb-6">Simulation: Mono-alphabetic Substitution Cipher</h1>
+
+<div class="max-w-4xl mx-auto">
+    <!-- Encryption Section -->
+    <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">Encryption Tool</h2>
+        <div class="space-y-4">
+            <div class="grid grid-cols-1 gap-4">
+                <div>
+                    <label for="plaintext" class="block text-sm font-medium text-gray-700 mb-1">Enter Plaintext:</label>
+                    <input type="text" id="plaintext" class="w-full p-2 border rounded-md" 
+                           placeholder="Enter text to encrypt">
+                </div>
+            </div>
+
+            <!-- Current Substitution Display -->
+            <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4 text-center">Current Substitution Key</h3>
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <div class="text-sm font-medium text-gray-700 mb-3 text-center">Original Alphabet</div>
+                        <div id="current-mapping-original" class="flex flex-wrap gap-2 justify-center font-mono"></div>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <div class="text-sm font-medium text-gray-700 mb-3 text-center">Substitution Alphabet</div>
+                        <div id="current-mapping-substitution" class="flex flex-wrap gap-2 justify-center font-mono"></div>
+                    </div>
+                </div>
+                
+                <!-- Add Description Section -->
+                <div class="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-100">
+                    <h4 class="text-sm font-semibold text-blue-800 mb-2">How It Works:</h4>
+                    <div class="text-sm text-blue-700 space-y-2">
+                        <p><span class="font-semibold">1.</span> Each letter in the original alphabet is mapped to a unique letter in the substitution alphabet.</p>
+                        <p><span class="font-semibold">2.</span> Hover over any letter to see its corresponding mapping. The arrow (→) indicates which letter is substituted for which.</p>
+                        <p><span class="font-semibold">3.</span> When you encrypt text, each letter in your message is replaced with its corresponding letter from the substitution alphabet.</p>
+                        <p class="text-xs italic mt-2">Tip: Click "New Key" to generate a different random substitution mapping.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Enhanced Encryption Visualization -->
+            <div class="mt-4 mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Encryption Process:</label>
+                <div class="relative border rounded-md p-6 bg-gradient-to-b from-gray-50 to-gray-100 min-h-[300px]">
+                    <div id="visualization-area" class="space-y-8">
+                        <!-- Plaintext Display -->
+                        <div class="flex flex-col items-center space-y-2">
+                            <div class="text-sm font-medium text-gray-600">Original Text</div>
+                            <div id="plaintext-display" class="flex flex-wrap justify-center gap-2"></div>
+                        </div>
+
+                        <!-- Substitution Process Visualization -->
+                        <div id="substitution-process" class="flex justify-center items-center h-24"></div>
+
+                        <!-- Ciphertext Display -->
+                        <div class="flex flex-col items-center space-y-2">
+                            <div class="text-sm font-medium text-gray-600">Encrypted Text</div>
+                            <div id="ciphertext-display" class="flex flex-wrap justify-center gap-2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-center space-x-4">
+                <button onclick="randomizeSubstitution()" class="bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition duration-300">
+                    New Key
+                </button>
+                <button onclick="encrypt()" class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition duration-300">
+                    Encrypt
+                </button>
+            </div>
+
+            <div class="mt-4">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Final Result:</label>
+                <div id="encryption-result" class="p-4 bg-gray-100 rounded-md font-mono text-center text-lg"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Decryption Section -->
+    <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">Decryption Tool</h2>
+        <div class="space-y-4">
+            <div class="grid grid-cols-1 gap-4">
+                <div>
+                    <label for="ciphertext" class="block text-sm font-medium text-gray-700 mb-1">Enter Ciphertext:</label>
+                    <input type="text" id="ciphertext" class="w-full p-2 border rounded-md" 
+                           placeholder="Enter text to decrypt">
+                </div>
+            </div>
+
+            <!-- Enhanced Decryption Visualization -->
+            <div class="mt-4 mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Decryption Process:</label>
+                <div class="relative border rounded-md p-6 bg-gradient-to-b from-gray-50 to-gray-100 min-h-[300px]">
+                    <div id="decryption-visualization-area" class="space-y-8">
+                        <!-- Ciphertext Display -->
+                        <div class="flex flex-col items-center space-y-2">
+                            <div class="text-sm font-medium text-gray-600">Encrypted Text</div>
+                            <div id="decrypt-ciphertext-display" class="flex flex-wrap justify-center gap-2"></div>
+                        </div>
+
+                        <!-- Substitution Process Visualization -->
+                        <div id="decryption-process" class="flex justify-center items-center h-24"></div>
+
+                        <!-- Plaintext Display -->
+                        <div class="flex flex-col items-center space-y-2">
+                            <div class="text-sm font-medium text-gray-600">Decrypted Text</div>
+                            <div id="decrypt-plaintext-display" class="flex flex-wrap justify-center gap-2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-center">
+                <button onclick="decrypt()" class="bg-purple-600 text-white px-6 py-2 rounded-md hover:bg-purple-700 transition duration-300">
+                    Decrypt
+                </button>
+            </div>
+
+            <div class="mt-4">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Final Result:</label>
+                <div id="decryption-result" class="p-4 bg-gray-100 rounded-md font-mono text-center text-lg"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Decryption Challenge Section -->
+    <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">Decryption Challenge</h2>
+        <div class="space-y-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Challenge Ciphertext:</label>
+                <div id="challenge-text" class="p-4 bg-gray-100 rounded-md font-mono text-center text-lg mb-4"></div>
+                <div class="flex justify-center">
+                    <button onclick="generateChallenge()" class="bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition duration-300">
+                        New Challenge
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Frequency Analysis Tool -->
+            <div class="mt-8">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4 text-center">Letter Frequency Analysis</h3>
+                <div id="frequency-analysis" class="grid grid-cols-26 gap-1 p-4 bg-gray-50 rounded-md min-h-[150px]"></div>
+            </div>
+
+            <!-- Letter Mapping Input -->
+            <div class="mt-8">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4 text-center">Solve the Cipher</h3>
+                <div id="letter-mapping" class="grid grid-cols-13 gap-3 p-4 bg-gray-50 rounded-md"></div>
+                <div class="flex justify-center mt-4">
+                    <button onclick="checkSolution()" class="bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 transition duration-300">
+                        Check Solution
+                    </button>
+                </div>
+            </div>
+
+            <div id="feedback" class="mt-4 p-4 rounded-md hidden text-center text-lg"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Initialize alphabets
+    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+    let substitutionKey = {};
+    let reverseSubstitutionKey = {};
+    let currentChallengeSolution = {};
+
+    // Initialize the page
+    function initializePage() {
+        randomizeSubstitution();
+        displayCurrentMapping();
+    }
+
+    // Display current mapping
+    function displayCurrentMapping() {
+        const originalDiv = document.getElementById('current-mapping-original');
+        const substitutionDiv = document.getElementById('current-mapping-substitution');
+        const mappingContainer = document.querySelector('.bg-gray-50');
+        
+        originalDiv.innerHTML = '';
+        substitutionDiv.innerHTML = '';
+        
+        // Remove any existing lines
+        const existingLines = mappingContainer.querySelectorAll('.mapping-line');
+        existingLines.forEach(line => line.remove());
+        
+        alphabet.forEach((letter, index) => {
+            // Create original letter box
+            const origBox = document.createElement('div');
+            origBox.className = 'w-10 h-10 border-2 rounded-lg flex items-center justify-center bg-blue-50 border-blue-200 relative cursor-pointer transform transition-all duration-300 hover:scale-110 hover:shadow-lg hover:border-blue-400 hover:bg-blue-100';
+            origBox.textContent = letter;
+            origBox.id = `orig-${letter}`;
+            originalDiv.appendChild(origBox);
+            
+            // Create substitution letter box
+            const subBox = document.createElement('div');
+            subBox.className = 'w-10 h-10 border-2 rounded-lg flex items-center justify-center bg-green-50 border-green-200 relative cursor-pointer transform transition-all duration-300 hover:scale-110 hover:shadow-lg hover:border-green-400 hover:bg-green-100';
+            subBox.textContent = substitutionKey[letter];
+            subBox.id = `sub-${substitutionKey[letter]}`;
+            substitutionDiv.appendChild(subBox);
+
+            // Add hover effects
+            function highlightPair() {
+                const orig = document.getElementById(`orig-${letter}`);
+                const sub = document.getElementById(`sub-${substitutionKey[letter]}`);
+                
+                orig.classList.add('scale-110', 'border-blue-500', 'bg-blue-200', 'z-10');
+                sub.classList.add('scale-110', 'border-green-500', 'bg-green-200', 'z-10');
+                
+                const arrow = document.createElement('div');
+                arrow.className = 'absolute -right-4 top-1/2 transform -translate-y-1/2 text-blue-500 animate-bounce';
+                arrow.innerHTML = '→';
+                orig.appendChild(arrow);
+            }
+
+            function unhighlightPair() {
+                const orig = document.getElementById(`orig-${letter}`);
+                const sub = document.getElementById(`sub-${substitutionKey[letter]}`);
+                
+                orig.classList.remove('scale-110', 'border-blue-500', 'bg-blue-200', 'z-10');
+                sub.classList.remove('scale-110', 'border-green-500', 'bg-green-200', 'z-10');
+                
+                const arrow = orig.querySelector('div');
+                if (arrow) arrow.remove();
+            }
+
+            origBox.addEventListener('mouseenter', highlightPair);
+            origBox.addEventListener('mouseleave', unhighlightPair);
+            subBox.addEventListener('mouseenter', highlightPair);
+            subBox.addEventListener('mouseleave', unhighlightPair);
+
+            // Add initial animation
+            setTimeout(() => {
+                origBox.style.opacity = '1';
+                subBox.style.opacity = '1';
+            }, index * 50);
+        });
+    }
+
+    // Randomize substitution alphabet
+    function randomizeSubstitution() {
+        cleanupMappingLines();
+        const shuffled = [...alphabet].sort(() => Math.random() - 0.5);
+        substitutionKey = {};
+        reverseSubstitutionKey = {};
+        alphabet.forEach((letter, index) => {
+            substitutionKey[letter] = shuffled[index];
+            reverseSubstitutionKey[shuffled[index]] = letter;
+        });
+        displayCurrentMapping();
+    }
+
+    // Decrypt function with animation
+    function decrypt() {
+        const ciphertext = document.getElementById('ciphertext').value.toUpperCase();
+        const ciphertextDisplay = document.getElementById('decrypt-ciphertext-display');
+        const plaintextDisplay = document.getElementById('decrypt-plaintext-display');
+        const processArea = document.getElementById('decryption-process');
+        
+        ciphertextDisplay.innerHTML = '';
+        plaintextDisplay.innerHTML = '';
+        
+        // Create display boxes
+        ciphertext.split('').forEach(char => {
+            const box = document.createElement('div');
+            box.className = 'w-12 h-12 border-2 rounded-lg flex items-center justify-center font-semibold text-lg shadow-sm transition-all duration-300';
+            box.textContent = char;
+            ciphertextDisplay.appendChild(box);
+            
+            const plainBox = document.createElement('div');
+            plainBox.className = 'w-12 h-12 border-2 rounded-lg flex items-center justify-center font-semibold text-lg shadow-sm transition-all duration-300 opacity-0';
+            plainBox.textContent = char.match(/[A-Z]/) ? reverseSubstitutionKey[char] : char;
+            plaintextDisplay.appendChild(plainBox);
+        });
+
+        // Animate substitution process
+        let currentIndex = 0;
+        function animateNext() {
+            if (currentIndex >= ciphertext.length) {
+                const result = ciphertext.split('').map(char => 
+                    char.match(/[A-Z]/) ? reverseSubstitutionKey[char] : char
+                ).join('');
+                const resultDiv = document.getElementById('decryption-result');
+                resultDiv.style.opacity = '0';
+                resultDiv.textContent = result;
+                setTimeout(() => {
+                    resultDiv.style.transition = 'opacity 0.5s ease-in';
+                    resultDiv.style.opacity = '1';
+                }, 100);
+                return;
+            }
+            
+            const char = ciphertext[currentIndex];
+            const cipherBox = ciphertextDisplay.children[currentIndex];
+            const plainBox = plaintextDisplay.children[currentIndex];
+            
+            if (char.match(/[A-Z]/)) {
+                processArea.innerHTML = `
+                    <div class="flex flex-col items-center bg-purple-50 p-4 rounded-lg transform scale-110 transition-all duration-300">
+                        <div class="text-sm font-medium text-purple-700 mb-2">Substituting: ${char} → ${reverseSubstitutionKey[char]}</div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 border-2 border-purple-500 rounded-lg flex items-center justify-center font-bold bg-white">${char}</div>
+                            <svg class="w-8 h-8 text-purple-500 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                            </svg>
+                            <div class="w-12 h-12 border-2 border-green-500 rounded-lg flex items-center justify-center font-bold bg-white">${reverseSubstitutionKey[char]}</div>
+                        </div>
+                    </div>
+                `;
+
+                cipherBox.classList.add('bg-purple-100', 'border-purple-500', 'transform', 'scale-110');
+                setTimeout(() => {
+                    plainBox.style.opacity = '1';
+                    plainBox.classList.add('bg-green-100', 'border-green-500', 'transform', 'scale-110');
+                    
+                    setTimeout(() => {
+                        cipherBox.classList.remove('scale-110');
+                        plainBox.classList.remove('scale-110');
+                        currentIndex++;
+                        animateNext();
+                    }, 500);
+                }, 500);
+            } else {
+                plainBox.style.opacity = '1';
+                currentIndex++;
+                animateNext();
+            }
+        }
+        
+        animateNext();
+    }
+
+    // Encrypt function with animation
+    function encrypt() {
+        const plaintext = document.getElementById('plaintext').value.toUpperCase();
+        const plaintextDisplay = document.getElementById('plaintext-display');
+        const ciphertextDisplay = document.getElementById('ciphertext-display');
+        const processArea = document.getElementById('substitution-process');
+        
+        plaintextDisplay.innerHTML = '';
+        ciphertextDisplay.innerHTML = '';
+        
+        // Create display boxes
+        plaintext.split('').forEach(char => {
+            const box = document.createElement('div');
+            box.className = 'w-12 h-12 border-2 rounded-lg flex items-center justify-center font-semibold text-lg shadow-sm transition-all duration-300';
+            box.textContent = char;
+            plaintextDisplay.appendChild(box);
+            
+            const cipherBox = document.createElement('div');
+            cipherBox.className = 'w-12 h-12 border-2 rounded-lg flex items-center justify-center font-semibold text-lg shadow-sm transition-all duration-300 opacity-0';
+            cipherBox.textContent = char.match(/[A-Z]/) ? substitutionKey[char] : char;
+            ciphertextDisplay.appendChild(cipherBox);
+        });
+
+        // Animate substitution process
+        let currentIndex = 0;
+        function animateNext() {
+            if (currentIndex >= plaintext.length) {
+                const result = plaintext.split('').map(char => 
+                    char.match(/[A-Z]/) ? substitutionKey[char] : char
+                ).join('');
+                const resultDiv = document.getElementById('encryption-result');
+                resultDiv.style.opacity = '0';
+                resultDiv.textContent = result;
+                setTimeout(() => {
+                    resultDiv.style.transition = 'opacity 0.5s ease-in';
+                    resultDiv.style.opacity = '1';
+                }, 100);
+                return;
+            }
+            
+            const char = plaintext[currentIndex];
+            const plainBox = plaintextDisplay.children[currentIndex];
+            const cipherBox = ciphertextDisplay.children[currentIndex];
+            
+            if (char.match(/[A-Z]/)) {
+                processArea.innerHTML = `
+                    <div class="flex flex-col items-center bg-blue-50 p-4 rounded-lg transform scale-110 transition-all duration-300">
+                        <div class="text-sm font-medium text-blue-700 mb-2">Substituting: ${char} → ${substitutionKey[char]}</div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 border-2 border-blue-500 rounded-lg flex items-center justify-center font-bold bg-white">${char}</div>
+                            <svg class="w-8 h-8 text-blue-500 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                            </svg>
+                            <div class="w-12 h-12 border-2 border-green-500 rounded-lg flex items-center justify-center font-bold bg-white">${substitutionKey[char]}</div>
+                        </div>
+                    </div>
+                `;
+
+                plainBox.classList.add('bg-blue-100', 'border-blue-500', 'transform', 'scale-110');
+                setTimeout(() => {
+                    cipherBox.style.opacity = '1';
+                    cipherBox.classList.add('bg-green-100', 'border-green-500', 'transform', 'scale-110');
+                    
+                    setTimeout(() => {
+                        plainBox.classList.remove('scale-110');
+                        cipherBox.classList.remove('scale-110');
+                        currentIndex++;
+                        animateNext();
+                    }, 500);
+                }, 500);
+            } else {
+                cipherBox.style.opacity = '1';
+                currentIndex++;
+                animateNext();
+            }
+        }
+        
+        animateNext();
+    }
+
+    // Generate challenge
+    function generateChallenge() {
+        const phrases = [
+            "THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG",
+            "CRYPTOGRAPHY IS THE ART OF SECRET WRITING",
+            "SUBSTITUTION CIPHERS ARE CLASSICAL ENCRYPTION METHODS",
+            "FREQUENCY ANALYSIS HELPS BREAK THIS CIPHER"
+        ];
+        
+        const phrase = phrases[Math.floor(Math.random() * phrases.length)];
+        randomizeSubstitution();
+        
+        const encrypted = phrase.split('').map(char => 
+            char.match(/[A-Z]/) ? substitutionKey[char] : char
+        ).join('');
+        
+        document.getElementById('challenge-text').textContent = encrypted;
+        currentChallengeSolution = {...substitutionKey};
+        
+        createLetterMappingInputs();
+        updateFrequencyAnalysis(encrypted);
+    }
+
+    // Create letter mapping inputs
+    function createLetterMappingInputs() {
+        const container = document.getElementById('letter-mapping');
+        container.innerHTML = '';
+        
+        alphabet.forEach(letter => {
+            const div = document.createElement('div');
+            div.className = 'flex flex-col items-center';
+            
+            const label = document.createElement('div');
+            label.className = 'text-sm font-medium text-gray-700';
+            label.textContent = letter;
+            
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.maxLength = 1;
+            input.className = 'w-8 h-8 border rounded text-center uppercase';
+            input.dataset.cipherLetter = letter;
+            
+            div.appendChild(label);
+            div.appendChild(input);
+            container.appendChild(div);
+        });
+    }
+
+    // Update frequency analysis
+    function updateFrequencyAnalysis(text) {
+        const frequencies = new Array(26).fill(0);
+        let total = 0;
+        
+        text.split('').forEach(char => {
+            if (char.match(/[A-Z]/)) {
+                frequencies[char.charCodeAt(0) - 65]++;
+                total++;
+            }
+        });
+        
+        const freqDiv = document.getElementById('frequency-analysis');
+        freqDiv.innerHTML = '';
+        
+        frequencies.forEach((freq, index) => {
+            const letter = String.fromCharCode(65 + index);
+            const percentage = (freq / total) * 100;
+            
+            const barContainer = document.createElement('div');
+            barContainer.className = 'flex flex-col items-center';
+            
+            const bar = document.createElement('div');
+            bar.className = 'bg-blue-500 w-4';
+            bar.style.height = `${percentage * 3}px`;
+            
+            const label = document.createElement('div');
+            label.className = 'text-xs mt-1';
+            label.textContent = letter;
+            
+            barContainer.appendChild(bar);
+            barContainer.appendChild(label);
+            freqDiv.appendChild(barContainer);
+        });
+    }
+
+    // Check solution
+    function checkSolution() {
+        const inputs = document.querySelectorAll('#letter-mapping input');
+        const guessedMapping = {};
+        let isCorrect = true;
+        
+        inputs.forEach(input => {
+            const cipherLetter = input.dataset.cipherLetter;
+            const guessedLetter = input.value.toUpperCase();
+            
+            if (guessedLetter) {
+                const correctLetter = Object.keys(currentChallengeSolution)
+                    .find(key => currentChallengeSolution[key] === cipherLetter);
+                
+                if (guessedLetter !== correctLetter) {
+                    isCorrect = false;
+                }
+            } else {
+                isCorrect = false;
+            }
+        });
+        
+        const feedback = document.getElementById('feedback');
+        feedback.classList.remove('hidden');
+        
+        if (isCorrect) {
+            feedback.className = 'mt-4 p-4 rounded-md bg-green-100 text-green-800';
+            feedback.textContent = 'Congratulations! You have successfully broken the cipher!';
+        } else {
+            feedback.className = 'mt-4 p-4 rounded-md bg-red-100 text-red-800';
+            feedback.textContent = 'Not quite right. Keep trying!';
+        }
+    }
+
+    // Clean up mapping lines
+    function cleanupMappingLines() {
+        const lines = document.querySelectorAll('.mapping-line');
+        lines.forEach(line => line.remove());
+    }
+
+    // Initialize the page when loaded
+    window.addEventListener('load', initializePage);
+
+    // Update line positions on window resize
+    window.addEventListener('resize', displayCurrentMapping);
+
+    // Add CSS styles
+    const style = document.createElement('style');
+    style.textContent = `
+        .mapping-line {
+            z-index: 10;
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes fadeInScale {
+            0% {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        #current-mapping-original > div,
+        #current-mapping-substitution > div {
+            opacity: 0;
+            animation: fadeInScale 0.3s ease-out forwards;
+        }
+
+        .mapping-pair-active {
+            position: relative;
+        }
+
+        .mapping-pair-active::after {
+            content: '→';
+            position: absolute;
+            right: -1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #3b82f6;
+            animation: bounce 1s infinite;
+        }
+    `;
+    document.head.appendChild(style);
+</script>
+{% endblock %}

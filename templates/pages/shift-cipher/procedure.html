@@ -1,0 +1,120 @@
+{% extends "pages/shift-cipher/base_shift_cipher.html" %}
+
+{% block cipher_content %}
+<h1 class="text-2xl font-bold text-gray-800 mb-6">Procedure to Break the Shift Cipher</h1>
+
+<div class="prose max-w-none">
+    <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg mb-8">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">Prerequisites</h2>
+        <ul class="list-disc pl-6 space-y-2">
+            <li>Basic understanding of the English alphabet and common words</li>
+            <li>Knowledge of letter frequency in the English language</li>
+            <li>Access to pen and paper or a computer for calculations</li>
+            <li>The ciphertext to be decoded</li>
+        </ul>
+    </div>
+
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">Step-by-Step Procedure</h2>
+
+    <div class="space-y-6">
+        <div class="bg-white p-6 rounded-lg border border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-800 mb-3">
+                <span class="bg-blue-600 text-white rounded-full w-8 h-8 inline-flex items-center justify-center mr-2">1</span>
+                Initial Analysis
+            </h3>
+            <ol class="list-decimal pl-6 space-y-2">
+                <li>Record the frequency of each letter in the ciphertext</li>
+                <li>Create a frequency distribution table</li>
+                <li>Note any patterns or repeated sequences</li>
+            </ol>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg border border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-800 mb-3">
+                <span class="bg-blue-600 text-white rounded-full w-8 h-8 inline-flex items-center justify-center mr-2">2</span>
+                Frequency Analysis
+            </h3>
+            <div class="pl-6">
+                <p class="mb-3">Compare with standard English letter frequencies:</p>
+                <div class="bg-gray-50 p-4 rounded-md mb-4">
+                    <p class="font-mono text-sm">
+                        Most frequent: E (12.7%), T (9.1%), A (8.2%), O (7.5%), I (7.0%), N (6.7%)<br>
+                        Least frequent: Z (0.1%), Q (0.1%), J (0.15%), X (0.15%), K (0.77%)
+                    </p>
+                </div>
+                <ul class="list-disc space-y-2">
+                    <li>Identify the most frequent letter in ciphertext (likely to be 'E')</li>
+                    <li>Calculate potential shift value based on this assumption</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg border border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-800 mb-3">
+                <span class="bg-blue-600 text-white rounded-full w-8 h-8 inline-flex items-center justify-center mr-2">3</span>
+                Pattern Recognition
+            </h3>
+            <div class="pl-6">
+                <p class="mb-3">Look for common patterns:</p>
+                <ul class="list-disc space-y-2">
+                    <li>Single-letter words (likely 'a' or 'I')</li>
+                    <li>Three-letter words (possibly 'the', 'and')</li>
+                    <li>Double letters (common in 'ee', 'll', 'ss')</li>
+                    <li>Word endings ('ing', 'ed', 'ly')</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg border border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-800 mb-3">
+                <span class="bg-blue-600 text-white rounded-full w-8 h-8 inline-flex items-center justify-center mr-2">4</span>
+                Brute Force Method
+            </h3>
+            <div class="pl-6">
+                <p class="mb-3">If frequency analysis is inconclusive:</p>
+                <ol class="list-decimal space-y-2">
+                    <li>Try each of the 26 possible shifts systematically</li>
+                    <li>For each shift, decrypt a portion of the text</li>
+                    <li>Check if the result contains recognizable English words</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg border border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-800 mb-3">
+                <span class="bg-blue-600 text-white rounded-full w-8 h-8 inline-flex items-center justify-center mr-2">5</span>
+                Verification
+            </h3>
+            <div class="pl-6">
+                <ul class="list-disc space-y-2">
+                    <li>Apply the suspected shift value to the entire ciphertext</li>
+                    <li>Verify that the decrypted text makes sense</li>
+                    <li>Check for proper grammar and word structure</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-green-50 p-6 rounded-lg mt-8">
+        <h3 class="text-lg font-semibold text-green-800 mb-4">Practical Example</h3>
+        <div class="bg-white p-4 rounded-md mb-4">
+            <p class="font-mono mb-2"><span class="font-semibold">Ciphertext:</span> KHOOR ZRUOG</p>
+            <p class="font-mono mb-2"><span class="font-semibold">Analysis:</span> Most frequent letter is 'R'</p>
+            <p class="font-mono mb-2"><span class="font-semibold">Assumption:</span> 'R' might be 'E'</p>
+            <p class="font-mono mb-2"><span class="font-semibold">Shift Value:</span> 3 (R → E)</p>
+            <p class="font-mono"><span class="font-semibold">Decrypted:</span> HELLO WORLD</p>
+        </div>
+    </div>
+
+    <div class="bg-yellow-50 p-6 rounded-lg mt-8">
+        <h3 class="text-lg font-semibold text-yellow-800 mb-3">Important Tips</h3>
+        <ul class="list-disc pl-6 space-y-2 text-yellow-900">
+            <li>Always start with frequency analysis before trying brute force</li>
+            <li>Look for patterns in short words first</li>
+            <li>Consider the context if available</li>
+            <li>Document each step of your analysis</li>
+            <li>Verify your solution with multiple parts of the text</li>
+        </ul>
+    </div>
+</div>
+{% endblock %} 

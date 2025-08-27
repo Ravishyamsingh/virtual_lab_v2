@@ -1,0 +1,164 @@
+{% extends "pages/des-algorithm/base_des_algorithm.html" %}
+
+{% block page_content %}
+<div class="bg-gray-800 shadow-xl rounded-lg overflow-hidden">
+    <div class="p-6">
+        <h1 class="text-2xl font-bold text-white mb-6">Assignments</h1>
+
+        <div class="space-y-8">
+            <!-- Practice Exercises -->
+            <section>
+                <h2 class="text-xl font-semibold text-white mb-4">Practice Exercises</h2>
+                
+                <div class="space-y-6">
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-3">Exercise 1: Basic DES Operations</h3>
+                        <div class="text-gray-300 space-y-2">
+                            <p>Using the simulation tool, complete the following tasks:</p>
+                            <ol class="list-decimal pl-6 space-y-1">
+                                <li>Perform DES encryption with a given key on a 64-bit plaintext block</li>
+                                <li>Track and document the state after each round</li>
+                                <li>Perform the decryption process</li>
+                                <li>Verify that you recover the original plaintext</li>
+                                <li>Document the complete process with intermediate values</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-3">Exercise 2: Key Schedule Analysis</h3>
+                        <div class="text-gray-300 space-y-2">
+                            <p>Study the key schedule generation:</p>
+                            <ol class="list-decimal pl-6 space-y-1">
+                                <li>Generate the complete key schedule for a given key</li>
+                                <li>Document the rotation patterns for each round</li>
+                                <li>Analyze the differences between consecutive round keys</li>
+                                <li>Explain how the key schedule contributes to security</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-3">Exercise 3: S-Box Analysis</h3>
+                        <div class="text-gray-300 space-y-2">
+                            <p>Investigate S-box properties:</p>
+                            <ol class="list-decimal pl-6 space-y-1">
+                                <li>Track how specific 6-bit inputs map to 4-bit outputs</li>
+                                <li>Analyze the nonlinearity of S-box transformations</li>
+                                <li>Document how S-boxes contribute to the avalanche effect</li>
+                                <li>Compare different S-boxes and their properties</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Challenge Problems -->
+            <section>
+                <h2 class="text-xl font-semibold text-white mb-4">Challenge Problems</h2>
+                
+                <div class="space-y-6">
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-3">Challenge 1: Avalanche Effect</h3>
+                        <div class="text-gray-300 space-y-2">
+                            <p>Demonstrate and analyze the avalanche effect:</p>
+                            <ol class="list-decimal pl-6 space-y-1">
+                                <li>Choose a plaintext and key</li>
+                                <li>Change one bit in the plaintext and observe changes</li>
+                                <li>Change one bit in the key and observe changes</li>
+                                <li>Calculate and compare the number of bits that change</li>
+                                <li>Analyze the propagation of changes through rounds</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-3">Challenge 2: Weak Keys</h3>
+                        <div class="text-gray-300 space-y-2">
+                            <p>Study weak keys in DES:</p>
+                            <ol class="list-decimal pl-6 space-y-1">
+                                <li>Research and identify known weak keys in DES</li>
+                                <li>Demonstrate the effect of weak keys</li>
+                                <li>Analyze the key schedule patterns for weak keys</li>
+                                <li>Propose methods to detect and avoid weak keys</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-3">Challenge 3: Implementation</h3>
+                        <div class="text-gray-300 space-y-2">
+                            <p>Create a simplified implementation:</p>
+                            <ol class="list-decimal pl-6 space-y-1">
+                                <li>Implement the Feistel network structure</li>
+                                <li>Create the key schedule generation</li>
+                                <li>Implement the round function</li>
+                                <li>Add the initial and final permutations</li>
+                                <li>Test with various inputs and verify results</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analysis Tasks -->
+            <section>
+                <h2 class="text-xl font-semibold text-white mb-4">Analysis Tasks</h2>
+                
+                <div class="space-y-6">
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-3">Security Analysis</h3>
+                        <div class="text-gray-300 space-y-2">
+                            <p>Conduct a thorough security analysis:</p>
+                            <ol class="list-decimal pl-6 space-y-1">
+                                <li>Analyze the strength of the algorithm against known attacks</li>
+                                <li>Discuss the implications of the 56-bit key size</li>
+                                <li>Compare DES with other block ciphers</li>
+                                <li>Propose improvements or alternatives</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-white mb-3">Performance Analysis</h3>
+                        <div class="text-gray-300 space-y-2">
+                            <p>Evaluate performance aspects:</p>
+                            <ol class="list-decimal pl-6 space-y-1">
+                                <li>Measure encryption/decryption times</li>
+                                <li>Analyze the impact of different input sizes</li>
+                                <li>Compare software vs. hardware implementation considerations</li>
+                                <li>Suggest optimization strategies</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Submission Guidelines -->
+            <section>
+                <h2 class="text-xl font-semibold text-white mb-4">Submission Guidelines</h2>
+                
+                <div class="bg-gray-700 p-4 rounded-lg">
+                    <div class="text-gray-300 space-y-3">
+                        <p>Your submission should include:</p>
+                        <ul class="list-disc pl-6 space-y-2">
+                            <li>Complete solutions to all exercises and challenges</li>
+                            <li>Detailed analysis and observations</li>
+                            <li>Screenshots of simulation results</li>
+                            <li>Implementation code (if required)</li>
+                            <li>Security and performance analysis reports</li>
+                        </ul>
+                        
+                        <div class="mt-4 p-3 bg-gray-800 rounded">
+                            <p class="text-sm text-gray-400">
+                                Submit your work as a single PDF document named: 
+                                <span class="font-mono">DES_Assignment_[YourName].pdf</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock %}

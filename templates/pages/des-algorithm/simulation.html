@@ -1,0 +1,283 @@
+{% extends "pages/des-algorithm/base_des_algorithm.html" %}
+
+{% block page_content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/des_simulation.css') }}">
+
+<div class="des-container">
+    <!-- Error Message -->
+    <div id="errorMessage" class="error-message hidden">
+        <span>⚠️</span>
+        <span id="errorText">Error message will appear here</span>
+    </div>
+
+    <!-- Input Section -->
+    <div class="section-card">
+        <h2 class="section-title">📥 Input Configuration</h2>
+        
+        <div class="input-group">
+            <div class="input-row">
+                <label class="input-label" for="plaintext">Plaintext (64 bits):</label>
+                <input 
+                    type="text" 
+                    id="plaintext" 
+                    class="input-field"
+                    placeholder="Enter 16 hexadecimal characters"
+                    value="0123456789ABCDEF"
+                    maxlength="16"
+                >
+                <div class="input-hint">Example: 0123456789ABCDEF (16 hex characters = 64 bits)</div>
+            </div>
+
+            <div class="input-row">
+                <label class="input-label" for="key">Key (64 bits):</label>
+                <input 
+                    type="text" 
+                    id="key" 
+                    class="input-field"
+                    placeholder="Enter 16 hexadecimal characters"
+                    value="133457799BBCDFF1"
+                    maxlength="16"
+                >
+                <div class="input-hint">Example: 133457799BBCDFF1 (16 hex characters = 64 bits)</div>
+            </div>
+
+            <div class="input-row">
+                <label class="input-label">Operation:</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" id="encrypt" name="operation" value="encrypt" class="radio-input" checked>
+                        <label for="encrypt" class="radio-label">🔐 Encrypt</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="decrypt" name="operation" value="decrypt" class="radio-input">
+                        <label for="decrypt" class="radio-label">🔓 Decrypt</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="speed-control">
+                <label class="speed-label">Animation Speed:</label>
+                <input type="range" id="speedSlider" class="speed-slider" min="0.1" max="1" step="0.1" value="0.5">
+                <span class="speed-label">Fast</span>
+            </div>
+
+            <div class="button-group">
+                <button id="startBtn" class="btn btn-primary">
+                    <span>🚀</span> Start Simulation
+                </button>
+                <button id="stepBtn" class="btn btn-success" disabled>
+                    <span>👣</span> Next Step
+                </button>
+                <button id="autoBtn" class="btn btn-secondary" disabled>
+                    <span>⚡</span> Auto Run
+                </button>
+                <button id="resetBtn" class="btn btn-danger">
+                    <span>🔄</span> Reset
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Progress Section -->
+    <div class="section-card">
+        <h2 class="section-title">📊 Progress</h2>
+        
+        <div class="progress-section">
+            <div class="round-counter">
+                Current Round: <span id="currentRound">0</span>/16
+            </div>
+            <div class="progress-bar-container">
+                <div id="progressBar" class="progress-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Visualization -->
+    <div class="section-card">
+        <h2 class="section-title">🎯 Algorithm Visualization</h2>
+        
+        <div class="visualization-grid">
+            <div class="half-display">
+                <div class="half-title">
+                    Left Half (L<sub id="leftIndex">0</sub>)
+                </div>
+                <div id="leftHalf" class="half-value">00000000</div>
+            </div>
+            
+            <div class="half-display">
+                <div class="half-title">
+                    Right Half (R<sub id="rightIndex">0</sub>)
+                </div>
+                <div id="rightHalf" class="half-value">00000000</div>
+            </div>
+        </div>
+
+        <div class="function-details">
+            <div class="function-title">🔧 Feistel Function (F)</div>
+            
+            <div class="function-grid">
+                <div class="function-item">
+                    <div class="function-label">Expansion (E):</div>
+                    <div id="expansion" class="function-value">000000000000</div>
+                </div>
+                <div class="function-item">
+                    <div class="function-label">Round Key (K<sub id="keyIndex">0</sub>):</div>
+                    <div id="roundKey" class="function-value">000000000000</div>
+                </div>
+            </div>
+            
+            <div class="function-grid">
+                <div class="function-item">
+                    <div class="function-label">After XOR:</div>
+                    <div id="xorResult" class="function-value">000000000000</div>
+                </div>
+                <div class="function-item">
+                    <div class="function-label">S-Box Output:</div>
+                    <div id="sboxOutput" class="function-value">00000000</div>
+                </div>
+            </div>
+            
+            <div class="function-item">
+                <div class="function-label">Permutation (P):</div>
+                <div id="permutation" class="function-value">00000000</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DES Algorithm Flow -->
+    <div class="section-card">
+        <h2 class="section-title">🔄 Algorithm Flow</h2>
+        
+        <div class="des-flow">
+            <div class="flow-step" id="step1">
+                <div class="flow-number">1</div>
+                <div class="flow-content">
+                    <div class="flow-title">Initial Permutation (IP)</div>
+                    <div class="flow-description">Apply initial permutation to the 64-bit plaintext</div>
+                </div>
+            </div>
+            
+            <div class="flow-step" id="step2">
+                <div class="flow-number">2</div>
+                <div class="flow-content">
+                    <div class="flow-title">Split into L₀ and R₀</div>
+                    <div class="flow-description">Divide the 64-bit result into two 32-bit halves</div>
+                </div>
+            </div>
+            
+            <div class="flow-step" id="step3">
+                <div class="flow-number">3</div>
+                <div class="flow-content">
+                    <div class="flow-title">16 Rounds of Feistel Function</div>
+                    <div class="flow-description">Apply Feistel function: L₍ᵢ₎ = R₍ᵢ₋₁₎, R₍ᵢ₎ = L₍ᵢ₋₁₎ ⊕ F(R₍ᵢ₋₁₎, K₍ᵢ₎)</div>
+                </div>
+            </div>
+            
+            <div class="flow-step" id="step4">
+                <div class="flow-number">4</div>
+                <div class="flow-content">
+                    <div class="flow-title">Final Permutation (FP)</div>
+                    <div class="flow-description">Apply final permutation to get the ciphertext</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- S-Box Visualization -->
+    <div class="section-card">
+        <h2 class="section-title">📦 S-Box Visualization</h2>
+        
+        <div class="function-label">S-Box Inputs (6 bits each):</div>
+        <div class="sbox-visualization">
+            <div class="sbox-item" id="sbox1">S1<br>000000</div>
+            <div class="sbox-item" id="sbox2">S2<br>000000</div>
+            <div class="sbox-item" id="sbox3">S3<br>000000</div>
+            <div class="sbox-item" id="sbox4">S4<br>000000</div>
+            <div class="sbox-item" id="sbox5">S5<br>000000</div>
+            <div class="sbox-item" id="sbox6">S6<br>000000</div>
+            <div class="sbox-item" id="sbox7">S7<br>000000</div>
+            <div class="sbox-item" id="sbox8">S8<br>000000</div>
+        </div>
+    </div>
+
+    <!-- Key Schedule -->
+    <div class="section-card">
+        <h2 class="section-title">🔑 Key Schedule</h2>
+        
+        <div class="function-label">Round Keys:</div>
+        <div class="key-schedule">
+            <div class="key-item" id="key1">K₁<br>000000</div>
+            <div class="key-item" id="key2">K₂<br>000000</div>
+            <div class="key-item" id="key3">K₃<br>000000</div>
+            <div class="key-item" id="key4">K₄<br>000000</div>
+            <div class="key-item" id="key5">K₅<br>000000</div>
+            <div class="key-item" id="key6">K₆<br>000000</div>
+            <div class="key-item" id="key7">K₇<br>000000</div>
+            <div class="key-item" id="key8">K₈<br>000000</div>
+            <div class="key-item" id="key9">K₉<br>000000</div>
+            <div class="key-item" id="key10">K₁₀<br>000000</div>
+            <div class="key-item" id="key11">K₁₁<br>000000</div>
+            <div class="key-item" id="key12">K₁₂<br>000000</div>
+            <div class="key-item" id="key13">K₁₃<br>000000</div>
+            <div class="key-item" id="key14">K₁₄<br>000000</div>
+            <div class="key-item" id="key15">K₁₅<br>000000</div>
+            <div class="key-item" id="key16">K₁₆<br>000000</div>
+        </div>
+    </div>
+
+    <!-- Result Section -->
+    <div class="section-card">
+        <h2 class="section-title">📋 Result</h2>
+        
+        <div class="result-section">
+            <div class="result-item">
+                <div class="result-label">Output (Hexadecimal):</div>
+                <div id="output" class="result-value">0000000000000000</div>
+            </div>
+            
+            <div class="result-item">
+                <div class="result-label">Output (Binary):</div>
+                <div id="binaryOutput" class="result-value result-binary">
+                    0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000
+                </div>
+            </div>
+            
+            <div class="result-item">
+                <div class="result-label">Algorithm Summary:</div>
+                <div id="algorithmSummary" class="result-value">
+                    Ready to start DES simulation...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Information Panel -->
+    <div class="section-card">
+        <h2 class="section-title">ℹ️ Information</h2>
+        
+        <div class="result-section">
+            <div class="result-item">
+                <div class="result-label">About DES Algorithm:</div>
+                <div class="result-value">
+                    The Data Encryption Standard (DES) is a symmetric-key block cipher that operates on 64-bit blocks using a 56-bit key. 
+                    It uses a Feistel network structure with 16 rounds of encryption. Each round applies expansion, key mixing, 
+                    substitution (S-boxes), and permutation operations.
+                </div>
+            </div>
+            
+            <div class="result-item">
+                <div class="result-label">Instructions:</div>
+                <div class="result-value">
+                    1. Enter 16 hexadecimal characters for both plaintext and key<br>
+                    2. Select encryption or decryption mode<br>
+                    3. Adjust animation speed as needed<br>
+                    4. Click "Start Simulation" to begin<br>
+                    5. Use "Next Step" for manual progression or "Auto Run" for automatic execution
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/des_simulation.js') }}"></script>
+{% endblock %}

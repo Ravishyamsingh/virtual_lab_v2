@@ -1,0 +1,45 @@
+{% extends "pages/hash-function/base_hash_function.html" %}
+
+{% block page_content %}
+<div class="bg-gray-800 shadow-xl rounded-lg overflow-hidden">
+    <div class="p-6">
+        <h1 class="text-2xl font-bold text-white mb-4">Aim: Understanding Hash Functions</h1>
+        
+        <div class="prose prose-invert max-w-none">
+            <p class="text-gray-300">
+                This virtual lab aims to provide hands-on experience with cryptographic hash functions and their properties. 
+                Students will learn about:
+            </p>
+            
+            <ul class="list-disc pl-6 text-gray-300 mt-4 space-y-2">
+                <li>The fundamental concepts of cryptographic hash functions</li>
+                <li>Different types of hash algorithms (MD5, SHA-1, SHA-256)</li>
+                <li>Properties of hash functions: pre-image resistance, collision resistance</li>
+                <li>Practical applications of hash functions in:
+                    <ul class="list-circle pl-6 mt-2 space-y-1">
+                        <li>Digital signatures</li>
+                        <li>Password storage</li>
+                        <li>Data integrity verification</li>
+                        <li>Blockchain and cryptocurrency</li>
+                    </ul>
+                </li>
+                <li>Visualization of the hash function process</li>
+                <li>Understanding avalanche effect in hash functions</li>
+            </ul>
+
+            <div class="mt-6 p-4 bg-gray-700 rounded-lg">
+                <h2 class="text-xl font-semibold text-white mb-2">Expected Outcomes</h2>
+                <p class="text-gray-300">
+                    By the end of this lab, students will be able to:
+                </p>
+                <ul class="list-disc pl-6 text-gray-300 mt-2 space-y-1">
+                    <li>Understand how hash functions work and their importance in cryptography</li>
+                    <li>Implement and use different hash algorithms</li>
+                    <li>Analyze the security properties of hash functions</li>
+                    <li>Apply hash functions in real-world scenarios</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,325 @@
+{% extends "pages/dsa-algorithm/base_dsa_algorithm.html" %}
+
+{% block page_content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dsa_simulation.css') }}">
+
+<div class="dsa-container">
+    <!-- Error Message -->
+    <div id="errorMessage" class="error-message hidden">
+        <span>⚠️</span>
+        <span id="errorText">Error message will appear here</span>
+    </div>
+
+    <!-- Input Section -->
+    <div class="section-card">
+        <h2 class="section-title">📝 Message Input</h2>
+        
+        <div class="input-group">
+            <div class="input-row">
+                <label class="input-label" for="message">Message to Sign:</label>
+                <input 
+                    type="text" 
+                    id="message" 
+                    class="input-field"
+                    placeholder="Enter your message here..."
+                    value="Hello, DSA!"
+                >
+                <div class="input-hint">Enter any text message to create a digital signature</div>
+            </div>
+
+            <div class="speed-control">
+                <label class="speed-label">Animation Speed:</label>
+                <input type="range" id="speedSlider" class="speed-slider" min="0.1" max="1" step="0.1" value="0.5">
+                <span class="speed-label">Fast</span>
+            </div>
+
+            <div class="button-group">
+                <button id="generateKeysBtn" class="btn btn-primary" disabled>
+                    <span>🔑</span> Generate Keys
+                </button>
+                <button id="signMessageBtn" class="btn btn-success" disabled>
+                    <span>✍️</span> Sign Message
+                </button>
+                <button id="verifySignatureBtn" class="btn btn-warning" disabled>
+                    <span>✅</span> Verify Signature
+                </button>
+                <button id="autoRunBtn" class="btn btn-secondary" disabled>
+                    <span>⚡</span> Auto Run
+                </button>
+                <button id="resetBtn" class="btn btn-danger">
+                    <span>🔄</span> Reset
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Progress Section -->
+    <div class="section-card">
+        <h2 class="section-title">📊 Progress</h2>
+        
+        <div class="progress-section">
+            <div class="step-counter">
+                Current Step: <span id="currentStep">0</span>/6
+            </div>
+            <div class="progress-bar-container">
+                <div id="progressBar" class="progress-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DSA Parameters -->
+    <div class="section-card">
+        <h2 class="section-title">🔢 DSA Parameters</h2>
+        
+        <div class="parameters-grid">
+            <div class="parameter-card">
+                <div class="parameter-title">Prime q (subgroup order)</div>
+                <div id="q" class="parameter-value">-</div>
+            </div>
+            <div class="parameter-card">
+                <div class="parameter-title">Prime p (modulus)</div>
+                <div id="p" class="parameter-value">-</div>
+            </div>
+            <div class="parameter-card">
+                <div class="parameter-title">Generator g</div>
+                <div id="g" class="parameter-value">-</div>
+            </div>
+            <div class="parameter-card">
+                <div class="parameter-title">Private Key x</div>
+                <div id="x" class="parameter-value">-</div>
+            </div>
+            <div class="parameter-card">
+                <div class="parameter-title">Public Key y</div>
+                <div id="y" class="parameter-value">-</div>
+            </div>
+            <div class="parameter-card">
+                <div class="parameter-title">Message Hash h</div>
+                <div id="h" class="parameter-value">-</div>
+            </div>
+            <div class="parameter-card">
+                <div class="parameter-title">Random k</div>
+                <div id="k" class="parameter-value">-</div>
+            </div>
+            <div class="parameter-card">
+                <div class="parameter-title">Signature r</div>
+                <div id="r" class="parameter-value">-</div>
+            </div>
+            <div class="parameter-card">
+                <div class="parameter-title">Signature s</div>
+                <div id="s" class="parameter-value">-</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Algorithm Flow -->
+    <div class="section-card">
+        <h2 class="section-title">🔄 Algorithm Flow</h2>
+        
+        <div class="dsa-grid">
+            <div class="dsa-panel">
+                <div class="panel-title">
+                    <span>🔑</span> Key Generation
+                </div>
+                <div class="signature-flow">
+                    <div class="flow-step" id="step1">
+                        <div class="flow-number">1</div>
+                        <div class="flow-content">
+                            <div class="flow-title">Generate Prime q</div>
+                            <div class="flow-description">Choose a prime number q</div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step" id="step2">
+                        <div class="flow-number">2</div>
+                        <div class="flow-content">
+                            <div class="flow-title">Generate Prime p</div>
+                            <div class="flow-description">Find p where q divides (p-1)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step" id="step3">
+                        <div class="flow-number">3</div>
+                        <div class="flow-content">
+                            <div class="flow-title">Find Generator g</div>
+                            <div class="flow-description">Calculate g = h^((p-1)/q) mod p</div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step" id="step4">
+                        <div class="flow-number">4</div>
+                        <div class="flow-content">
+                            <div class="flow-title">Generate Private Key x</div>
+                            <div class="flow-description">Choose random x where 0 < x < q</div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step" id="step5">
+                        <div class="flow-number">5</div>
+                        <div class="flow-content">
+                            <div class="flow-title">Calculate Public Key y</div>
+                            <div class="flow-description">Compute y = g^x mod p</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dsa-panel">
+                <div class="panel-title">
+                    <span>✍️</span> Signature Generation
+                </div>
+                <div class="signature-flow">
+                    <div class="flow-step" id="signStep1">
+                        <div class="flow-number">1</div>
+                        <div class="flow-content">
+                            <div class="flow-title">Hash Message</div>
+                            <div class="flow-description">Calculate h = Hash(message)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step" id="signStep2">
+                        <div class="flow-number">2</div>
+                        <div class="flow-content">
+                            <div class="flow-title">Generate Random k</div>
+                            <div class="flow-description">Choose random k where 0 < k < q</div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step" id="signStep3">
+                        <div class="flow-number">3</div>
+                        <div class="flow-content">
+                            <div class="flow-title">Calculate r</div>
+                            <div class="flow-description">r = (g^k mod p) mod q</div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step" id="signStep4">
+                        <div class="flow-number">4</div>
+                        <div class="flow-content">
+                            <div class="flow-title">Calculate s</div>
+                            <div class="flow-description">s = k^(-1) × (h + x×r) mod q</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Signature Verification -->
+    <div class="section-card">
+        <h2 class="section-title">✅ Signature Verification</h2>
+        
+        <div class="computation-steps">
+            <div class="computation-title">Verification Steps</div>
+            
+            <div class="computation-step" id="computationStep1">
+                <div class="step-icon">1</div>
+                <div class="step-content">
+                    Calculate w = s^(-1) mod q
+                    <div class="step-result">w = -</div>
+                </div>
+            </div>
+            
+            <div class="computation-step" id="computationStep2">
+                <div class="step-icon">2</div>
+                <div class="step-content">
+                    Calculate u1 = h × w mod q
+                    <div class="step-result">u1 = -</div>
+                </div>
+            </div>
+            
+            <div class="computation-step" id="computationStep3">
+                <div class="step-icon">3</div>
+                <div class="step-content">
+                    Calculate u2 = r × w mod q
+                    <div class="step-result">u2 = -</div>
+                </div>
+            </div>
+            
+            <div class="computation-step" id="computationStep4">
+                <div class="step-icon">4</div>
+                <div class="step-content">
+                    Calculate v = ((g^u1 × y^u2) mod p) mod q
+                    <div class="step-result">v = -</div>
+                </div>
+            </div>
+            
+            <div class="computation-step" id="computationStep5">
+                <div class="step-icon">5</div>
+                <div class="step-content">
+                    Verify if v = r
+                    <div class="step-result">Verification pending...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Verification Result -->
+    <div class="section-card">
+        <h2 class="section-title">🎯 Verification Result</h2>
+        
+        <div id="verificationResult" class="verification-result" style="display: none;">
+            <div id="verificationIcon" class="verification-icon">
+                ?
+            </div>
+            <div id="verificationText" class="verification-text">
+                Verification Status
+            </div>
+            <div id="verificationDetails" class="verification-details">
+                Verification details will appear here
+            </div>
+        </div>
+    </div>
+
+    <!-- Algorithm Summary -->
+    <div class="section-card">
+        <h2 class="section-title">📋 Algorithm Summary</h2>
+        
+        <div class="info-panel">
+            <div class="info-title">Current Status</div>
+            <div id="algorithmSummary" class="info-content">
+                Ready to start DSA simulation...
+            </div>
+        </div>
+    </div>
+
+    <!-- Information Panel -->
+    <div class="section-card">
+        <h2 class="section-title">ℹ️ About DSA</h2>
+        
+        <div class="info-panel">
+            <div class="info-title">Digital Signature Algorithm (DSA)</div>
+            <div class="info-content">
+                DSA is a Federal Information Processing Standard for digital signatures. It provides:
+                <br><br>
+                • <strong>Authentication:</strong> Verifies the sender's identity<br>
+                • <strong>Integrity:</strong> Ensures message hasn't been tampered with<br>
+                • <strong>Non-repudiation:</strong> Sender cannot deny signing the message<br>
+                <br>
+                DSA uses modular arithmetic and discrete logarithms to create signatures that are easy to verify but computationally infeasible to forge.
+            </div>
+        </div>
+        
+        <div class="info-panel">
+            <div class="info-title">Key Components</div>
+            <div class="info-content">
+                • <strong>p:</strong> Large prime modulus (512-1024 bits in practice)<br>
+                • <strong>q:</strong> Prime divisor of (p-1) (160 bits in practice)<br>
+                • <strong>g:</strong> Generator of order q modulo p<br>
+                • <strong>x:</strong> Private key (0 < x < q)<br>
+                • <strong>y:</strong> Public key (y = g^x mod p)<br>
+                • <strong>(r,s):</strong> Digital signature pair
+            </div>
+        </div>
+        
+        <div class="info-panel">
+            <div class="info-title">Security Note</div>
+            <div class="info-content">
+                This simulation uses smaller numbers for demonstration purposes. In real implementations, 
+                much larger primes (1024-3072 bits) are used to ensure cryptographic security.
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/dsa_simulation.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,170 @@
+{% extends "pages/shift-cipher/base_shift_cipher.html" %}
+
+{% block cipher_content %}
+<h1 class="text-2xl font-bold text-gray-800 mb-6">Assignments: Breaking the Shift Cipher</h1>
+
+<div class="prose max-w-none">
+    <!-- Instructions Section -->
+    <div class="bg-blue-50 p-6 rounded-lg mb-8">
+        <h2 class="text-xl font-semibold text-blue-800 mb-4">Instructions</h2>
+        <ul class="list-disc pl-6 text-blue-900 space-y-2">
+            <li>Complete all exercises in sequence</li>
+            <li>Use the frequency analysis method learned in theory</li>
+            <li>Show your work in the provided workspace</li>
+            <li>Submit your answers using the check button for each exercise</li>
+            <li>You can use the simulation page tools for practice</li>
+        </ul>
+    </div>
+
+    <!-- Exercise 1: Basic Shift -->
+    <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-semibold text-gray-800">Exercise 1: Basic Shift</h3>
+            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Beginner</span>
+        </div>
+        
+        <div class="space-y-4">
+            <p class="text-gray-700">Decrypt the following message:</p>
+            <div class="bg-gray-100 p-4 rounded-lg font-mono">
+                KHOOR ZRUOG
+            </div>
+            
+            <div class="bg-yellow-50 p-4 rounded-lg">
+                <p class="text-sm text-yellow-800">
+                    <span class="font-semibold">Hint:</span> This is a common programming first example
+                </p>
+            </div>
+
+            <div class="space-y-2">
+                <label class="block text-sm font-medium text-gray-700">Your Answer:</label>
+                <input type="text" id="ex1-answer" class="w-full p-2 border rounded-md">
+                <label class="block text-sm font-medium text-gray-700 mt-2">Shift Value Used:</label>
+                <input type="number" id="ex1-shift" class="w-1/4 p-2 border rounded-md" min="0" max="25">
+                <button onclick="checkExercise1()" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                    Check Answer
+                </button>
+            </div>
+            <div id="ex1-feedback" class="hidden mt-4 p-4 rounded-md"></div>
+        </div>
+    </div>
+
+    <!-- Exercise 2: Intermediate Challenge -->
+    <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-semibold text-gray-800">Exercise 2: Message with Punctuation</h3>
+            <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm">Intermediate</span>
+        </div>
+        
+        <div class="space-y-4">
+            <p class="text-gray-700">Decrypt this longer message:</p>
+            <div class="bg-gray-100 p-4 rounded-lg font-mono">
+                YFGX NX F XJHWJY RJXXFLJ! HTRUFWJ YMJ QJYYJW KWJVZJSHNJ
+            </div>
+            
+            <div class="bg-yellow-50 p-4 rounded-lg">
+                <p class="text-sm text-yellow-800">
+                    <span class="font-semibold">Hint:</span> Use frequency analysis. The most common letter in English is 'E'
+                </p>
+            </div>
+
+            <div class="space-y-2">
+                <label class="block text-sm font-medium text-gray-700">Your Answer:</label>
+                <input type="text" id="ex2-answer" class="w-full p-2 border rounded-md">
+                <label class="block text-sm font-medium text-gray-700 mt-2">Shift Value Used:</label>
+                <input type="number" id="ex2-shift" class="w-1/4 p-2 border rounded-md" min="0" max="25">
+                <button onclick="checkExercise2()" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                    Check Answer
+                </button>
+            </div>
+            <div id="ex2-feedback" class="hidden mt-4 p-4 rounded-md"></div>
+        </div>
+    </div>
+
+    <!-- Exercise 3: Advanced Challenge -->
+    <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-semibold text-gray-800">Exercise 3: Complex Message</h3>
+            <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm">Advanced</span>
+        </div>
+        
+        <div class="space-y-4">
+            <p class="text-gray-700">Decrypt this complex message:</p>
+            <div class="bg-gray-100 p-4 rounded-lg font-mono">
+                GSVIVZIVMLDLIVHVXIVGH! GSVXRKSVIRHHLIEVW
+            </div>
+            
+            <div class="bg-yellow-50 p-4 rounded-lg">
+                <p class="text-sm text-yellow-800">
+                    <span class="font-semibold">Hint:</span> Look for word patterns and common English words
+                </p>
+            </div>
+
+            <div class="space-y-2">
+                <label class="block text-sm font-medium text-gray-700">Your Answer:</label>
+                <input type="text" id="ex3-answer" class="w-full p-2 border rounded-md">
+                <label class="block text-sm font-medium text-gray-700 mt-2">Shift Value Used:</label>
+                <input type="number" id="ex3-shift" class="w-1/4 p-2 border rounded-md" min="0" max="25">
+                <button onclick="checkExercise3()" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                    Check Answer
+                </button>
+            </div>
+            <div id="ex3-feedback" class="hidden mt-4 p-4 rounded-md"></div>
+        </div>
+    </div>
+
+    <!-- Workspace -->
+    <div class="bg-white p-6 rounded-lg shadow-md">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">Workspace</h3>
+        <textarea 
+            class="w-full h-32 p-4 border rounded-md font-mono text-sm"
+            placeholder="Use this space for your calculations and notes..."
+        ></textarea>
+    </div>
+</div>
+
+<script>
+    function showFeedback(elementId, isCorrect, message) {
+        const feedback = document.getElementById(elementId);
+        feedback.classList.remove('hidden', 'bg-green-100', 'bg-red-100', 'text-green-800', 'text-red-800');
+        feedback.classList.add(isCorrect ? 'bg-green-100' : 'bg-red-100');
+        feedback.classList.add(isCorrect ? 'text-green-800' : 'text-red-800');
+        feedback.textContent = message;
+        feedback.classList.remove('hidden');
+    }
+
+    function checkExercise1() {
+        const answer = document.getElementById('ex1-answer').value.toUpperCase();
+        const shift = parseInt(document.getElementById('ex1-shift').value);
+        
+        if (answer === "HELLO WORLD" && shift === 3) {
+            showFeedback('ex1-feedback', true, "Correct! Perfect decryption and correct shift value!");
+        } else if (answer === "HELLO WORLD") {
+            showFeedback('ex1-feedback', false, "The decrypted text is correct, but the shift value is wrong. Try again!");
+        } else {
+            showFeedback('ex1-feedback', false, "Not quite right. Keep trying!");
+        }
+    }
+
+    function checkExercise2() {
+        const answer = document.getElementById('ex2-answer').value.toUpperCase();
+        const shift = parseInt(document.getElementById('ex2-shift').value);
+        
+        if (answer === "THIS IS A SECRET MESSAGE! COMPARE THE LETTER FREQUENCI" && shift === 5) {
+            showFeedback('ex2-feedback', true, "Excellent work! You've successfully used frequency analysis!");
+        } else {
+            showFeedback('ex2-feedback', false, "Keep trying! Remember to analyze letter frequencies.");
+        }
+    }
+
+    function checkExercise3() {
+        const answer = document.getElementById('ex3-answer').value.toUpperCase();
+        const shift = parseInt(document.getElementById('ex3-shift').value);
+        
+        if (answer === "THEREARENMORESECRETS! THECIPHERISSOLVED" && shift === 19) {
+            showFeedback('ex3-feedback', true, "Outstanding! You've mastered the shift cipher!");
+        } else {
+            showFeedback('ex3-feedback', false, "Not quite right. Try looking for common word patterns.");
+        }
+    }
+</script>
+{% endblock %} 

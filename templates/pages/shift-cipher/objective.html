@@ -1,0 +1,111 @@
+{% extends "pages/shift-cipher/base_shift_cipher.html" %}
+
+{% block cipher_content %}
+<h1 class="text-2xl font-bold text-gray-800 mb-6">Objectives</h1>
+
+<div class="prose max-w-none">
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">Primary Objectives</h2>
+    
+    <p class="mb-6">
+        This experiment aims to achieve the following learning objectives:
+    </p>
+
+    <ul class="list-disc pl-6 mb-8 space-y-4">
+        <li>
+            <span class="font-semibold">Understanding Cryptanalysis:</span>
+            <p class="mt-1">
+                Learn the fundamental principles of breaking a classical cipher through systematic cryptanalysis.
+            </p>
+        </li>
+        <li>
+            <span class="font-semibold">Mastering Frequency Analysis:</span>
+            <p class="mt-1">
+                Develop skills in analyzing letter frequencies in encrypted text to determine the encryption key.
+            </p>
+        </li>
+        <li>
+            <span class="font-semibold">Key Space Exploration:</span>
+            <p class="mt-1">
+                Understand how a limited key space (26 possible shifts) makes the cipher vulnerable to brute force attacks.
+            </p>
+        </li>
+        <li>
+            <span class="font-semibold">Pattern Recognition:</span>
+            <p class="mt-1">
+                Identify common English language patterns in encrypted text to assist in breaking the cipher.
+            </p>
+        </li>
+    </ul>
+
+    <h2 class="text-xl font-semibold text-gray-800 mt-8 mb-4">Learning Outcomes</h2>
+    
+    <p class="mb-4">
+        After completing this experiment, you should be able to:
+    </p>
+
+    <ol class="list-decimal pl-6 mb-8 space-y-4">
+        <li>
+            <span class="font-semibold">Implement Cryptanalysis:</span>
+            <p class="mt-1">
+                Successfully break a shift cipher without prior knowledge of the key using various cryptanalysis techniques.
+            </p>
+        </li>
+        <li>
+            <span class="font-semibold">Apply Statistical Analysis:</span>
+            <p class="mt-1">
+                Use letter frequency analysis to identify potential shift values in encrypted text.
+            </p>
+        </li>
+        <li>
+            <span class="font-semibold">Evaluate Cipher Security:</span>
+            <p class="mt-1">
+                Understand why the shift cipher is considered cryptographically weak and unsuitable for modern security needs.
+            </p>
+        </li>
+        <li>
+            <span class="font-semibold">Develop Problem-Solving Skills:</span>
+            <p class="mt-1">
+                Apply systematic approaches to break encrypted messages using both manual and automated methods.
+            </p>
+        </li>
+    </ol>
+
+    <div class="bg-yellow-50 p-6 rounded-lg mb-8">
+        <h3 class="text-lg font-semibold text-yellow-800 mb-3">Practical Skills Development</h3>
+        <ul class="list-none space-y-3">
+            <li class="flex items-start">
+                <svg class="w-6 h-6 text-yellow-600 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span>Implement frequency analysis algorithms</span>
+            </li>
+            <li class="flex items-start">
+                <svg class="w-6 h-6 text-yellow-600 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span>Develop brute force decryption methods</span>
+            </li>
+            <li class="flex items-start">
+                <svg class="w-6 h-6 text-yellow-600 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span>Create pattern matching algorithms</span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="bg-blue-50 p-6 rounded-lg">
+        <h3 class="text-lg font-semibold text-blue-800 mb-3">Assessment Criteria</h3>
+        <p class="text-blue-900 mb-4">
+            Your understanding will be evaluated based on:
+        </p>
+        <ul class="list-disc pl-6 text-blue-800 space-y-2">
+            <li>Ability to successfully decrypt given ciphertext</li>
+            <li>Understanding of the cryptanalysis process</li>
+            <li>Implementation of frequency analysis</li>
+            <li>Efficiency of the breaking method used</li>
+            <li>Documentation of the decryption process</li>
+        </ul>
+    </div>
+</div>
+{% endblock %} 

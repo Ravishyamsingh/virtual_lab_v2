@@ -1,0 +1,87 @@
+{
+  "assignments": [
+    {
+      "id": "a6eb45e2-f6f0-44db-adf7-947587418154",
+      "title": "Caesar Cipher Analysis",
+      "description": "Analyze and break a Caesar cipher using frequency analysis",
+      "lab_module": "shift_cipher",
+      "difficulty": "easy",
+      "points": 10,
+      "due_date": "2025-09-03T12:59:22.261699",
+      "created_by": "admin",
+      "created_at": "2025-08-27T12:59:22.261767",
+      "instructions": "Use the provided ciphertext to determine the shift value and decrypt the message. Show your work including frequency analysis.",
+      "resources": [
+        "Frequency Analysis Guide",
+        "Caesar Cipher Reference"
+      ],
+      "is_active": true
+    },
+    {
+      "id": "7604206e-8992-4e19-842b-fa7fddb9361f",
+      "title": "Mono-Alphabetic Cipher Challenge",
+      "description": "Decrypt a mono-alphabetic substitution cipher",
+      "lab_module": "mono_alphabetic",
+      "difficulty": "medium",
+      "points": 15,
+      "due_date": "2025-09-06T12:59:22.277887",
+      "created_by": "admin",
+      "created_at": "2025-08-27T12:59:22.277911",
+      "instructions": "Decrypt the given ciphertext using frequency analysis and pattern recognition. Document your methodology.",
+      "resources": [
+        "Letter Frequency Tables",
+        "Pattern Analysis Guide"
+      ],
+      "is_active": true
+    },
+    {
+      "id": "5ddaa559-c004-4dc8-bd6a-0250bb322d77",
+      "title": "AES Implementation Project",
+      "description": "Implement basic AES encryption/decryption",
+      "lab_module": "aes_algorithm",
+      "difficulty": "hard",
+      "points": 25,
+      "due_date": "2025-09-10T12:59:22.296959",
+      "created_by": "admin",
+      "created_at": "2025-08-27T12:59:22.296985",
+      "instructions": "Implement AES-128 encryption and decryption. Test with provided test vectors.",
+      "resources": [
+        "AES Specification",
+        "Implementation Guide",
+        "Test Vectors"
+      ],
+      "is_active": true
+    },
+    {
+      "id": "7d445c4a-bba6-4066-a16b-9d4f9514cee4",
+      "title": "Hash Function Security Analysis",
+      "description": "Analyze the security properties of different hash functions",
+      "lab_module": "hash_function",
+      "difficulty": "medium",
+      "points": 20,
+      "due_date": "2025-09-08T12:59:22.315510",
+      "created_by": "admin",
+      "created_at": "2025-08-27T12:59:22.315532",
+      "instructions": "Compare MD5, SHA-1, and SHA-256. Discuss vulnerabilities and use cases.",
+      "resources": [
+        "Hash Function Comparison",
+        "Security Analysis Framework"
+      ],
+      "is_active": true
+    },
+    {
+      "id": "47c603fb-8dd4-4388-9c2f-dada5563ddf6",
+      "title": "AES Encryption Project",
+      "description": "Buil;d",
+      "lab_module": "aes_algorithm",
+      "difficulty": "easy",
+      "points": 100,
+      "due_date": "2025-09-03T13:02:42.085548",
+      "created_by": "ravishyam121",
+      "created_at": "2025-08-27T13:02:42.085596",
+      "instructions": "How to do",
+      "resources": [],
+      "is_active": true
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{% extends "pages/one-time-pad/base_one_time_pad.html" %}
+
+{% block page_content %}
+<div class="space-y-6">
+    <h1 class="text-3xl font-bold text-gray-900 mb-6">One-Time Pad (OTP) Cipher Procedure</h1>
+
+    <div class="space-y-4">
+        <section>
+            <h2 class="text-2xl font-semibold text-gray-800 mb-3">Encryption Process</h2>
+            <ol class="list-decimal list-inside space-y-3 text-gray-700">
+                <li class="pl-4">Generate the One-Time Pad (Key):
+                    <ul class="list-disc list-inside ml-6 mt-2">
+                        <li>Create a truly random sequence of numbers</li>
+                        <li>The key must be the same length as the plaintext</li>
+                        <li>Each key must be used only once</li>
+                    </ul>
+                </li>
+                <li class="pl-4">Encryption Steps:
+                    <ul class="list-disc list-inside ml-6 mt-2">
+                        <li>Convert plaintext letters to numbers (A=0, B=1, ..., Z=25)</li>
+                        <li>Add each plaintext number to corresponding key number</li>
+                        <li>Take modulo 26 of the sum</li>
+                        <li>Convert result back to letters</li>
+                    </ul>
+                </li>
+            </ol>
+        </section>
+
+        <section>
+            <h2 class="text-2xl font-semibold text-gray-800 mb-3">Decryption Process</h2>
+            <ol class="list-decimal list-inside space-y-3 text-gray-700">
+                <li class="pl-4">Using the Same Key:
+                    <ul class="list-disc list-inside ml-6 mt-2">
+                        <li>Convert ciphertext letters to numbers</li>
+                        <li>Subtract the key numbers from ciphertext numbers</li>
+                        <li>Take modulo 26 of the difference</li>
+                        <li>Convert result back to letters</li>
+                    </ul>
+                </li>
+            </ol>
+        </section>
+
+        <section>
+            <h2 class="text-2xl font-semibold text-gray-800 mb-3">Important Guidelines</h2>
+            <ul class="list-disc list-inside space-y-2 text-gray-700">
+                <li>The key must be truly random</li>
+                <li>The key must be at least as long as the message</li>
+                <li>Each key must be used exactly once</li>
+                <li>Both sender and receiver must securely store the key</li>
+                <li>The key must be securely transmitted and kept secret</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2 class="text-2xl font-semibold text-gray-800 mb-3">Example Workflow</h2>
+            <div class="bg-gray-50 p-4 rounded-lg">
+                <p class="text-gray-700 mb-2">1. Plaintext: HELLO</p>
+                <p class="text-gray-700 mb-2">2. Convert to numbers: 7 4 11 11 14</p>
+                <p class="text-gray-700 mb-2">3. Random key: 15 9 2 4 19</p>
+                <p class="text-gray-700 mb-2">4. Add and mod 26:</p>
+                <code class="block bg-gray-100 p-2 rounded">
+(7+15)%26=22  (4+9)%26=13  (11+2)%26=13  (11+4)%26=15  (14+19)%26=7
+</code>
+                <p class="text-gray-700 mb-2 mt-3">5. Convert back to letters:</p>
+                <code class="block bg-gray-100 p-2 rounded">W N N P H</code>
+                <p class="text-gray-700 mt-3">The ciphertext is: WNNPH</p>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="text-2xl font-semibold text-gray-800 mb-3">Mathematical Formula</h2>
+            <div class="bg-gray-50 p-4 rounded-lg">
+                <p class="text-gray-700 mb-2">Encryption:</p>
+                <code class="block bg-gray-100 p-2 rounded">Ci = (Pi + Ki) mod 26</code>
+                <p class="text-gray-700 mb-2 mt-3">Decryption:</p>
+                <code class="block bg-gray-100 p-2 rounded">Pi = (Ci - Ki) mod 26</code>
+                <p class="text-gray-700 mt-2">Where:</p>
+                <ul class="list-disc list-inside ml-4 text-gray-700">
+                    <li>Ci = Ciphertext letter position</li>
+                    <li>Pi = Plaintext letter position</li>
+                    <li>Ki = Key letter position</li>
+                </ul>
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}

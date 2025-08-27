@@ -1,0 +1,700 @@
+{% extends "pages/shift-cipher/base_shift_cipher.html" %}
+
+{% block cipher_content %}
+<h1 class="text-2xl font-bold text-gray-800 mb-6">Simulation: Breaking the Shift Cipher</h1>
+
+<div class="prose max-w-none">
+    <!-- Encryption Section -->
+    <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">Encryption Tool</h2>
+        <div class="space-y-4">
+            <div>
+                <label for="plaintext" class="block text-sm font-medium text-gray-700 mb-1">Enter Plaintext:</label>
+                <input type="text" id="plaintext" class="w-full p-2 border rounded-md" 
+                       placeholder="Enter text to encrypt">
+            </div>
+
+            <!-- Enhanced Visualization Section -->
+            <div class="mt-4 mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Encryption Visualization:</label>
+                <div class="relative min-h-[400px] border rounded-md p-4 bg-gradient-to-b from-gray-50 to-gray-100">
+                    <!-- Shift Wheel Visualization -->
+                    <div class="flex justify-center mb-6">
+                        <div id="shift-wheel" class="relative w-48 h-48">
+                            <!-- The wheel will be rendered here by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Process Steps -->
+                    <div class="bg-blue-50 p-4 rounded-lg mb-4">
+                        <h4 class="text-sm font-semibold text-blue-800 mb-2">Encryption Process:</h4>
+                        <div class="text-sm text-blue-700 space-y-2">
+                            <p id="step1" class="opacity-50">1. Take each letter from the plaintext</p>
+                            <p id="step2" class="opacity-50">2. Find its position in the alphabet (A=0, B=1, etc.)</p>
+                            <p id="step3" class="opacity-50">3. Add the shift value (mod 26)</p>
+                            <p id="step4" class="opacity-50">4. Convert back to letter</p>
+                        </div>
+                    </div>
+
+                    <!-- Visualization Area -->
+                    <div class="flex flex-col space-y-8">
+                        <!-- Original Text Row -->
+                        <div class="flex justify-center space-x-2">
+                            <div class="text-sm font-medium text-gray-600 w-24">Original:</div>
+                            <div id="original-alphabet" class="flex flex-wrap gap-2 justify-center"></div>
+                        </div>
+
+                        <!-- Current Process -->
+                        <div id="process-visualization" class="h-24 flex items-center justify-center text-lg font-mono">
+                            <!-- Process animation will appear here -->
+                        </div>
+
+                        <!-- Encrypted Result Row -->
+                        <div class="flex justify-center space-x-2">
+                            <div class="text-sm font-medium text-gray-600 w-24">Encrypted:</div>
+                            <div id="encrypted-result" class="flex flex-wrap gap-2 justify-center"></div>
+                        </div>
+                    </div>
+
+                    <!-- Formula Display -->
+                    <div class="absolute bottom-2 right-2 bg-gray-800 text-white px-3 py-1 rounded-full text-sm font-mono">
+                        E(x) = (x + k) mod 26
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <label for="shift-key" class="block text-sm font-medium text-gray-700 mb-1">Shift Key (0-25):</label>
+                <input type="number" id="shift-key" class="w-1/4 p-2 border rounded-md" min="0" max="25" value="3">
+            </div>
+            <button onclick="encrypt()" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                Encrypt
+            </button>
+            <div class="mt-4">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Encrypted Result:</label>
+                <div id="encryption-result" class="p-2 bg-gray-100 rounded-md font-mono"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Decryption Section -->
+    <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">Decryption Tool</h2>
+        <div class="space-y-4">
+            <div>
+                <label for="ciphertext" class="block text-sm font-medium text-gray-700 mb-1">Enter Ciphertext:</label>
+                <input type="text" id="ciphertext" class="w-full p-2 border rounded-md" 
+                       placeholder="Enter text to decrypt">
+            </div>
+
+            <!-- Enhanced Visualization Section -->
+            <div class="mt-4 mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Decryption Visualization:</label>
+                <div class="relative h-48 border rounded-md p-4 bg-gradient-to-b from-gray-50 to-gray-100">
+                    <!-- Linear Alphabet Sequence -->
+                    <div class="flex justify-center">
+                        <div id="decrypt-alphabet-sequence" class="relative w-full flex flex-col space-y-8">
+                            <!-- Encrypted Alphabet Row -->
+                            <div class="flex justify-center space-x-2">
+                                <div class="text-sm font-medium text-gray-600 w-24">Encrypted:</div>
+                                <div id="encrypted-alphabet" class="flex space-x-3"></div>
+                            </div>
+                            <!-- Decrypted Result Row -->
+                            <div class="flex justify-center space-x-2">
+                                <div class="text-sm font-medium text-gray-600 w-24">Decrypted:</div>
+                                <div id="decrypted-result" class="flex space-x-3"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <label for="decrypt-shift-key" class="block text-sm font-medium text-gray-700 mb-1">Shift Key (0-25):</label>
+                <input type="number" id="decrypt-shift-key" class="w-1/4 p-2 border rounded-md" min="0" max="25" value="3">
+            </div>
+            <button onclick="decrypt()" class="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700">
+                Decrypt
+            </button>
+            <div class="mt-4">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Decrypted Result:</label>
+                <div id="decryption-result" class="p-2 bg-gray-100 rounded-md font-mono"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Decryption Challenge Section -->
+    <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">Decryption Challenge</h2>
+        <div class="space-y-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Challenge Ciphertext:</label>
+                <div id="challenge-text" class="p-2 bg-gray-100 rounded-md font-mono mb-4"></div>
+                <button onclick="generateChallenge()" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700">
+                    Generate New Challenge
+                </button>
+            </div>
+            
+            <!-- Frequency Analysis Tool -->
+            <div class="mt-4">
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">Frequency Analysis</h3>
+                <div id="frequency-analysis" class="grid grid-cols-6 gap-2 p-2 bg-gray-50 rounded-md">
+                    <!-- Frequency bars will be inserted here -->
+                </div>
+            </div>
+
+            <!-- Solution Input -->
+            <div class="mt-6">
+                <label for="guessed-shift" class="block text-sm font-medium text-gray-700 mb-1">Your Guess (Shift Value):</label>
+                <input type="number" id="guessed-shift" class="w-1/4 p-2 border rounded-md" min="0" max="25">
+                <button onclick="checkAnswer()" class="ml-4 bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">
+                    Check Answer
+                </button>
+            </div>
+
+            <div id="feedback" class="mt-4 p-4 rounded-md hidden"></div>
+        </div>
+    </div>
+
+    <!-- Interactive Workspace -->
+    <div class="bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">Interactive Workspace</h2>
+        <div class="space-y-4">
+            <div>
+                <label for="workspace-input" class="block text-sm font-medium text-gray-700 mb-1">Workspace:</label>
+                <textarea id="workspace-input" class="w-full p-2 border rounded-md h-32" 
+                          placeholder="Use this space for your calculations and notes..."></textarea>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Quick Tools</h3>
+                    <div class="space-y-2">
+                        <button onclick="showFrequencyTable()" class="w-full bg-gray-200 px-4 py-2 rounded-md hover:bg-gray-300">
+                            Show Letter Frequencies
+                        </button>
+                        <button onclick="tryAllShifts()" class="w-full bg-gray-200 px-4 py-2 rounded-md hover:bg-gray-300">
+                            Try All Shifts
+                        </button>
+                    </div>
+                </div>
+                <div id="tools-output" class="p-2 bg-gray-100 rounded-md">
+                    <!-- Tool output will appear here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Initialize shift wheel
+    function initializeShiftWheel() {
+        const wheel = document.getElementById('shift-wheel');
+        wheel.innerHTML = '';
+        const radius = 80;
+        const center = 96;
+
+        alphabet.forEach((letter, index) => {
+            const angle = (index * 360 / 26) * (Math.PI / 180);
+            const x = center + radius * Math.cos(angle);
+            const y = center + radius * Math.sin(angle);
+            
+            const letterDiv = document.createElement('div');
+            letterDiv.className = 'wheel-letter';
+            letterDiv.textContent = letter;
+            letterDiv.style.left = `${x}px`;
+            letterDiv.style.top = `${y}px`;
+            letterDiv.id = `wheel-${letter}`;
+            
+            wheel.appendChild(letterDiv);
+        });
+    }
+
+    // Update wheel rotation based on shift
+    function updateWheelRotation(shift) {
+        const wheel = document.getElementById('shift-wheel');
+        wheel.style.transform = `rotate(${shift * (360/26)}deg)`;
+    }
+
+    // Highlight process step
+    function highlightStep(stepNumber) {
+        const steps = document.querySelectorAll('[id^="step"]');
+        steps.forEach(step => step.style.opacity = '0.5');
+        document.getElementById(`step${stepNumber}`).style.opacity = '1';
+        document.getElementById(`step${stepNumber}`).classList.add('process-step');
+    }
+
+    // Show process calculation
+    function showProcessCalculation(original, shift, result) {
+        const process = document.getElementById('process-visualization');
+        process.innerHTML = `
+            <div class="flex items-center space-x-4 font-mono text-lg animate-fadeIn">
+                <span class="text-blue-600">${original}</span>
+                <span class="text-gray-500">+</span>
+                <span class="text-green-600">${shift}</span>
+                <span class="text-gray-500">=</span>
+                <span class="text-purple-600">${result}</span>
+                <span class="text-gray-500">(mod 26)</span>
+            </div>
+        `;
+    }
+
+    // Enhanced encryption function
+    function encrypt() {
+        const plaintext = document.getElementById('plaintext').value.toUpperCase();
+        const shift = parseInt(document.getElementById('shift-key').value);
+        
+        let result = '';
+
+        // First, calculate the complete encrypted result
+        for (let i = 0; i < plaintext.length; i++) {
+            if (plaintext[i].match(/[A-Z]/)) {
+                const code = ((plaintext.charCodeAt(i) - 65 + shift) % 26) + 65;
+                result += String.fromCharCode(code);
+            } else {
+                result += plaintext[i];
+            }
+        }
+
+        // Build the original letter visualization boxes from the plaintext
+        const originalContainer = document.getElementById('original-alphabet');
+        originalContainer.innerHTML = '';
+        for (let i = 0; i < plaintext.length; i++) {
+            let box = document.createElement('div');
+            box.className = 'w-10 h-10 flex items-center justify-center border-2 rounded-md transition-all duration-300 relative text-lg font-semibold';
+            box.textContent = plaintext[i];
+            originalContainer.appendChild(box);
+        }
+
+        // Build the encrypted result visualization boxes
+        const encryptedContainer = document.getElementById('encrypted-result');
+        encryptedContainer.innerHTML = '';
+        for (let i = 0; i < result.length; i++) {
+            let box = document.createElement('div');
+            box.className = 'w-10 h-10 flex items-center justify-center border-2 rounded-md transition-all duration-300 relative text-lg font-semibold';
+            box.textContent = result[i];
+            encryptedContainer.appendChild(box);
+        }
+
+        // Reset all letter styles before starting animation
+        document.querySelectorAll('#original-alphabet > div, #encrypted-result > div').forEach(el => {
+            el.className = 'w-10 h-10 flex items-center justify-center border-2 rounded-md transition-all duration-300 relative text-lg font-semibold';
+            el.style.backgroundColor = '';
+            el.style.borderColor = '#e5e7eb';
+            el.style.color = '#6b7280';
+        });
+
+        // Highlight letters in the original alphabet
+        for (let i = 0; i < plaintext.length; i++) {
+            const char = plaintext[i];
+            if (char.match(/[A-Z]/)) {
+                const originalLetter = document.querySelector(`[data-letter="${char}"]`);
+                if (originalLetter) {
+                    originalLetter.style.backgroundColor = '#dbeafe';
+                    originalLetter.style.borderColor = '#2563eb';
+                    originalLetter.style.color = '#1e40af';
+                }
+            }
+        }
+
+        // Highlight corresponding letters in the shifted alphabet
+        for (let i = 0; i < result.length; i++) {
+            const char = result[i];
+            if (char.match(/[A-Z]/)) {
+                const shiftedLetter = document.querySelector(`[data-shiftedLetter="${char}"]`);
+                if (shiftedLetter) {
+                    shiftedLetter.style.backgroundColor = '#dcfce7';
+                    shiftedLetter.style.borderColor = '#059669';
+                    shiftedLetter.style.color = '#047857';
+                }
+            }
+        }
+
+        // Initialize the wheel rotation
+        updateWheelRotation(shift);
+
+        // Start sequential animation
+        let currentIndex = 0;
+        function animateNext() {
+            if (currentIndex >= plaintext.length) {
+                // Reset process display
+                document.getElementById('process-visualization').innerHTML = '';
+                document.querySelectorAll('.wheel-letter').forEach(el => el.classList.remove('active'));
+                return;
+            }
+
+            const char = plaintext[currentIndex];
+            if (char.match(/[A-Z]/)) {
+                const originalBoxes = document.getElementById('original-alphabet').children;
+                const originalBox = originalBoxes[currentIndex];
+                const encryptedBoxes = document.getElementById('encrypted-result').children;
+                const destinationBox = encryptedBoxes[currentIndex];
+
+                if (originalBox && destinationBox) {
+                    // Highlight process steps
+                    highlightStep(1);
+
+                    // Highlight active letter being processed
+                    originalBox.style.backgroundColor = '#93c5fd';
+                    originalBox.style.transform = 'scale(1.1)';
+                    
+                    // Highlight wheel letters
+                    const wheelOriginal = document.getElementById(`wheel-${char}`);
+                    const wheelResult = document.getElementById(`wheel-${result[currentIndex]}`);
+                    if (wheelOriginal) wheelOriginal.classList.add('active');
+                    if (wheelResult) wheelResult.classList.add('active');
+
+                    // Create a jumping element with enhanced animation properties
+                    const jumper = document.createElement('div');
+                    jumper.className = 'fixed bg-blue-500 text-white font-bold rounded-full flex items-center justify-center z-50';
+                    jumper.style.width = '40px';
+                    jumper.style.height = '40px';
+                    jumper.textContent = char;
+
+                    const origRect = originalBox.getBoundingClientRect();
+                    const destRect = destinationBox.getBoundingClientRect();
+                    
+                    jumper.style.left = `${origRect.left}px`;
+                    jumper.style.top = `${origRect.top}px`;
+                    document.body.appendChild(jumper);
+
+                    // Create a connector line from the original letter box to the destination box
+                    const line = document.createElement('div');
+                    line.className = 'line-connector';
+                    const startX = origRect.left + origRect.width / 2;
+                    const startY = origRect.top + origRect.height / 2;
+                    const endX = destRect.left + destRect.width / 2;
+                    const endY = destRect.top + destRect.height / 2;
+                    const dx = endX - startX;
+                    const dy = endY - startY;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    const angle = Math.atan2(dy, dx) * (180 / Math.PI);
+                    line.style.position = 'fixed';
+                    line.style.left = `${startX}px`;
+                    line.style.top = `${startY}px`;
+                    line.style.width = `${distance}px`;
+                    line.style.height = '2px';
+                    line.style.backgroundColor = '#6b7280';
+                    line.style.transformOrigin = '0 0';
+                    line.style.transform = `rotate(${angle}deg)`;
+                    document.body.appendChild(line);
+
+                    // Animate the jump with rotation and scaling
+                    setTimeout(() => {
+                        jumper.style.transition = 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                        jumper.style.left = `${destRect.left}px`;
+                        jumper.style.top = `${destRect.top}px`;
+                        jumper.style.transform = 'rotate(360deg) scale(1.2)';
+                        // Fade out the connector line
+                        line.style.transition = 'opacity 0.6s ease-in-out';
+                        line.style.opacity = '0';
+
+                        // Highlight destination and then cleanup
+                        setTimeout(() => {
+                            destinationBox.style.backgroundColor = '#86efac';
+                            destinationBox.style.transform = 'scale(1.1)';
+
+                            setTimeout(() => {
+                                jumper.remove();
+                                line.remove();
+                                originalBox.style.transform = 'scale(1)';
+                                originalBox.style.backgroundColor = '#dbeafe';
+                                destinationBox.style.transform = 'scale(1)';
+                                destinationBox.style.backgroundColor = '#dcfce7';
+                                currentIndex++;
+                                animateNext();
+                            }, 300);
+                        }, 600);
+                    }, 100);
+                } else {
+                    currentIndex++;
+                    animateNext();
+                }
+            } else {
+                currentIndex++;
+                animateNext();
+            }
+        }
+
+        // Start the animation
+        animateNext();
+    }
+
+    // Generate challenge
+    function generateChallenge() {
+        const phrases = [
+            "THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG",
+            "CRYPTOGRAPHY IS THE PRACTICE OF SECURE COMMUNICATION",
+            "BREAKING CODES REQUIRES PATIENCE AND ANALYSIS",
+            "FREQUENCY ANALYSIS IS A POWERFUL TOOL"
+        ];
+        const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+        const randomShift = Math.floor(Math.random() * 26);
+        
+        // Encrypt the phrase
+        let challenge = '';
+        for (let i = 0; i < randomPhrase.length; i++) {
+            if (randomPhrase[i].match(/[A-Z]/)) {
+                const code = ((randomPhrase.charCodeAt(i) - 65 + randomShift) % 26) + 65;
+                challenge += String.fromCharCode(code);
+            } else {
+                challenge += randomPhrase[i];
+            }
+        }
+
+        document.getElementById('challenge-text').textContent = challenge;
+        updateFrequencyAnalysis(challenge);
+        
+        // Store the shift value for checking
+        document.getElementById('challenge-text').dataset.shift = randomShift;
+    }
+
+    // Update frequency analysis
+    function updateFrequencyAnalysis(text) {
+        const frequencies = new Array(26).fill(0);
+        let total = 0;
+
+        // Count frequencies
+        for (let char of text) {
+            if (char.match(/[A-Z]/)) {
+                frequencies[char.charCodeAt(0) - 65]++;
+                total++;
+            }
+        }
+
+        // Create frequency display
+        const freqDiv = document.getElementById('frequency-analysis');
+        freqDiv.innerHTML = '';
+        
+        for (let i = 0; i < 26; i++) {
+            const percentage = (frequencies[i] / total) * 100;
+            const letter = String.fromCharCode(65 + i);
+            
+            const barContainer = document.createElement('div');
+            barContainer.className = 'text-center';
+            
+            const bar = document.createElement('div');
+            bar.className = 'bg-blue-500 mx-auto w-4';
+            bar.style.height = `${percentage * 3}px`;
+            
+            const label = document.createElement('div');
+            label.className = 'text-xs mt-1';
+            label.textContent = letter;
+
+            barContainer.appendChild(bar);
+            barContainer.appendChild(label);
+            freqDiv.appendChild(barContainer);
+        }
+    }
+
+    // Decryption function with animation
+    function decrypt() {
+        const ciphertext = document.getElementById('ciphertext').value.toUpperCase();
+        const shift = parseInt(document.getElementById('decrypt-shift-key').value);
+        
+        let result = '';
+
+        // Calculate the complete decrypted result
+        for (let i = 0; i < ciphertext.length; i++) {
+            if (ciphertext[i].match(/[A-Z]/)) {
+                const code = ((ciphertext.charCodeAt(i) - 65 - shift + 26) % 26) + 65;
+                result += String.fromCharCode(code);
+            } else {
+                result += ciphertext[i];
+            }
+        }
+
+        // Build the encrypted letter visualization boxes from the ciphertext
+        const encryptedContainer = document.getElementById('encrypted-alphabet');
+        encryptedContainer.innerHTML = '';
+        for (let i = 0; i < ciphertext.length; i++) {
+            let box = document.createElement('div');
+            box.className = 'w-10 h-10 flex items-center justify-center border-2 rounded-md transition-all duration-300 relative text-lg font-semibold';
+            box.textContent = ciphertext[i];
+            encryptedContainer.appendChild(box);
+        }
+
+        // Build the decrypted result visualization boxes
+        const decryptedContainer = document.getElementById('decrypted-result');
+        decryptedContainer.innerHTML = '';
+        for (let i = 0; i < result.length; i++) {
+            let box = document.createElement('div');
+            box.className = 'w-10 h-10 flex items-center justify-center border-2 rounded-md transition-all duration-300 relative text-lg font-semibold';
+            box.textContent = result[i];
+            decryptedContainer.appendChild(box);
+        }
+
+        // Reset all letter styles before starting animation
+        document.querySelectorAll('#encrypted-alphabet > div, #decrypted-result > div').forEach(el => {
+            el.className = 'w-10 h-10 flex items-center justify-center border-2 rounded-md transition-all duration-300 relative text-lg font-semibold';
+            el.style.backgroundColor = '';
+            el.style.borderColor = '#e5e7eb';
+            el.style.color = '#6b7280';
+        });
+
+        // Start sequential animation
+        let currentIndex = 0;
+        function animateNext() {
+            if (currentIndex >= ciphertext.length) {
+                // Update final result
+                document.getElementById('decryption-result').textContent = result;
+                return;
+            }
+
+            const char = ciphertext[currentIndex];
+            if (char.match(/[A-Z]/)) {
+                const encryptedBoxes = document.getElementById('encrypted-alphabet').children;
+                const encryptedBox = encryptedBoxes[currentIndex];
+                const decryptedBoxes = document.getElementById('decrypted-result').children;
+                const destinationBox = decryptedBoxes[currentIndex];
+
+                if (encryptedBox && destinationBox) {
+                    // Highlight active letter being processed
+                    encryptedBox.style.backgroundColor = '#ddd6fe'; // purple-200
+                    encryptedBox.style.transform = 'scale(1.1)';
+
+                    // Create a jumping element with enhanced animation properties
+                    const jumper = document.createElement('div');
+                    jumper.className = 'fixed bg-purple-500 text-white font-bold rounded-full flex items-center justify-center z-50';
+                    jumper.style.width = '40px';
+                    jumper.style.height = '40px';
+                    jumper.textContent = char;
+
+                    const origRect = encryptedBox.getBoundingClientRect();
+                    const destRect = destinationBox.getBoundingClientRect();
+                    
+                    jumper.style.left = `${origRect.left}px`;
+                    jumper.style.top = `${origRect.top}px`;
+                    document.body.appendChild(jumper);
+
+                    // Create a connector line
+                    const line = document.createElement('div');
+                    line.className = 'line-connector';
+                    const startX = origRect.left + origRect.width / 2;
+                    const startY = origRect.top + origRect.height / 2;
+                    const endX = destRect.left + destRect.width / 2;
+                    const endY = destRect.top + destRect.height / 2;
+                    const dx = endX - startX;
+                    const dy = endY - startY;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    const angle = Math.atan2(dy, dx) * (180 / Math.PI);
+                    line.style.position = 'fixed';
+                    line.style.left = `${startX}px`;
+                    line.style.top = `${startY}px`;
+                    line.style.width = `${distance}px`;
+                    line.style.height = '2px';
+                    line.style.backgroundColor = '#a78bfa'; // purple-400
+                    line.style.transformOrigin = '0 0';
+                    line.style.transform = `rotate(${angle}deg)`;
+                    document.body.appendChild(line);
+
+                    // Animate the jump with rotation and scaling
+                    setTimeout(() => {
+                        jumper.style.transition = 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                        jumper.style.left = `${destRect.left}px`;
+                        jumper.style.top = `${destRect.top}px`;
+                        jumper.style.transform = 'rotate(-360deg) scale(1.2)'; // Reverse rotation for decryption
+                        // Fade out the connector line
+                        line.style.transition = 'opacity 0.6s ease-in-out';
+                        line.style.opacity = '0';
+
+                        // Highlight destination and then cleanup
+                        setTimeout(() => {
+                            destinationBox.style.backgroundColor = '#c7d2fe'; // indigo-200
+                            destinationBox.style.transform = 'scale(1.1)';
+
+                            setTimeout(() => {
+                                jumper.remove();
+                                line.remove();
+                                encryptedBox.style.transform = 'scale(1)';
+                                encryptedBox.style.backgroundColor = '#ddd6fe';
+                                destinationBox.style.transform = 'scale(1)';
+                                destinationBox.style.backgroundColor = '#e0e7ff';
+                                currentIndex++;
+                                animateNext();
+                            }, 300);
+                        }, 600);
+                    }, 100);
+                } else {
+                    currentIndex++;
+                    animateNext();
+                }
+            } else {
+                currentIndex++;
+                animateNext();
+            }
+        }
+
+        // Start the animation
+        animateNext();
+    }
+
+    // Check answer
+    function checkAnswer() {
+        const guessedShift = parseInt(document.getElementById('guessed-shift').value);
+        const correctShift = parseInt(document.getElementById('challenge-text').dataset.shift);
+        const feedback = document.getElementById('feedback');
+        
+        feedback.classList.remove('hidden', 'bg-green-100', 'bg-red-100', 'text-green-800', 'text-red-800');
+        
+        if (guessedShift === correctShift) {
+            feedback.classList.add('bg-green-100', 'text-green-800');
+            feedback.textContent = "Correct! You have broken the cipher!";
+        } else {
+            feedback.classList.add('bg-red-100', 'text-red-800');
+            feedback.textContent = "Not quite right. Try analyzing the frequency patterns again.";
+        }
+        
+        feedback.classList.remove('hidden');
+    }
+
+    // Show frequency table
+    function showFrequencyTable() {
+        const toolsOutput = document.getElementById('tools-output');
+        toolsOutput.innerHTML = `
+            <div class="text-sm">
+                Common English Letter Frequencies:<br>
+                E: 12.7%<br>
+                T: 9.1%<br>
+                A: 8.2%<br>
+                O: 7.5%<br>
+                I: 7.0%<br>
+                N: 6.7%
+            </div>
+        `;
+    }
+
+    // Initialize the page
+    document.addEventListener('DOMContentLoaded', function() {
+        initializeShiftWheel();
+        // Add shift key change listener
+        document.getElementById('shift-key').addEventListener('input', function() {
+            updateWheelRotation(this.value);
+        });
+    });
+
+    // Try all shifts
+    function tryAllShifts() {
+        const ciphertext = document.getElementById('challenge-text').textContent;
+        let output = '';
+        
+        for (let shift = 0; shift < 26; shift++) {
+            let attempt = '';
+            for (let i = 0; i < ciphertext.length; i++) {
+                if (ciphertext[i].match(/[A-Z]/)) {
+                    const code = ((ciphertext.charCodeAt(i) - 65 - shift + 26) % 26) + 65;
+                    attempt += String.fromCharCode(code);
+                } else {
+                    attempt += ciphertext[i];
+                }
+            }
+            output += `Shift ${shift}: ${attempt}\n`;
+        }
+        
+        document.getElementById('tools-output').innerHTML = `
+            <div class="font-mono text-xs overflow-auto max-h-48">
+                ${output.split('\n').join('<br>')}
+            </div>
+        `;
+    }
+</script>
+{% endblock %} 

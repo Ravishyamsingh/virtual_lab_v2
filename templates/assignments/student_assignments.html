@@ -1,0 +1,237 @@
+{% extends "base.html" %}
+
+{% block title %}My Assignments - Cryptography Virtual Lab{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-indigo-50 dark:from-gray-900 dark:via-gray-800 dark:to-indigo-900">
+    <!-- Header -->
+    <div class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-900 dark:text-white">My Assignments</h1>
+                    <p class="text-gray-600 dark:text-gray-300 mt-1">View and submit your cryptography assignments</p>
+                </div>
+                <a href="{{ url_for('student_dashboard') }}" 
+                   class="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition duration-200 flex items-center">
+                    <i class="fas fa-arrow-left mr-2"></i>Back to Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="container mx-auto px-4 py-8">
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center">
+                    <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-tasks text-blue-600 dark:text-blue-400"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ assignments|length }}</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Total Assignments</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center">
+                    <div class="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-check-circle text-green-600 dark:text-green-400"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-2xl font-bold text-gray-900 dark:text-white">
+                            {{ assignments|selectattr('status', 'equalto', 'submitted')|list|length }}
+                        </p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Submitted</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center">
+                    <div class="w-12 h-12 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-clock text-orange-600 dark:text-orange-400"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-2xl font-bold text-gray-900 dark:text-white">
+                            {{ assignments|selectattr('status', 'equalto', 'pending')|list|length }}
+                        </p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Pending</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center">
+                    <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-star text-purple-600 dark:text-purple-400"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-2xl font-bold text-gray-900 dark:text-white">
+                            {% set total_grade = 0 %}
+                            {% set graded_count = 0 %}
+                            {% for assignment in assignments %}
+                                {% if assignment.submission and assignment.submission.grade %}
+                                    {% set total_grade = total_grade + assignment.submission.grade %}
+                                    {% set graded_count = graded_count + 1 %}
+                                {% endif %}
+                            {% endfor %}
+                            {% if graded_count > 0 %}{{ (total_grade / graded_count)|round(1) }}{% else %}0{% endif %}%
+                        </p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Avg. Grade</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Assignments List -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700">
+            <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Assignments</h2>
+                    <div class="flex items-center space-x-3">
+                        <select class="bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white text-sm rounded-lg px-3 py-2">
+                            <option value="all">All Status</option>
+                            <option value="pending">Pending</option>
+                            <option value="submitted">Submitted</option>
+                            <option value="graded">Graded</option>
+                        </select>
+                        <input type="text" placeholder="Search assignments..." 
+                               class="bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white text-sm rounded-lg px-3 py-2 w-64">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="overflow-x-auto">
+                {% if assignments %}
+                <table class="w-full">
+                    <thead class="bg-gray-50 dark:bg-gray-700">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Assignment</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Module</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Due Date</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Grade</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                        {% for assignment in assignments %}
+                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div>
+                                    <div class="text-sm font-medium text-gray-900 dark:text-white">{{ assignment.title }}</div>
+                                    <div class="text-sm text-gray-500 dark:text-gray-400">{{ assignment.description[:50] }}{% if assignment.description|length > 50 %}...{% endif %}</div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200">
+                                    {{ assignment.lab_module }}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                                {{ assignment.due_date }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                {% if assignment.status == 'pending' %}
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200">
+                                        <i class="fas fa-clock mr-1"></i>Pending
+                                    </span>
+                                {% elif assignment.status == 'submitted' %}
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200">
+                                        <i class="fas fa-paper-plane mr-1"></i>Submitted
+                                    </span>
+                                {% elif assignment.status == 'graded' %}
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">
+                                        <i class="fas fa-check-circle mr-1"></i>Graded
+                                    </span>
+                                {% endif %}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                                {% if assignment.submission and assignment.submission.grade %}
+                                    <span class="font-medium">{{ assignment.submission.grade }}%</span>
+                                    {% if assignment.submission.feedback %}
+                                        <span class="text-xs text-gray-500 dark:text-gray-400 ml-1">
+                                            <i class="fas fa-comment"></i>
+                                        </span>
+                                    {% endif %}
+                                {% else %}
+                                    <span class="text-gray-500 dark:text-gray-400">-</span>
+                                {% endif %}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                <div class="flex items-center space-x-2">
+                                    <a href="/assignments/{{ assignment.id }}"
+                                       class="inline-flex items-center px-3 py-2 text-sm font-medium text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors duration-200"
+                                       title="View Assignment Details">
+                                        <i class="fas fa-eye mr-2"></i>View
+                                    </a>
+                                    {% if assignment.status == 'pending' %}
+                                        <a href="/assignments/{{ assignment.id }}/submit"
+                                           class="inline-flex items-center px-3 py-2 text-sm font-medium text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 rounded-lg hover:bg-green-100 dark:hover:bg-green-900/40 transition-colors duration-200"
+                                           title="Submit Assignment">
+                                            <i class="fas fa-paper-plane mr-2"></i>Submit
+                                        </a>
+                                    {% elif assignment.status == 'submitted' or assignment.status == 'graded' %}
+                                        {% if assignment.submission %}
+                                            <a href="/assignments/{{ assignment.id }}/submission/{{ assignment.submission.id }}"
+                                               class="inline-flex items-center px-3 py-2 text-sm font-medium text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-900/20 rounded-lg hover:bg-purple-100 dark:hover:bg-purple-900/40 transition-colors duration-200"
+                                               title="View Submission">
+                                                <i class="fas fa-file-alt mr-2"></i>View Submission
+                                            </a>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <div class="text-center py-12">
+                    <i class="fas fa-tasks text-gray-400 text-6xl mb-4"></i>
+                    <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-2">No assignments available</h3>
+                    <p class="text-gray-500 dark:text-gray-400">Your instructor hasn't assigned any tasks yet</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Search functionality
+document.querySelector('input[placeholder="Search assignments..."]').addEventListener('input', function(e) {
+    const searchTerm = e.target.value.toLowerCase();
+    const rows = document.querySelectorAll('tbody tr');
+    
+    rows.forEach(row => {
+        const title = row.querySelector('td:first-child .text-sm.font-medium').textContent.toLowerCase();
+        const description = row.querySelector('td:first-child .text-sm.text-gray-500').textContent.toLowerCase();
+        const module = row.querySelector('td:nth-child(2) span').textContent.toLowerCase();
+        
+        if (title.includes(searchTerm) || description.includes(searchTerm) || module.includes(searchTerm)) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+});
+
+// Status filter
+document.querySelector('select').addEventListener('change', function(e) {
+    const filterStatus = e.target.value;
+    const rows = document.querySelectorAll('tbody tr');
+    
+    rows.forEach(row => {
+        if (filterStatus === 'all') {
+            row.style.display = '';
+        } else {
+            const statusElement = row.querySelector('td:nth-child(4) span');
+            const status = statusElement.textContent.toLowerCase().includes(filterStatus);
+            row.style.display = status ? '' : 'none';
+        }
+    });
+});
+</script>
+{% endblock %}
