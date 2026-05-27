@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cryptography Virtual Lab - Secure Login</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}" type="image/svg+xml">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Firebase SDK (compat for existing namespace usage) -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+    <style>
+        * {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+                'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+                'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(34, 211, 238, 0.5);
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(34, 211, 238, 0.8);
+        }
+
+        /* Firefox scrollbar */
+        * {
+            scrollbar-color: rgba(34, 211, 238, 0.5) rgba(255, 255, 255, 0.05);
+            scrollbar-width: thin;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: auto;
+        }
+
+        .bg-image {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 100%);
+            animation: gradient-shift 15s ease infinite;
+            background-size: 400% 400%;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .glass-effect {
+            backdrop-filter: blur(40px);
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 0 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .glow-effect {
+            box-shadow: 0 0 60px rgba(34, 211, 238, 0.3), 
+                        0 0 100px rgba(16, 185, 129, 0.2),
+                        inset 0 0 60px rgba(255, 255, 255, 0.1);
+        }
+
+        .gradient-button {
+            background: linear-gradient(135deg, #06b6d4 0%, #10b981 100%);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 10px 30px rgba(6, 182, 212, 0.3);
+        }
+
+        .gradient-button:hover:not(:disabled) {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 50px rgba(6, 182, 212, 0.5);
+        }
+
+        .gradient-button:active:not(:disabled) {
+            transform: translateY(-2px) scale(0.98);
+        }
+
+        .gradient-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .input-focus {
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .input-focus:focus-within {
+            border-color: rgba(34, 211, 238, 0.8);
+            background-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.15), 
+                        0 0 20px rgba(34, 211, 238, 0.2);
+        }
+
+        .input-field {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .input-field::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .input-field:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(34, 211, 238, 0.8);
+            box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.15);
+        }
+
+        .text-glow {
+            text-shadow: 0 0 20px rgba(34, 211, 238, 0.4), 
+                         0 0 40px rgba(16, 185, 129, 0.2);
+        }
+
+        .animated-grid {
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 48px 48px;
+            opacity: 0.05;
+        }
+
+        .spin {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .icon-glow {
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.4));
+        }
+
+        .icon-glow:hover {
+            filter: drop-shadow(0 0 16px rgba(34, 211, 238, 0.8));
+        }
+
+        .checkbox-custom {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .checkbox-custom:checked {
+            background: #06b6d4;
+            border-color: #06b6d4;
+        }
+
+        .checkbox-custom:checked::after {
+            content: '✓';
+            position: absolute;
+            color: white;
+            font-size: 11px;
+            font-weight: bold;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #06b6d4 0%, #10b981 100%);
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #0891b2 0%, #059669 100%);
+        }
+
+        /* Firefox Scrollbar */
+        * {
+            scrollbar-color: linear-gradient(135deg, #06b6d4 0%, #10b981 100%) rgba(255, 255, 255, 0.05);
+            scrollbar-width: thin;
+        }
+    </style>
+</head>
+<body class="bg-image">
+    <!-- Overlay -->
+    <div class="fixed inset-0 bg-gradient-to-br from-black/80 via-black/60 to-cyan-950/70 z-0"></div>
+
+    <!-- Animated Grid -->
+    <div class="animated-grid fixed inset-0 z-0"></div>
+
+    <!-- Main Container -->
+    <div class="relative z-10 min-h-screen w-full flex items-center justify-center overflow-hidden p-4">
+        <div class="w-full max-w-md">
+            <!-- Glow Effect Background -->
+            <div class="absolute -inset-1 rounded-3xl bg-gradient-to-br from-cyan-500/30 via-transparent to-emerald-500/20 blur-xl"></div>
+
+            <!-- Card -->
+            <div class="relative rounded-2xl glass-effect shadow-2xl p-8 sm:p-10 glow-effect">
+
+                <!-- Logo & Heading -->
+                <div class="flex flex-col items-center mb-8">
+                    <div class="flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-400 to-emerald-400 shadow-lg shadow-cyan-500/50 mb-4">
+                        <i class="fas fa-shield-alt text-slate-900 text-2xl font-bold"></i>
+                    </div>
+                    <h1 class="text-white text-center mb-2 text-3xl font-bold tracking-tight drop-shadow-lg">
+                        Welcome Back
+                    </h1>
+                    <p class="text-white/80 text-center text-sm font-medium">
+                        Secure access to your cryptography lab
+                    </p>
+                </div>
+
+                <!-- Google Button -->
+                <button
+                    type="button"
+                    id="googleSignInBtn"
+                    class="w-full flex items-center justify-center gap-3 rounded-xl border border-white/15 bg-white/10 hover:bg-white/20 active:bg-white/10 transition-all duration-200 py-3 px-4 text-white mb-6"
+                    style="font-size: 0.95rem; font-weight: 500;">
+                    <svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                    </svg>
+                    Continue with Google
+                </button>
+
+                <!-- Divider -->
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="flex-1 h-px bg-white/10"></div>
+                    <span class="text-white/30 text-xs">or sign in with email</span>
+                    <div class="flex-1 h-px bg-white/10"></div>
+                </div>
+
+                <!-- Form -->
+                <form id="loginForm" class="flex flex-col gap-4">
+                    <!-- Role Selection -->
+                    <div class="flex flex-col gap-1.5">
+                        <label class="text-white text-xs font-semibold tracking-wide">Login As</label>
+                        <select id="loginRole" class="w-full rounded-xl px-4 py-3 text-sm input-field focus:input-focus outline-none" style="color-scheme: dark;">
+                            <option value="student" style="background: #1f2937; color: white;">Student</option>
+                            <option value="faculty" style="background: #1f2937; color: white;">Faculty</option>
+                        </select>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="flex flex-col gap-1.5">
+                        <label class="text-white text-xs font-semibold tracking-wide">Email address</label>
+                        <div class="relative flex items-center rounded-xl input-field input-focus px-4 py-3">
+                            <i class="fas fa-envelope text-cyan-300 icon-glow mr-3" style="font-size: 16px;"></i>
+                            <input
+                                type="email"
+                                id="loginEmail"
+                                placeholder="you@example.com"
+                                class="w-full bg-transparent text-white placeholder-white/50 outline-none text-sm font-medium"
+                                autocomplete="email"
+                                style="transition: all 0.2s ease;"
+                                required>
+                        </div>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="flex flex-col gap-1.5">
+                        <div class="flex items-center justify-between">
+                            <label class="text-white text-xs font-semibold tracking-wide">Password</label>
+                            <button
+                                type="button"
+                                class="text-cyan-300 hover:text-cyan-200 active:text-cyan-400 transition-colors text-xs font-medium"
+                                id="forgotPasswordBtn">
+                                Forgot?
+                            </button>
+                        </div>
+                        <div class="relative flex items-center rounded-xl input-field input-focus px-4 py-3">
+                            <i class="fas fa-lock text-cyan-300 icon-glow mr-3" style="font-size: 16px;"></i>
+                            <input
+                                type="password"
+                                id="loginPassword"
+                                placeholder="••••••••••••"
+                                class="w-full bg-transparent text-white placeholder-white/50 outline-none text-sm font-medium"
+                                autocomplete="current-password"
+                                style="transition: all 0.2s ease;"
+                                required>
+                            <button
+                                type="button"
+                                id="togglePasswordBtn"
+                                class="text-cyan-300 hover:text-cyan-200 transition-colors"
+                                style="font-size: 16px;">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Remember me -->
+                    <label class="flex items-center gap-2.5 cursor-pointer group mt-2">
+                        <input type="checkbox" id="rememberMe" class="checkbox-custom">
+                        <span class="text-white/70 group-hover:text-white transition-colors text-xs font-medium">
+                            Remember me for 30 days
+                        </span>
+                    </label>
+
+                    <!-- Error message -->
+                    <div id="errorMessage" class="hidden bg-red-600/40 border border-red-400/60 rounded-xl p-3 text-red-100 text-sm font-medium backdrop-blur-md"></div>
+
+                    <!-- Success message -->
+                    <div id="successMessage" class="hidden bg-emerald-600/40 border border-emerald-400/60 rounded-xl p-3 text-emerald-100 text-sm font-medium backdrop-blur-md"></div>
+
+                    <!-- Submit Button -->
+                    <button
+                        type="submit"
+                        id="signInBtn"
+                        class="relative mt-3 w-full rounded-xl py-3 px-4 text-white overflow-hidden gradient-button font-semibold text-sm">
+                        <span class="flex items-center justify-center gap-2">
+                            <span id="buttonText">Sign In</span>
+                            <svg id="spinnerIcon" class="hidden spin w-4 h-4 text-white" viewBox="0 0 24 24" fill="none">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                            </svg>
+                        </span>
+                    </button>
+                </form>
+
+                <!-- Sign up link -->
+                <p class="text-center text-white/60 mt-6 text-xs font-medium">
+                    Don't have an account?
+                    <button type="button" id="signUpToggle" class="text-cyan-300 hover:text-cyan-200 transition-colors font-semibold">
+                        Create one
+                    </button>
+                </p>
+            </div>
+
+            <!-- Footer note -->
+            <p class="text-center text-white/40 mt-5 text-xs font-medium" style="text-shadow: 0 0 10px rgba(34, 211, 238, 0.3);">
+                🔒 Protected by Firebase Security · AES-256 Encryption
+            </p>
+        </div>
+    </div>
+
+    <!-- Firebase Config stored in data attribute -->
+    <script id="firebase-config" type="application/json">
+    {{ firebase_config|tojson|safe }}
+    </script>
+
+    <script>
+        console.log('🔍 Login page script initializing...');
+
+        // Wait for Firebase to load
+        function waitForFirebase() {
+            return new Promise((resolve, reject) => {
+                let attempts = 0;
+                const maxAttempts = 50; // 5 seconds with 100ms intervals
+
+                const checkFirebase = () => {
+                    attempts++;
+                    console.log(`⏳ Checking for Firebase (attempt ${attempts}/${maxAttempts})...`);
+                    
+                    if (typeof firebase !== 'undefined' && firebase.auth) {
+                        console.log('✅ Firebase SDK loaded successfully');
+                        resolve();
+                    } else if (attempts >= maxAttempts) {
+                        console.error('❌ Firebase SDK failed to load after 5 seconds');
+                        reject(new Error('Firebase SDK not available'));
+                    } else {
+                        setTimeout(checkFirebase, 100);
+                    }
+                };
+
+                checkFirebase();
+            });
+        }
+
+        // Main initialization function
+        async function initializeAuth() {
+            try {
+                console.log('🚀 Starting authentication initialization...');
+
+                // Wait for Firebase SDK to load
+                await waitForFirebase();
+
+                // Firebase Configuration loaded from data attribute
+                const configElement = document.getElementById('firebase-config');
+                if (!configElement) {
+                    throw new Error('Firebase config element not found!');
+                }
+                console.log('✅ Firebase config element found');
+
+                const firebaseConfig = JSON.parse(configElement.textContent);
+                console.log('✅ Firebase config parsed');
+                
+                // Initialize Firebase
+                if (firebase.apps && firebase.apps.length === 0) {
+                    firebase.initializeApp(firebaseConfig);
+                    console.log('✅ Firebase app initialized');
+                } else {
+                    console.log('✅ Firebase app already initialized');
+                }
+
+                // Get auth instance
+                window.auth = firebase.auth();
+                console.log('✅ Auth service initialized');
+
+                // Setup event listeners
+                setupEventListeners();
+
+                // Setup auto-login
+                setupAutoLogin();
+
+            } catch (error) {
+                console.error('❌ Initialization failed:', error);
+                document.getElementById('errorMessage').textContent = 'Failed to initialize authentication. Please refresh the page.';
+                document.getElementById('errorMessage').classList.remove('hidden');
+            }
+        }
+
+        // Setup all event listeners
+        function setupEventListeners() {
+            console.log('🔗 Setting up event listeners...');
+
+            // DOM Elements
+            const loginForm = document.getElementById('loginForm');
+            const loginEmail = document.getElementById('loginEmail');
+            const loginPassword = document.getElementById('loginPassword');
+            const signInBtn = document.getElementById('signInBtn');
+            const buttonText = document.getElementById('buttonText');
+            const spinnerIcon = document.getElementById('spinnerIcon');
+            const togglePasswordBtn = document.getElementById('togglePasswordBtn');
+            const errorMessage = document.getElementById('errorMessage');
+            const successMessage = document.getElementById('successMessage');
+            const googleSignInBtn = document.getElementById('googleSignInBtn');
+            const rememberMe = document.getElementById('rememberMe');
+            const forgotPasswordBtn = document.getElementById('forgotPasswordBtn');
+            const signUpToggle = document.getElementById('signUpToggle');
+
+            // Check all DOM elements
+            console.log('🔍 Verifying DOM elements...');
+            const elements = { loginForm, loginEmail, loginPassword, signInBtn, googleSignInBtn, forgotPasswordBtn, signUpToggle };
+            for (const [key, element] of Object.entries(elements)) {
+                if (!element) {
+                    console.error(`❌ ${key} not found`);
+                } else {
+                    console.log(`✅ ${key} found`);
+                }
+            }
+
+            // Helper functions
+            function showMessage(message, type = 'error') {
+                console.log(`💬 [${type.toUpperCase()}] ${message}`);
+                errorMessage.classList.add('hidden');
+                successMessage.classList.add('hidden');
+                
+                const messageEl = type === 'error' ? errorMessage : successMessage;
+                messageEl.textContent = message;
+                messageEl.classList.remove('hidden');
+                
+                setTimeout(() => {
+                    messageEl.classList.add('hidden');
+                }, 5000);
+            }
+
+            function setLoading(isLoading) {
+                signInBtn.disabled = isLoading;
+                if (isLoading) {
+                    buttonText.textContent = 'Signing in…';
+                    spinnerIcon.classList.remove('hidden');
+                } else {
+                    buttonText.textContent = 'Sign In';
+                    spinnerIcon.classList.add('hidden');
+                }
+            }
+
+            // Password visibility toggle
+            if (togglePasswordBtn) {
+                togglePasswordBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const isPassword = loginPassword.type === 'password';
+                    loginPassword.type = isPassword ? 'text' : 'password';
+                    togglePasswordBtn.innerHTML = isPassword 
+                        ? '<i class="fas fa-eye-slash"></i>' 
+                        : '<i class="fas fa-eye"></i>';
+                });
+            }
+
+            // Sign In Handler
+            if (loginForm) {
+                loginForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    console.log('📝 Sign-in form submitted');
+                    setLoading(true);
+
+                    try {
+                        const email = loginEmail.value.trim();
+                        const password = loginPassword.value;
+                        const userRole = document.getElementById('loginRole').value;
+
+                        console.log('📧 Form data:', { email, passwordLength: password.length, userRole });
+
+                        // Validation
+                        if (!email || !password) {
+                            showMessage('Please fill in all fields', 'error');
+                            setLoading(false);
+                            return;
+                        }
+
+                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if (!emailRegex.test(email)) {
+                            showMessage('Please enter a valid email address', 'error');
+                            setLoading(false);
+                            return;
+                        }
+
+                        if (password.length < 6) {
+                            showMessage('Password must be at least 6 characters', 'error');
+                            setLoading(false);
+                            return;
+                        }
+
+                        if (!['student', 'faculty'].includes(userRole)) {
+                            showMessage('Please select a valid role', 'error');
+                            setLoading(false);
+                            return;
+                        }
+
+                        console.log('🔐 Starting Firebase authentication...');
+                        const userCredential = await window.auth.signInWithEmailAndPassword(email, password);
+                        const token = await userCredential.user.getIdToken();
+                        
+                        localStorage.setItem('userType', userRole);
+
+                        console.log('🚀 Sending to backend: /api/authenticate');
+                        const response = await fetch('/api/authenticate', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json'
+                            },
+                            body: JSON.stringify({ token, userType: userRole })
+                        });
+
+                        console.log('📊 Response:', { status: response.status, statusText: response.statusText });
+                        const data = await response.json();
+
+                        if (data.success) {
+                            showMessage('✅ Login successful! Redirecting...', 'success');
+                            console.log('🔄 Redirecting to:', data.redirect);
+                            setTimeout(() => {
+                                window.location.href = data.redirect;
+                            }, 1000);
+                        } else {
+                            showMessage(data.error || 'Backend authentication failed', 'error');
+                            setLoading(false);
+                        }
+                    } catch (error) {
+                        console.error('❌ Error during sign-in:', error.code, error.message);
+                        const errorMessages = {
+                            'auth/user-not-found': 'User not found. Please check your email.',
+                            'auth/wrong-password': 'Incorrect password. Please try again.',
+                            'auth/invalid-email': 'Invalid email address.',
+                            'auth/user-disabled': 'This account has been disabled.',
+                            'auth/too-many-login-attempts': 'Too many failed attempts. Please try again later.',
+                        };
+                        showMessage(errorMessages[error.code] || error.message || 'Sign in failed', 'error');
+                        setLoading(false);
+                    }
+                });
+                console.log('✅ Sign-in form listener attached');
+            }
+
+            // Google Sign In Handler
+            if (googleSignInBtn) {
+                googleSignInBtn.addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    console.log('🔵 Google Sign-In clicked');
+                    setLoading(true);
+
+                    try {
+                        const userRole = document.getElementById('loginRole').value;
+                        
+                        if (!['student', 'faculty'].includes(userRole)) {
+                            showMessage('Please select a valid role', 'error');
+                            setLoading(false);
+                            return;
+                        }
+
+                        console.log('🔐 Initiating Google sign-in popup...');
+                        const provider = new firebase.auth.GoogleAuthProvider();
+                        provider.addScope('profile');
+                        provider.addScope('email');
+
+                        const result = await window.auth.signInWithPopup(provider);
+                        const token = await result.user.getIdToken();
+                        
+                        localStorage.setItem('userType', userRole);
+
+                        console.log('🚀 Sending to backend: /api/authenticate');
+                        const response = await fetch('/api/authenticate', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json'
+                            },
+                            body: JSON.stringify({ token, userType: userRole })
+                        });
+
+                        if (response.status === 429) {
+                            showMessage('Too many login attempts. Please try again later.', 'error');
+                            setLoading(false);
+                            return;
+                        }
+
+                        const data = await response.json();
+                        if (data.success) {
+                            showMessage('✅ Login successful! Redirecting...', 'success');
+                            setTimeout(() => {
+                                window.location.href = data.redirect;
+                            }, 1000);
+                        } else {
+                            showMessage(data.error || 'Backend authentication failed', 'error');
+                            setLoading(false);
+                        }
+                    } catch (error) {
+                        console.error('❌ Google sign-in error:', error.code, error.message);
+                        
+                        if (error.code === 'auth/popup-closed-by-user') {
+                            console.log('ℹ️ Popup closed by user');
+                            setLoading(false);
+                        } else if (error.code === 'auth/popup-blocked') {
+                            showMessage('Popup blocked. Please disable your popup blocker.', 'error');
+                            setLoading(false);
+                        } else if (error.code !== 'auth/cancelled-popup-request') {
+                            showMessage(error.message || 'Google sign-in failed', 'error');
+                            setLoading(false);
+                        }
+                    }
+                });
+                console.log('✅ Google Sign-In listener attached');
+            }
+
+            // Forgot Password
+            if (forgotPasswordBtn) {
+                forgotPasswordBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const email = loginEmail.value.trim();
+                    if (!email) {
+                        showMessage('Please enter your email address', 'error');
+                        return;
+                    }
+
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(email)) {
+                        showMessage('Please enter a valid email address', 'error');
+                        return;
+                    }
+
+                    window.auth.sendPasswordResetEmail(email)
+                        .then(() => showMessage('Password reset email sent! Check your inbox.', 'success'))
+                        .catch(error => {
+                            const msg = error.code === 'auth/user-not-found' ? 'No account with this email' : error.message;
+                            showMessage(msg, 'error');
+                        });
+                });
+            }
+
+            // Sign Up Toggle
+            if (signUpToggle) {
+                signUpToggle.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    alert('Sign up feature coming soon! Use Google Sign-In or contact support.');
+                });
+            }
+        }
+
+        // Setup auto-login
+        function setupAutoLogin() {
+            let isAutoAuthenticating = false;
+
+            window.auth.onAuthStateChanged(async (user) => {
+                if (!user || isAutoAuthenticating) {
+                    if (!user) {
+                        console.log('👤 No Firebase user logged in');
+                    }
+                    return;
+                }
+
+                isAutoAuthenticating = true;
+                console.log('👤 User logged in with Firebase:', user.email);
+
+                try {
+                    // Check if backend session is still valid
+                    console.log('🔍 Checking backend session...');
+                    const sessionResponse = await fetch('/api/check-session', {
+                        method: 'GET',
+                        headers: { 'Content-Type': 'application/json' }
+                    });
+
+                    if (sessionResponse.status === 200) {
+                        // Session exists on backend, safe to redirect
+                        const sessionData = await sessionResponse.json();
+                        if (sessionData.success && sessionData.redirect) {
+                            console.log('✅ Session valid. Auto-redirecting to:', sessionData.redirect);
+                            window.location.href = sessionData.redirect;
+                        }
+                        return;
+                    }
+
+                    if (sessionResponse.status === 401) {
+                        console.log('⚠️ Backend session expired. Re-authenticating...');
+
+                        const token = await user.getIdToken();
+                        const storedRole = localStorage.getItem('userType') || 'student';
+
+                        const authResponse = await fetch('/api/authenticate', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json'
+                            },
+                            body: JSON.stringify({ token, userType: storedRole })
+                        });
+
+                        if (authResponse.status === 429) {
+                            console.log('⏳ Too many attempts. Please try again later.');
+                            return;
+                        }
+
+                        const authData = await authResponse.json();
+                        if (authData.success && authData.redirect) {
+                            console.log('✅ Session restored. Redirecting to:', authData.redirect);
+                            window.location.href = authData.redirect;
+                        } else {
+                            console.log('❌ Auto-authenticate failed:', authData.error || authResponse.status);
+                        }
+                        return;
+                    }
+
+                    console.log('ℹ️ Session check returned:', sessionResponse.status);
+                } catch (error) {
+                    console.error('Auto-login session check error:', error);
+                } finally {
+                    isAutoAuthenticating = false;
+                }
+            });
+        }
+
+        // Start initialization when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeAuth);
+        } else {
+            initializeAuth();
+        }
+    </script>
+</body>
+</html>

@@ -521,3 +521,480 @@
 2025-08-27 18:40:45,401 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 18:40:45] "GET /student HTTP/1.1" 200 -
 2025-08-27 18:41:05,565 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 18:41:05] "GET /faculty-login HTTP/1.1" 200 -
 2025-08-27 18:41:05,689 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 18:41:05] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-03-25 16:06:52,624 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-25 16:06:52,625 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-25 16:06:52,635 - werkzeug - INFO -  * Restarting with stat
+2026-03-25 16:06:53,525 - werkzeug - WARNING -  * Debugger is active!
+2026-03-25 16:06:53,546 - werkzeug - INFO -  * Debugger PIN: 182-062-167
+2026-03-25 16:07:31,351 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-25 16:07:31,351 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-25 16:07:31,357 - werkzeug - INFO -  * Restarting with stat
+2026-03-25 16:07:32,687 - werkzeug - WARNING -  * Debugger is active!
+2026-03-25 16:07:32,702 - werkzeug - INFO -  * Debugger PIN: 182-062-167
+2026-03-25 16:11:46,316 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-25 16:11:46,331 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-25 16:11:46,335 - werkzeug - INFO -  * Restarting with stat
+2026-03-25 16:11:47,557 - werkzeug - WARNING -  * Debugger is active!
+2026-03-25 16:11:47,568 - werkzeug - INFO -  * Debugger PIN: 182-062-167
+2026-03-25 16:12:40,341 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-25 16:12:40,342 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-25 16:12:40,353 - werkzeug - INFO -  * Restarting with stat
+2026-03-25 16:12:41,222 - werkzeug - WARNING -  * Debugger is active!
+2026-03-25 16:12:41,240 - werkzeug - INFO -  * Debugger PIN: 182-062-167
+2026-03-25 16:12:46,617 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2026 16:12:46] "GET / HTTP/1.1" 200 -
+2026-03-25 16:12:47,496 - cryptolab - ERROR - Error ERR_20260325_161247_1800465590080: {'error_id': 'ERR_20260325_161247_1800465590080', 'error_type': 'CLIENT_ERROR', 'error_class': 'NotFound', 'error_message': '404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.', 'request_method': 'GET', 'request_url': 'http://127.0.0.1:5000/favicon.ico', 'request_ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:149.0) Gecko/20100101 Firefox/149.0', 'timestamp': '2026-03-25T16:12:47.488931', 'traceback': 'Traceback (most recent call last):\n  File "C:\\Users\\ravis\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\flask\\app.py", line 1484, in full_dispatch_request\n    rv = self.dispatch_request()\n         ^^^^^^^^^^^^^^^^^^^^^^^\n  File "C:\\Users\\ravis\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\flask\\app.py", line 1458, in dispatch_request\n    self.raise_routing_exception(req)\n  File "C:\\Users\\ravis\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\flask\\app.py", line 1440, in raise_routing_exception\n    raise request.routing_exception  # type: ignore\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "C:\\Users\\ravis\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\flask\\ctx.py", line 353, in match_request\n    result = self.url_adapter.match(return_rule=True)  # type: ignore\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "C:\\Users\\ravis\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\werkzeug\\routing\\map.py", line 655, in match\n    raise NotFound() from None\nwerkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.\n'}
+2026-03-25 16:12:47,598 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2026 16:12:47] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-03-25 16:13:00,321 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2026 16:13:00] "GET /student-login HTTP/1.1" 200 -
+2026-03-25 16:13:00,618 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2026 16:13:00] "GET /static/css/styles.css HTTP/1.1" 200 -
+2026-03-25 16:13:05,037 - cryptolab.auth - WARNING - Auth Event: {'username': 'ravishyam121', 'event_type': 'STUDENT_LOGIN_WRONG_ROLE', 'success': False, 'details': 'User has role: faculty', 'request_ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:149.0) Gecko/20100101 Firefox/149.0', 'timestamp': '2026-03-25T16:13:05.037247'}
+2026-03-25 16:13:05,039 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2026 16:13:05] "POST /student-login HTTP/1.1" 200 -
+2026-03-25 16:13:05,105 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2026 16:13:05] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-03-25 16:13:09,376 - cryptolab.auth - INFO - Auth Event: {'username': 'student1', 'event_type': 'STUDENT_LOGIN_SUCCESS', 'success': True, 'details': 'Student Alice Johnson logged in', 'request_ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:149.0) Gecko/20100101 Firefox/149.0', 'timestamp': '2026-03-25T16:13:09.376670'}
+2026-03-25 16:13:09,381 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2026 16:13:09] "[32mPOST /student-login HTTP/1.1[0m" 302 -
+2026-03-25 16:13:09,745 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2026 16:13:09] "GET /student HTTP/1.1" 200 -
+2026-03-25 16:13:21,633 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2026 16:13:21] "GET /student-login HTTP/1.1" 200 -
+2026-03-25 16:13:43,611 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2026 16:13:43] "GET /student-login HTTP/1.1" 200 -
+2026-03-25 16:13:43,722 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2026 16:13:43] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-03-25 16:13:46,645 - cryptolab.auth - INFO - Auth Event: {'username': 'student1', 'event_type': 'STUDENT_LOGIN_SUCCESS', 'success': True, 'details': 'Student Alice Johnson logged in', 'request_ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:149.0) Gecko/20100101 Firefox/149.0', 'timestamp': '2026-03-25T16:13:46.645916'}
+2026-03-25 16:13:46,647 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2026 16:13:46] "[32mPOST /student-login HTTP/1.1[0m" 302 -
+2026-03-25 16:13:46,670 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2026 16:13:46] "GET /student HTTP/1.1" 200 -
+2026-03-25 16:13:54,549 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2026 16:13:54] "GET /student HTTP/1.1" 200 -
+2026-03-25 16:14:05,066 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2026 16:14:05] "GET /mono-alphabetic HTTP/1.1" 200 -
+2026-03-25 16:14:09,256 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2026 16:14:09] "GET /mono-alphabetic/theory HTTP/1.1" 200 -
+2026-03-25 16:14:10,612 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2026 16:14:10] "GET /mono-alphabetic/objective HTTP/1.1" 200 -
+2026-03-25 16:14:12,469 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2026 16:14:12] "GET /mono-alphabetic/procedure HTTP/1.1" 200 -
+2026-03-25 16:14:13,594 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2026 16:14:13] "GET /mono-alphabetic/simulation HTTP/1.1" 200 -
+2026-03-25 16:14:32,402 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2026 16:14:32] "GET /mono-alphabetic/objective HTTP/1.1" 200 -
+2026-03-30 15:13:08,168 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-30 15:13:08,171 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-30 15:13:08,176 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 15:13:10,335 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 15:13:10,361 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 15:13:16,499 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 15:13:16] "[32mGET / HTTP/1.1[0m" 302 -
+2026-03-30 15:13:16,580 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 15:13:16] "GET /login HTTP/1.1" 200 -
+2026-03-30 15:13:17,011 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 15:13:17] "GET /static/css/styles.css HTTP/1.1" 200 -
+2026-03-30 15:13:17,247 - cryptolab - ERROR - Error ERR_20260330_151317_2121466718240: {'error_id': 'ERR_20260330_151317_2121466718240', 'error_type': 'CLIENT_ERROR', 'error_class': 'NotFound', 'error_message': '404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.', 'request_method': 'GET', 'request_url': 'http://127.0.0.1:5000/favicon.ico', 'request_ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:149.0) Gecko/20100101 Firefox/149.0', 'timestamp': '2026-03-30T15:13:17.066717', 'traceback': 'Traceback (most recent call last):\n  File "C:\\Users\\ravis\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\flask\\app.py", line 1484, in full_dispatch_request\n    rv = self.dispatch_request()\n         ^^^^^^^^^^^^^^^^^^^^^^^\n  File "C:\\Users\\ravis\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\flask\\app.py", line 1458, in dispatch_request\n    self.raise_routing_exception(req)\n  File "C:\\Users\\ravis\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\flask\\app.py", line 1440, in raise_routing_exception\n    raise request.routing_exception  # type: ignore\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "C:\\Users\\ravis\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\flask\\ctx.py", line 353, in match_request\n    result = self.url_adapter.match(return_rule=True)  # type: ignore\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "C:\\Users\\ravis\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\werkzeug\\routing\\map.py", line 655, in match\n    raise NotFound() from None\nwerkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.\n'}
+2026-03-30 15:13:17,259 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 15:13:17] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-03-30 15:31:23,648 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-30 15:31:23,649 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-30 15:31:23,655 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 15:31:25,742 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 15:31:25,754 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 15:31:26,830 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\routes\\firebase_auth.py', reloading
+2026-03-30 15:31:27,180 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 15:31:31,343 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 15:31:31,362 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 15:47:37,856 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-30 15:47:37,858 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-30 15:47:37,863 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 15:47:40,165 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 15:47:40,207 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 15:47:50,812 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 15:47:50] "[32mGET / HTTP/1.1[0m" 302 -
+2026-03-30 15:47:50,949 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 15:47:50] "GET /login HTTP/1.1" 200 -
+2026-03-30 15:56:27,860 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\config.py', reloading
+2026-03-30 15:56:28,067 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\config.py', reloading
+2026-03-30 15:56:28,201 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 15:56:28,583 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 15:56:30,825 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 15:56:30,825 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 15:56:30,834 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 15:56:30,835 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 16:00:13,763 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\config.py', reloading
+2026-03-30 16:00:13,901 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\config.py', reloading
+2026-03-30 16:00:14,122 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 16:00:14,183 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 16:00:21,506 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 16:00:21,520 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 16:00:21,522 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 16:00:21,536 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 16:00:22,678 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 16:00:22] "GET /login HTTP/1.1" 200 -
+2026-03-30 16:00:23,664 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 16:00:23] "GET /static/css/tailwind.min.css HTTP/1.1" 200 -
+2026-03-30 16:00:57,423 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\config.py', reloading
+2026-03-30 16:00:57,424 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\config.py', reloading
+2026-03-30 16:00:57,641 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 16:00:57,641 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 16:01:00,541 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 16:01:00,599 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 16:01:00,778 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 16:01:00,803 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 16:01:15,349 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 16:01:15] "GET /login HTTP/1.1" 200 -
+2026-03-30 16:05:11,701 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-30 16:05:11,701 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-30 16:05:11,706 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 16:05:13,791 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 16:05:13,800 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 16:05:51,361 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 16:05:51] "GET /login HTTP/1.1" 200 -
+2026-03-30 16:05:57,076 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 16:05:57] "GET /login HTTP/1.1" 200 -
+2026-03-30 16:05:57,593 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\app.py', reloading
+2026-03-30 16:05:57,812 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 16:05:58,156 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\app.py', reloading
+2026-03-30 16:05:58,203 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\app.py', reloading
+2026-03-30 16:05:58,354 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 16:05:58,398 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 16:06:00,189 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 16:06:00,204 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 16:06:01,105 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 16:06:01,155 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 16:06:01,728 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 16:06:01,749 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 16:06:04,614 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 16:06:04] "GET /login HTTP/1.1" 200 -
+2026-03-30 16:07:30,205 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 16:07:30] "GET /login HTTP/1.1" 200 -
+2026-03-30 16:09:56,760 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-30 16:09:56,760 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-30 16:09:56,764 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 16:09:59,031 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 16:09:59,044 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 16:11:19,965 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\app.py', reloading
+2026-03-30 16:11:20,127 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 16:11:20,255 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\app.py', reloading
+2026-03-30 16:11:20,368 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\app.py', reloading
+2026-03-30 16:11:20,446 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 16:11:20,562 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 16:11:22,479 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 16:11:22,490 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 16:11:22,771 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 16:11:22,785 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 16:11:22,843 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 16:11:22,856 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 16:35:43,490 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 16:35:43] "GET /login HTTP/1.1" 200 -
+2026-03-30 16:44:44,408 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 16:44:44] "GET /login HTTP/1.1" 200 -
+2026-03-30 16:44:55,772 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 16:44:55] "GET /login HTTP/1.1" 200 -
+2026-03-30 17:25:56,970 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 17:25:56] "GET /login HTTP/1.1" 200 -
+2026-03-30 17:26:18,360 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-30 17:26:18,361 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-30 17:26:18,367 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 17:26:20,427 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 17:26:20,442 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 17:26:23,202 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 17:26:23] "GET /login HTTP/1.1" 200 -
+2026-03-30 17:28:12,294 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\app.py', reloading
+2026-03-30 17:28:12,496 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 17:28:12,805 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\app.py', reloading
+2026-03-30 17:28:13,269 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 17:28:14,757 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 17:28:14,767 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 17:28:15,400 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 17:28:15,411 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 17:31:14,640 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 17:31:14] "GET /login HTTP/1.1" 200 -
+2026-03-30 17:33:22,446 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\config.py', reloading
+2026-03-30 17:33:22,616 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 17:33:23,159 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\config.py', reloading
+2026-03-30 17:33:23,336 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 17:33:24,902 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 17:33:24,913 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 17:33:25,315 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 17:33:25,325 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 17:33:43,247 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\app.py', reloading
+2026-03-30 17:33:43,465 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 17:33:43,669 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\app.py', reloading
+2026-03-30 17:33:43,887 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 17:33:45,806 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 17:33:45,815 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 17:33:46,093 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 17:33:46,105 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 17:34:35,135 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-30 17:34:35,135 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-30 17:34:35,140 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 17:34:37,346 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 17:34:37,356 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 17:37:02,670 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\app.py', reloading
+2026-03-30 17:37:02,849 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 17:37:03,166 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\config.py', reloading
+2026-03-30 17:37:03,365 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 17:37:03,391 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\app.py', reloading
+2026-03-30 17:37:03,635 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 17:37:05,527 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 17:37:05,542 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 17:37:06,036 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 17:37:06,051 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 17:37:06,100 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 17:37:06,110 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 17:37:07,368 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 17:37:07] "GET /login HTTP/1.1" 200 -
+2026-03-30 17:39:01,092 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\config.py', reloading
+2026-03-30 17:39:01,095 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\config.py', reloading
+2026-03-30 17:39:01,291 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 17:39:01,294 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 17:39:01,416 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\config.py', reloading
+2026-03-30 17:39:01,610 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 17:39:03,512 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 17:39:03,516 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 17:39:03,524 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 17:39:03,529 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 17:39:03,738 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 17:39:03,747 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 17:39:54,491 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-30 17:39:54,492 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-30 17:39:54,497 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 17:39:56,740 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 17:39:56,752 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 17:41:05,174 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 17:41:05] "GET /login HTTP/1.1" 200 -
+2026-03-30 17:43:29,941 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\config.py', reloading
+2026-03-30 17:43:30,144 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 17:43:32,435 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 17:43:32,446 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 17:43:56,628 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-30 17:43:56,629 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-30 17:43:56,632 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 17:43:58,740 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 17:43:58,750 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 17:44:05,860 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 17:44:05] "GET /login HTTP/1.1" 200 -
+2026-03-30 17:57:06,078 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\config.py', reloading
+2026-03-30 17:57:06,351 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 17:57:07,762 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 17:57:07,773 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 18:04:57,895 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:04:57] "GET /login HTTP/1.1" 200 -
+2026-03-30 18:05:01,007 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:05:01] "GET /login HTTP/1.1" 200 -
+2026-03-30 18:08:34,016 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-30 18:08:34,017 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-30 18:08:34,019 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 18:08:35,022 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 18:08:35,027 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 18:08:45,726 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:08:45] "[32mGET / HTTP/1.1[0m" 302 -
+2026-03-30 18:08:45,763 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:08:45] "GET /login HTTP/1.1" 200 -
+2026-03-30 18:13:28,192 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:13:28] "GET /login HTTP/1.1" 200 -
+2026-03-30 18:15:16,759 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:15:16] "GET /login HTTP/1.1" 200 -
+2026-03-30 18:15:41,743 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:15:41] "[31m[1mPOST /api/authenticate HTTP/1.1[0m" 401 -
+2026-03-30 18:15:41,746 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:15:41] "[31m[1mPOST /api/authenticate HTTP/1.1[0m" 401 -
+2026-03-30 18:16:28,024 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:16:28] "[31m[1mPOST /api/authenticate HTTP/1.1[0m" 401 -
+2026-03-30 18:17:33,682 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\routes\\firebase_auth.py', reloading
+2026-03-30 18:17:33,830 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 18:17:34,943 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 18:17:34,948 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 18:17:44,093 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\firebase_config.py', reloading
+2026-03-30 18:17:44,196 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 18:17:45,217 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 18:17:45,224 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 18:18:19,711 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-30 18:18:19,711 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-30 18:18:19,713 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 18:18:20,702 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 18:18:20,707 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 18:19:20,855 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-30 18:19:20,856 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-30 18:19:20,858 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 18:19:21,920 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 18:19:21,925 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 18:19:26,431 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:19:26] "GET /login HTTP/1.1" 200 -
+2026-03-30 18:19:34,442 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:19:34] "POST /api/authenticate HTTP/1.1" 200 -
+2026-03-30 18:19:34,584 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:19:34] "GET /faculty HTTP/1.1" 200 -
+2026-03-30 18:19:34,955 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:19:34] "[32mGET /api/assignments/stats HTTP/1.1[0m" 302 -
+2026-03-30 18:19:35,080 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:19:35] "[32mGET /faculty-login HTTP/1.1[0m" 302 -
+2026-03-30 18:19:35,120 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:19:35] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-03-30 18:19:35,148 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:19:35] "GET /faculty HTTP/1.1" 200 -
+2026-03-30 18:20:11,197 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:20:11] "GET /faculty HTTP/1.1" 200 -
+2026-03-30 18:20:11,514 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:20:11] "[32mGET /api/assignments/stats HTTP/1.1[0m" 302 -
+2026-03-30 18:20:11,537 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:20:11] "[32mGET /faculty-login HTTP/1.1[0m" 302 -
+2026-03-30 18:20:11,549 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:20:11] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-03-30 18:20:11,565 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:20:11] "GET /faculty HTTP/1.1" 200 -
+2026-03-30 18:20:21,676 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\firebase_db.py', reloading
+2026-03-30 18:20:21,757 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 18:20:21,937 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\firebase_db.py', reloading
+2026-03-30 18:20:22,063 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 18:20:22,857 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 18:20:22,864 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 18:20:23,100 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 18:20:23,106 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 18:22:04,233 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-30 18:22:04,234 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-30 18:22:04,235 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 18:22:05,226 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 18:22:05,232 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 18:22:53,664 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\firebase_db.py', reloading
+2026-03-30 18:22:53,745 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 18:22:54,882 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 18:22:54,888 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 18:23:08,299 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-30 18:23:08,300 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-30 18:23:08,301 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 18:23:09,346 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 18:23:09,351 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 18:23:15,034 - cryptolab.auth - INFO - Auth Event: {'username': 'rshyamsingh106@gmail.com', 'event_type': 'LOGOUT', 'success': True, 'details': 'User logged out', 'request_ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:149.0) Gecko/20100101 Firefox/149.0', 'timestamp': '2026-03-30T18:23:15.034923'}
+2026-03-30 18:23:15,040 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:23:15] "[32mGET /logout HTTP/1.1[0m" 302 -
+2026-03-30 18:23:15,072 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:23:15] "GET /login HTTP/1.1" 200 -
+2026-03-30 18:23:18,059 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:23:18] "POST /api/authenticate HTTP/1.1" 200 -
+2026-03-30 18:23:18,138 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:23:18] "GET /faculty HTTP/1.1" 200 -
+2026-03-30 18:23:18,426 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:23:18] "[32mGET /api/assignments/stats HTTP/1.1[0m" 302 -
+2026-03-30 18:23:18,471 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:23:18] "[32mGET /faculty-login HTTP/1.1[0m" 302 -
+2026-03-30 18:23:18,483 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:23:18] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-03-30 18:23:18,499 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:23:18] "GET /faculty HTTP/1.1" 200 -
+2026-03-30 18:23:23,837 - cryptolab.auth - INFO - Auth Event: {'username': 'rshyamsingh106@gmail.com', 'event_type': 'LOGOUT', 'success': True, 'details': 'User logged out', 'request_ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:149.0) Gecko/20100101 Firefox/149.0', 'timestamp': '2026-03-30T18:23:23.837126'}
+2026-03-30 18:23:23,840 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:23:23] "[32mGET /logout HTTP/1.1[0m" 302 -
+2026-03-30 18:23:23,866 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:23:23] "GET /login HTTP/1.1" 200 -
+2026-03-30 18:23:25,876 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:23:25] "POST /api/authenticate HTTP/1.1" 200 -
+2026-03-30 18:23:25,912 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:23:25] "GET /faculty HTTP/1.1" 200 -
+2026-03-30 18:23:26,222 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:23:26] "[32mGET /api/assignments/stats HTTP/1.1[0m" 302 -
+2026-03-30 18:23:26,251 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:23:26] "[32mGET /faculty-login HTTP/1.1[0m" 302 -
+2026-03-30 18:23:26,265 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:23:26] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-03-30 18:23:26,282 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:23:26] "GET /faculty HTTP/1.1" 200 -
+2026-03-30 18:23:34,440 - cryptolab.auth - INFO - Auth Event: {'username': 'rshyamsingh106@gmail.com', 'event_type': 'LOGOUT', 'success': True, 'details': 'User logged out', 'request_ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:149.0) Gecko/20100101 Firefox/149.0', 'timestamp': '2026-03-30T18:23:34.440377'}
+2026-03-30 18:23:34,442 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:23:34] "[32mGET /logout HTTP/1.1[0m" 302 -
+2026-03-30 18:23:34,469 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:23:34] "GET /login HTTP/1.1" 200 -
+2026-03-30 18:23:36,418 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:23:36] "POST /api/authenticate HTTP/1.1" 200 -
+2026-03-30 18:23:36,450 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:23:36] "GET /faculty HTTP/1.1" 200 -
+2026-03-30 18:23:36,738 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:23:36] "[32mGET /api/assignments/stats HTTP/1.1[0m" 302 -
+2026-03-30 18:23:36,763 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:23:36] "[32mGET /faculty-login HTTP/1.1[0m" 302 -
+2026-03-30 18:23:36,775 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:23:36] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-03-30 18:23:36,792 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:23:36] "GET /faculty HTTP/1.1" 200 -
+2026-03-30 18:28:44,823 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\app.py', reloading
+2026-03-30 18:28:44,919 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 18:28:44,989 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\app.py', reloading
+2026-03-30 18:28:45,099 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 18:28:46,075 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 18:28:46,080 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 18:28:46,117 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 18:28:46,122 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 18:28:55,198 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\app.py', reloading
+2026-03-30 18:28:55,244 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\app.py', reloading
+2026-03-30 18:28:55,362 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 18:28:55,417 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 18:28:56,440 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 18:28:56,440 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 18:28:56,447 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 18:28:56,448 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 18:29:30,828 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\app.py', reloading
+2026-03-30 18:29:30,829 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\app.py', reloading
+2026-03-30 18:29:30,948 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 18:29:30,949 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 18:29:32,006 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 18:29:32,006 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 18:29:32,013 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 18:29:32,013 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 18:29:37,117 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\app.py', reloading
+2026-03-30 18:29:37,120 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\app.py', reloading
+2026-03-30 18:29:37,252 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 18:29:37,258 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 18:29:41,369 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 18:29:41,378 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 18:29:41,381 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 18:29:41,388 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 18:29:52,540 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\routes\\firebase_auth.py', reloading
+2026-03-30 18:29:52,564 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\routes\\firebase_auth.py', reloading
+2026-03-30 18:29:52,655 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 18:29:52,703 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 18:29:53,719 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 18:29:53,721 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 18:29:53,726 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 18:29:53,727 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 18:30:56,177 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-30 18:30:56,177 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-30 18:30:56,178 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 18:30:57,214 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 18:30:57,221 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 18:31:03,330 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\app.py', reloading
+2026-03-30 18:31:03,434 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 18:31:06,045 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 18:31:06,062 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 18:31:22,577 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-30 18:31:22,577 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-30 18:31:22,580 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 18:31:23,513 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 18:31:23,518 - werkzeug - INFO -  * Debugger PIN: 943-837-633
+2026-03-30 18:31:28,321 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:31:28] "GET /faculty HTTP/1.1" 200 -
+2026-03-30 18:31:29,356 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:31:29] "[32mGET /api/assignments/stats HTTP/1.1[0m" 302 -
+2026-03-30 18:31:29,444 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:31:29] "[32mGET /faculty-login HTTP/1.1[0m" 302 -
+2026-03-30 18:31:29,494 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:31:29] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-03-30 18:31:29,528 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:31:29] "GET /faculty HTTP/1.1" 200 -
+2026-03-30 18:31:35,502 - cryptolab.auth - INFO - Auth Event: {'username': 'rshyamsingh106@gmail.com', 'event_type': 'LOGOUT', 'success': True, 'details': 'User logged out', 'request_ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:149.0) Gecko/20100101 Firefox/149.0', 'timestamp': '2026-03-30T18:31:35.502289'}
+2026-03-30 18:31:35,506 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:31:35] "[32mGET /logout HTTP/1.1[0m" 302 -
+2026-03-30 18:31:35,523 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:31:35] "GET /logout-page HTTP/1.1" 200 -
+2026-03-30 18:31:37,640 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:31:37] "GET /login HTTP/1.1" 200 -
+2026-03-30 18:32:59,367 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:32:59] "[31m[1mGET /api/check-session HTTP/1.1[0m" 401 -
+2026-03-30 18:33:00,085 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:33:00] "[31m[1mPOST /api/authenticate HTTP/1.1[0m" 401 -
+2026-03-30 18:33:15,103 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:33:15] "[31m[1mPOST /api/authenticate HTTP/1.1[0m" 401 -
+2026-03-30 18:36:02,105 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:36:02] "[31m[1mPOST /api/authenticate HTTP/1.1[0m" 401 -
+2026-03-30 18:37:01,351 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:37:01] "GET /login HTTP/1.1" 200 -
+2026-03-30 18:37:02,110 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:37:02] "[31m[1mGET /api/check-session HTTP/1.1[0m" 401 -
+2026-03-30 18:37:13,720 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:37:13] "[31m[1mPOST /api/authenticate HTTP/1.1[0m" 401 -
+2026-03-30 18:37:35,209 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:37:35] "[31m[1mGET /api/check-session HTTP/1.1[0m" 401 -
+2026-03-30 18:37:35,216 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 18:37:35] "[31m[1mPOST /api/authenticate HTTP/1.1[0m" 401 -
+2026-05-27 10:03:04,662 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-27 10:03:04,664 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-05-27 10:03:04,669 - werkzeug - INFO -  * Restarting with stat
+2026-05-27 10:03:07,062 - werkzeug - WARNING -  * Debugger is active!
+2026-05-27 10:03:07,076 - werkzeug - INFO -  * Debugger PIN: 872-200-429
+2026-05-27 10:03:26,138 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:03:26] "[32mGET / HTTP/1.1[0m" 302 -
+2026-05-27 10:03:26,205 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:03:26] "GET /login HTTP/1.1" 200 -
+2026-05-27 10:03:37,899 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:03:37] "[32mGET / HTTP/1.1[0m" 302 -
+2026-05-27 10:03:37,950 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:03:37] "GET /login HTTP/1.1" 200 -
+2026-05-27 10:04:02,977 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:04:02] "[32mGET / HTTP/1.1[0m" 302 -
+2026-05-27 10:04:03,501 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:04:03] "GET /login HTTP/1.1" 200 -
+2026-05-27 10:04:08,765 - cryptolab - ERROR - Error ERR_20260527_100408_2390803805392: {'error_id': 'ERR_20260527_100408_2390803805392', 'error_type': 'CLIENT_ERROR', 'error_class': 'NotFound', 'error_message': '404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.', 'request_method': 'GET', 'request_url': 'http://127.0.0.1:5000/favicon.ico', 'request_ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:151.0) Gecko/20100101 Firefox/151.0', 'timestamp': '2026-05-27T10:04:08.640660', 'traceback': 'Traceback (most recent call last):\n  File "C:\\Users\\ravis\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\flask\\app.py", line 1484, in full_dispatch_request\n    rv = self.dispatch_request()\n         ^^^^^^^^^^^^^^^^^^^^^^^\n  File "C:\\Users\\ravis\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\flask\\app.py", line 1458, in dispatch_request\n    self.raise_routing_exception(req)\n  File "C:\\Users\\ravis\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\flask\\app.py", line 1440, in raise_routing_exception\n    raise request.routing_exception  # type: ignore\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "C:\\Users\\ravis\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\flask\\ctx.py", line 353, in match_request\n    result = self.url_adapter.match(return_rule=True)  # type: ignore\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "C:\\Users\\ravis\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\werkzeug\\routing\\map.py", line 655, in match\n    raise NotFound() from None\nwerkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.\n'}
+2026-05-27 10:04:08,784 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:04:08] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-05-27 10:04:13,770 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:04:13] "[31m[1mGET /api/check-session HTTP/1.1[0m" 401 -
+2026-05-27 10:17:11,664 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:17:11] "GET /login HTTP/1.1" 200 -
+2026-05-27 10:17:18,372 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:17:18] "[31m[1mGET /api/check-session HTTP/1.1[0m" 401 -
+2026-05-27 10:17:18,869 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:17:18] "GET /login HTTP/1.1" 200 -
+2026-05-27 10:17:24,167 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:17:24] "[31m[1mGET /api/check-session HTTP/1.1[0m" 401 -
+2026-05-27 10:17:28,378 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:17:28] "POST /api/authenticate HTTP/1.1" 200 -
+2026-05-27 10:17:32,519 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:17:32] "POST /api/authenticate HTTP/1.1" 200 -
+2026-05-27 10:17:35,614 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:17:35] "GET /student HTTP/1.1" 200 -
+2026-05-27 10:18:19,770 - cryptolab.auth - INFO - Auth Event: {'username': 'ravishyamsinghrajput@gmail.com', 'event_type': 'LOGOUT', 'success': True, 'details': 'User logged out', 'request_ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:151.0) Gecko/20100101 Firefox/151.0', 'timestamp': '2026-05-27T10:18:19.770425'}
+2026-05-27 10:18:19,778 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:18:19] "[32mGET /logout HTTP/1.1[0m" 302 -
+2026-05-27 10:18:19,835 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:18:19] "GET /logout-page HTTP/1.1" 200 -
+2026-05-27 10:18:25,431 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:18:25] "GET /login HTTP/1.1" 200 -
+2026-05-27 10:18:53,101 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:18:53] "[31m[1mGET /api/check-session HTTP/1.1[0m" 401 -
+2026-05-27 10:18:53,504 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:18:53] "[31m[1mPOST /api/authenticate HTTP/1.1[0m" 401 -
+2026-05-27 10:18:53,507 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:18:53] "[31m[1mPOST /api/authenticate HTTP/1.1[0m" 401 -
+2026-05-27 10:19:38,629 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\firebase_config.py', reloading
+2026-05-27 10:19:38,982 - werkzeug - INFO -  * Restarting with stat
+2026-05-27 10:19:43,145 - werkzeug - WARNING -  * Debugger is active!
+2026-05-27 10:19:43,203 - werkzeug - INFO -  * Debugger PIN: 872-200-429
+2026-05-27 10:19:55,787 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:19:55] "GET /login HTTP/1.1" 200 -
+2026-05-27 10:20:00,535 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:20:00] "[31m[1mGET /api/check-session HTTP/1.1[0m" 401 -
+2026-05-27 10:20:08,019 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:20:08] "POST /api/authenticate HTTP/1.1" 200 -
+2026-05-27 10:20:10,247 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:20:10] "GET /faculty HTTP/1.1" 200 -
+2026-05-27 10:20:11,159 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:20:11] "GET /api/assignments/stats HTTP/1.1" 200 -
+2026-05-27 10:20:11,287 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:20:11] "GET /api/faculty/submissions/recent HTTP/1.1" 200 -
+2026-05-27 10:20:21,736 - cryptolab.auth - INFO - Auth Event: {'username': 'rshyamsingh106@gmail.com', 'event_type': 'LOGOUT', 'success': True, 'details': 'User logged out', 'request_ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:151.0) Gecko/20100101 Firefox/151.0', 'timestamp': '2026-05-27T10:20:21.736972'}
+2026-05-27 10:20:21,741 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:20:21] "[32mGET /logout HTTP/1.1[0m" 302 -
+2026-05-27 10:20:21,778 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:20:21] "GET /logout-page HTTP/1.1" 200 -
+2026-05-27 10:20:27,134 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:20:27] "GET /login HTTP/1.1" 200 -
+2026-05-27 10:21:05,111 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:21:05] "[31m[1mGET /api/check-session HTTP/1.1[0m" 401 -
+2026-05-27 10:21:08,132 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:21:08] "POST /api/authenticate HTTP/1.1" 200 -
+2026-05-27 10:21:09,668 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:21:09] "POST /api/authenticate HTTP/1.1" 200 -
+2026-05-27 10:21:11,215 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:21:11] "GET /faculty HTTP/1.1" 200 -
+2026-05-27 10:21:12,192 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:21:12] "GET /api/assignments/stats HTTP/1.1" 200 -
+2026-05-27 10:21:12,328 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:21:12] "GET /api/faculty/submissions/recent HTTP/1.1" 200 -
+2026-05-27 10:21:26,508 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:21:26] "GET /shift-cipher HTTP/1.1" 200 -
+2026-05-27 10:21:30,806 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:21:30] "GET /shift-cipher/simulation HTTP/1.1" 200 -
+2026-05-27 10:24:02,413 - cryptolab.auth - INFO - Auth Event: {'username': 'rshyamsingh106@gmail.com', 'event_type': 'LOGOUT', 'success': True, 'details': 'User logged out', 'request_ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:151.0) Gecko/20100101 Firefox/151.0', 'timestamp': '2026-05-27T10:24:02.413042'}
+2026-05-27 10:24:02,417 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:24:02] "[32mGET /logout HTTP/1.1[0m" 302 -
+2026-05-27 10:24:02,448 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:24:02] "GET /logout-page HTTP/1.1" 200 -
+2026-05-27 10:24:07,805 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:24:07] "GET /login HTTP/1.1" 200 -
+2026-05-27 10:40:35,935 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:40:35] "GET /login HTTP/1.1" 200 -
+2026-05-27 10:45:42,718 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:45:42] "GET /login HTTP/1.1" 200 -
+2026-05-27 10:49:04,838 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:49:04] "[31m[1mGET /api/check-session HTTP/1.1[0m" 401 -
+2026-05-27 10:49:11,720 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:49:11] "POST /api/authenticate HTTP/1.1" 200 -
+2026-05-27 10:49:12,539 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:49:12] "POST /api/authenticate HTTP/1.1" 200 -
+2026-05-27 10:49:15,208 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:49:15] "GET /faculty HTTP/1.1" 200 -
+2026-05-27 10:49:15,408 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:49:15] "GET /faculty HTTP/1.1" 200 -
+2026-05-27 10:49:16,241 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:49:16] "GET /api/assignments/stats HTTP/1.1" 200 -
+2026-05-27 10:49:16,306 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:49:16] "GET /api/faculty/submissions/recent HTTP/1.1" 200 -
+2026-05-27 10:53:42,219 - werkzeug - INFO -  * Detected change in 'D:\\virtual lab\\virtual_lab_v2\\routes\\assignments.py', reloading
+2026-05-27 10:53:42,557 - werkzeug - INFO -  * Restarting with stat
+2026-05-27 10:53:46,511 - werkzeug - WARNING -  * Debugger is active!
+2026-05-27 10:53:46,545 - werkzeug - INFO -  * Debugger PIN: 872-200-429
+2026-05-27 10:54:23,427 - urllib3.connectionpool - WARNING - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)'))': /token
+2026-05-27 10:54:33,870 - urllib3.connectionpool - WARNING - Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)'))': /token
+2026-05-27 10:54:55,375 - urllib3.connectionpool - WARNING - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)'))': /token
+2026-05-27 10:55:00,227 - werkzeug - INFO - 127.0.0.1 - - [27/May/2026 10:55:00] "GET /faculty HTTP/1.1" 200 -

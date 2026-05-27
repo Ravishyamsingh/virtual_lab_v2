@@ -7,17 +7,36 @@ lab modules, progress tracking, and activity logs.
 import json
 from datetime import datetime, timedelta
 from typing import Dict, List, Any
-from auth import load_users
+from firebase_db import FirebaseDB
 
 def get_student_count() -> int:
     """Get the actual number of students in the system."""
-    users = load_users()
+    users = FirebaseDB.get_all_users()
     return len([user for user in users if user.get('role') == 'student'])
 
 def get_faculty_count() -> int:
     """Get the actual number of faculty members in the system."""
-    users = load_users()
+    users = FirebaseDB.get_all_users()
     return len([user for user in users if user.get('role') == 'faculty'])
+
+def get_display_name(user: Dict[str, Any]) -> str:
+    """Get a display-friendly name for a user."""
+    return (
+        user.get('display_name')
+        or user.get('full_name')
+        or user.get('email')
+        or user.get('uid')
+        or 'User'
+    )
+
+def get_username(user: Dict[str, Any]) -> str:
+    """Get a stable username for display and keys."""
+    if user.get('username'):
+        return user['username']
+    email = user.get('email') or ''
+    if '@' in email:
+        return email.split('@', 1)[0]
+    return user.get('uid') or 'user'
 
 def get_lab_modules_count() -> int:
     """Get the actual number of available lab modules."""
@@ -122,7 +141,7 @@ def get_recent_activities() -> List[Dict[str, Any]]:
     activities = []
     
     # Get actual system data
-    users = load_users()
+    users = FirebaseDB.get_all_users()
     students = [user for user in users if user.get('role') == 'student']
     
     if students:
@@ -130,14 +149,14 @@ def get_recent_activities() -> List[Dict[str, Any]]:
         activities.extend([
             {
                 'type': 'enrollment',
-                'message': f"New student enrolled: {students[-1]['full_name']}",
+                'message': f"New student enrolled: {get_display_name(students[-1])}",
                 'time': '2 hours ago',
                 'icon': 'fas fa-user-plus',
                 'color': 'blue'
             },
             {
                 'type': 'completion',
-                'message': f"{students[0]['full_name']} completed Shift Cipher lab",
+                'message': f"{get_display_name(students[0])} completed Shift Cipher lab",
                 'time': '4 hours ago',
                 'icon': 'fas fa-check-circle',
                 'color': 'green'
@@ -147,7 +166,7 @@ def get_recent_activities() -> List[Dict[str, Any]]:
         if len(students) > 1:
             activities.append({
                 'type': 'progress',
-                'message': f"{students[1]['full_name']} started AES Algorithm module",
+                'message': f"{get_display_name(students[1])} started AES Algorithm module",
                 'time': '6 hours ago',
                 'icon': 'fas fa-play-circle',
                 'color': 'purple'
@@ -175,17 +194,18 @@ def get_recent_activities() -> List[Dict[str, Any]]:
 
 def get_student_list() -> List[Dict[str, Any]]:
     """Get list of all students with their basic information."""
-    users = load_users()
+    users = FirebaseDB.get_all_users()
     students = [user for user in users if user.get('role') == 'student']
     
     student_list = []
     for student in students:
+        username = get_username(student)
         student_list.append({
-            'username': student['username'],
-            'full_name': student['full_name'],
-            'email': student['email'],
+            'username': username,
+            'full_name': get_display_name(student),
+            'email': student.get('email', ''),
             'status': 'Active',  # In real system, this would be based on last login
-            'progress': min(85, hash(student['username']) % 100),  # Simulated progress
+            'progress': min(85, hash(username) % 100),  # Simulated progress
             'last_activity': 'Recently'  # In real system, this would be actual timestamp
         })
     

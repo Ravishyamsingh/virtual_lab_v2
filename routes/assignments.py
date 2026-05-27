@@ -3,21 +3,33 @@ Assignment routes for faculty and student assignment management
 """
 
 from flask import Blueprint, render_template, request, jsonify, flash, redirect, url_for, session
-from auth import faculty_required, student_required, get_user_by_username
+from firebase_auth_decorators import firebase_faculty_required, firebase_student_required
 from assignment_manager import assignment_manager
 from utils.validators import InputValidator
-from utils.error_handlers import create_error_response
 from datetime import datetime
 
 assignments = Blueprint('assignments', __name__)
 
+def get_session_user():
+    """Return a normalized user dict from session data."""
+    user = session.get('user') or {}
+    full_name = user.get('display_name') or user.get('full_name') or user.get('username') or ''
+    return {
+        'uid': user.get('uid'),
+        'username': user.get('username'),
+        'email': user.get('email'),
+        'full_name': full_name,
+        'display_name': user.get('display_name') or full_name,
+        'role': user.get('role')
+    }
+
 # Faculty Assignment Routes
 @assignments.route('/faculty/assignments')
-@faculty_required
+@firebase_faculty_required
 def faculty_assignments():
     """Faculty assignment management page"""
     try:
-        user = get_user_by_username(session['user']['username'])
+        user = get_session_user()
         assignments_list = assignment_manager.get_assignments_by_faculty(user['username'])
         stats = assignment_manager.get_assignment_statistics()
         
@@ -30,12 +42,12 @@ def faculty_assignments():
         return redirect(url_for('faculty_dashboard'))
 
 @assignments.route('/faculty/assignments/create', methods=['GET', 'POST'])
-@faculty_required
+@firebase_faculty_required
 def create_assignment():
     """Create new assignment"""
     if request.method == 'POST':
         try:
-            user = get_user_by_username(session['user']['username'])
+            user = get_session_user()
             
             # Get form data
             title = request.form.get('title', '').strip()
@@ -104,11 +116,11 @@ def create_assignment():
     return render_template('assignments/create_assignment.html', lab_modules=lab_modules)
 
 @assignments.route('/faculty/assignments/<assignment_id>')
-@faculty_required
+@firebase_faculty_required
 def faculty_view_assignment(assignment_id):
     """View assignment details and submissions"""
     try:
-        user = get_user_by_username(session['user']['username'])
+        user = get_session_user()
         assignment = assignment_manager.get_assignment(assignment_id)
         if not assignment:
             flash('Assignment not found', 'error')
@@ -125,11 +137,11 @@ def faculty_view_assignment(assignment_id):
         return redirect(url_for('assignments.faculty_assignments'))
 
 @assignments.route('/faculty/assignments/<assignment_id>/grade/<submission_id>', methods=['GET', 'POST'])
-@faculty_required
+@firebase_faculty_required
 def grade_submission(assignment_id, submission_id):
     """Grade a student submission"""
     try:
-        user = get_user_by_username(session['user']['username'])
+        user = get_session_user()
         assignment = assignment_manager.get_assignment(assignment_id)
         submission = assignment_manager.get_submission(submission_id)
         
@@ -174,12 +186,12 @@ def grade_submission(assignment_id, submission_id):
 
 # Student Assignment Routes
 @assignments.route('/student/assignments')
-@student_required
+@firebase_student_required
 def student_assignments():
     """Student assignments page"""
     try:
-        user = get_user_by_username(session['user']['username'])
-        if not user:
+        user = get_session_user()
+        if not user.get('username'):
             flash('User session invalid', 'error')
             return redirect(url_for('student_dashboard'))
             
@@ -227,11 +239,11 @@ def student_assignments():
         return redirect(url_for('student_dashboard'))
 
 @assignments.route('/assignments/<assignment_id>')
-@student_required
+@firebase_student_required
 def student_view_assignment(assignment_id):
     """View assignment details for student"""
     try:
-        user = get_user_by_username(session['user']['username'])
+        user = get_session_user()
         print(f"DEBUG: Viewing assignment {assignment_id} for user {user['username']}")
 
         assignment = assignment_manager.get_assignment(assignment_id)
@@ -264,11 +276,11 @@ def student_view_assignment(assignment_id):
         return redirect(url_for('assignments.student_assignments'))
 
 @assignments.route('/assignments/<assignment_id>/submit', methods=['GET', 'POST'])
-@student_required
+@firebase_student_required
 def submit_assignment(assignment_id):
     """Submit assignment"""
     try:
-        user = get_user_by_username(session['user']['username'])
+        user = get_session_user()
         assignment = assignment_manager.get_assignment(assignment_id)
         
         if not assignment or not assignment['is_active']:
@@ -313,11 +325,11 @@ def submit_assignment(assignment_id):
         return redirect(f'/assignments/{assignment_id}')
 
 @assignments.route('/assignments/<assignment_id>/submission/<submission_id>')
-@student_required
+@firebase_student_required
 def view_submission(assignment_id, submission_id):
     """View assignment submission"""
     try:
-        user = get_user_by_username(session['user']['username'])
+        user = get_session_user()
         assignment = assignment_manager.get_assignment(assignment_id)
         submission = assignment_manager.get_submission(submission_id)
         
@@ -346,7 +358,7 @@ def view_submission(assignment_id, submission_id):
 
 # API Routes for Quick Actions
 @assignments.route('/api/assignments/stats')
-@faculty_required
+@firebase_faculty_required
 def assignment_stats_api():
     """Get assignment statistics for dashboard"""
     try:
@@ -356,11 +368,11 @@ def assignment_stats_api():
         return jsonify({'error': 'Failed to load statistics'}), 500
 
 @assignments.route('/api/assignments/recent')
-@faculty_required
+@firebase_faculty_required
 def recent_assignments_api():
     """Get recent assignments"""
     try:
-        user = get_user_by_username(session['user']['username'])
+        user = get_session_user()
         assignments_list = assignment_manager.get_assignments_by_faculty(user['username'])
         recent = sorted(assignments_list, key=lambda x: x['created_at'], reverse=True)[:5]
         return jsonify(recent)
@@ -368,11 +380,11 @@ def recent_assignments_api():
         return jsonify({'error': 'Failed to load assignments'}), 500
 
 @assignments.route('/api/assignments/quick-create', methods=['POST'])
-@faculty_required
+@firebase_faculty_required
 def quick_create_assignment():
     """Quick create assignment API"""
     try:
-        user = get_user_by_username(session['user']['username'])
+        user = get_session_user()
         data = request.get_json()
         
         assignment_id = assignment_manager.create_assignment(
@@ -392,7 +404,7 @@ def quick_create_assignment():
         return jsonify({'error': str(e)}), 500
 
 @assignments.route('/assignments/delete/<assignment_id>', methods=['DELETE'])
-@faculty_required
+@firebase_faculty_required
 def delete_assignment(assignment_id):
     """Delete an assignment"""
     try:
@@ -405,11 +417,11 @@ def delete_assignment(assignment_id):
         return jsonify({'success': False, 'message': str(e)}), 500
 
 @assignments.route('/api/faculty/submissions/recent')
-@faculty_required
+@firebase_faculty_required
 def get_recent_submissions():
     """Get recent submissions for faculty dashboard"""
     try:
-        user = get_user_by_username(session['user']['username'])
+        user = get_session_user()
         
         # Get all active assignments (faculty can grade any assignment)
         all_active_assignments = assignment_manager.get_active_assignments()
@@ -430,16 +442,13 @@ def get_recent_submissions():
             if not assignment:
                 continue
                 
-            # Get student details
-            student = get_user_by_username(submission['student_username'])
-            if not student:
-                continue
+            student_name = submission.get('student_name') or submission.get('student_username')
             
             enriched_submission = {
                 'id': submission['id'],
                 'assignment_id': submission['assignment_id'],
                 'student_username': submission['student_username'],
-                'student_name': student['full_name'],
+                'student_name': student_name,
                 'submitted_at': submission['submitted_at'],
                 'status': submission['status'],
                 'grade': submission.get('grade'),
@@ -464,11 +473,11 @@ def get_recent_submissions():
         return jsonify({'error': 'Failed to load submissions'}), 500
 
 @assignments.route('/api/submissions/<submission_id>/grade', methods=['POST'])
-@faculty_required  
+@firebase_faculty_required  
 def api_grade_submission(submission_id):
     """API endpoint for quick grading"""
     try:
-        user = get_user_by_username(session['user']['username'])
+        user = get_session_user()
         data = request.get_json()
         
         grade = int(data.get('grade', 0))
@@ -498,11 +507,11 @@ def api_grade_submission(submission_id):
         return jsonify({'error': 'An error occurred while grading'}), 500
 
 @assignments.route('/api/submissions/bulk-grade', methods=['POST'])
-@faculty_required
+@firebase_faculty_required
 def api_bulk_grade():
     """API endpoint for bulk grading"""
     try:
-        user = get_user_by_username(session['user']['username'])
+        user = get_session_user()
         data = request.get_json()
         
         submission_ids = data.get('submission_ids', [])
@@ -541,11 +550,11 @@ def api_bulk_grade():
         return jsonify({'error': 'An error occurred during bulk grading'}), 500
 
 @assignments.route('/api/submissions/bulk-approve', methods=['POST'])
-@faculty_required
+@firebase_faculty_required
 def api_bulk_approve():
     """API endpoint for bulk approval"""
     try:
-        user = get_user_by_username(session['user']['username'])
+        user = get_session_user()
         data = request.get_json()
         
         submission_ids = data.get('submission_ids', [])
@@ -576,11 +585,11 @@ def api_bulk_approve():
         return jsonify({'error': 'An error occurred during bulk approval'}), 500
 
 @assignments.route('/api/submissions/export', methods=['POST'])
-@faculty_required
+@firebase_faculty_required
 def api_export_submissions():
     """API endpoint for exporting submissions"""
     try:
-        user = get_user_by_username(session['user']['username'])
+        user = get_session_user()
         data = request.get_json()
         
         submission_ids = data.get('submission_ids', [])
@@ -596,14 +605,14 @@ def api_export_submissions():
             if submission['id'] in submission_ids:
                 # Get assignment and student details
                 assignment = assignment_manager.get_assignment(submission['assignment_id'])
-                student = get_user_by_username(submission['student_username'])
-                
-                if assignment and student:
+                student_name = submission.get('student_name') or submission.get('student_username')
+
+                if assignment:
                     export_data.append({
                         'submission_id': submission['id'],
                         'assignment_title': assignment['title'],
-                        'student_name': student['full_name'],
-                        'student_username': student['username'],
+                        'student_name': student_name,
+                        'student_username': submission['student_username'],
                         'submitted_at': submission['submitted_at'],
                         'status': submission['status'],
                         'grade': submission.get('grade', 'Not graded'),

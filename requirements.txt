@@ -3,7 +3,7 @@ Flask==2.3.3
 Werkzeug==2.3.7
 
 # Security and validation
-WTF-Forms==1.1.1
+WTForms==3.0.1
 Flask-WTF==1.1.1
 
 # Session management and security
@@ -27,6 +27,10 @@ black==23.9.1
 
 # Environment management
 python-dotenv==1.0.0
+
+# Firebase Integration
+firebase-admin==6.1.0
+requests==2.31.0
 
 # Email support (for future features)
 Flask-Mail==0.9.1

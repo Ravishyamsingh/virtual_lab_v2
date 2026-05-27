@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Cryptography Virtual Lab</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}" type="image/svg+xml">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        .login-container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 30px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .login-header h1 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .login-header p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0,123,255,0.3);
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 10px;
+        }
+        
+        .btn-primary {
+            background: #007bff;
+            color: white;
+        }
+        
+        .btn-primary:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .btn-primary:hover:not(:disabled) {
+            background: #0056b3;
+        }
+        
+        .btn-google {
+            background: white;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+        
+        .btn-google:hover {
+            background: #f8f9fa;
+        }
+        
+        .divider {
+            text-align: center;
+            margin: 20px 0;
+            color: #999;
+            font-size: 14px;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: '';
+            display: inline-block;
+            width: 40%;
+            height: 1px;
+            background: #ddd;
+            vertical-align: middle;
+            margin: 0 5px;
+        }
+        
+        .message {
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            display: none;
+        }
+        
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+        
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #007bff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .toggle-form {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .toggle-form a {
+            color: #007bff;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        
+        .toggle-form a:hover {
+            text-decoration: underline;
+        }
+        
+        .form-wrapper {
+            display: none;
+        }
+        
+        .form-wrapper.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <!-- Login Header -->
+        <div class="login-header">
+            <h1>🔐 Cryptography Virtual Lab</h1>
+            <p>Secure Authentication with Firebase</p>
+        </div>
+        
+        <!-- Message Display -->
+        <div id="message" class="message"></div>
+        
+        <!-- Login Form -->
+        <div id="loginForm" class="form-wrapper active">
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="loginEmail" placeholder="Enter your email" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="loginPassword" placeholder="Enter your password" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Login As</label>
+                <select id="loginRole">
+                    <option value="student">Student</option>
+                    <option value="faculty">Faculty</option>
+                </select>
+            </div>
+            
+            <button type="button" class="btn btn-primary" onclick="handleSignIn()">
+                <span class="loading"><div class="spinner"></div>Loading...</span>
+                <span class="login-text">Sign In</span>
+            </button>
+            
+            <div class="divider">OR</div>
+            
+            <button type="button" class="btn btn-google" onclick="handleGoogleSignIn()">
+                🔵 Sign in with Google
+            </button>
+            
+            <div class="toggle-form">
+                Don't have an account? <a onclick="toggleForm()">Sign Up</a>
+            </div>
+        </div>
+        
+        <!-- Signup Form -->
+        <div id="signupForm" class="form-wrapper">
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="signupName" placeholder="Enter your full name" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="signupEmail" placeholder="Enter your email" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="signupPassword" placeholder="At least 6 characters" required minlength="6">
+            </div>
+            
+            <div class="form-group">
+                <label>Confirm Password</label>
+                <input type="password" id="signupPasswordConfirm" placeholder="Confirm your password" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Account Type</label>
+                <select id="signupRole">
+                    <option value="student">Student</option>
+                    <option value="faculty">Faculty</option>
+                </select>
+            </div>
+            
+            <button type="button" class="btn btn-primary" onclick="handleSignUp()">
+                <span class="loading"><div class="spinner"></div>Creating Account...</span>
+                <span class="signup-text">Sign Up</span>
+            </button>
+            
+            <div class="toggle-form">
+                Already have an account? <a onclick="toggleForm()">Sign In</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK (compat for existing namespace usage) -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+    
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {{ firebase_config|tojson|safe }};
+        
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        
+        // UI Helper Functions
+        function showMessage(message, type = 'error') {
+            const messageEl = document.getElementById('message');
+            messageEl.textContent = message;
+            messageEl.className = `message ${type}`;
+            setTimeout(() => {
+                messageEl.className = 'message';
+            }, 5000);
+        }
+        
+        function toggleForm() {
+            document.getElementById('loginForm').classList.toggle('active');
+            document.getElementById('signupForm').classList.toggle('active');
+        }
+        
+        function setLoading(isLoading, formType = 'login') {
+            const textEl = document.querySelector(`.${formType}-text`);
+            if (!textEl) return;
+            
+            const button = textEl.closest('button');
+            if (!button) return;
+            
+            const loadingEl = button.querySelector('.loading');
+            
+            if (isLoading) {
+                if (loadingEl) loadingEl.style.display = 'inline';
+                textEl.style.display = 'none';
+            } else {
+                if (loadingEl) loadingEl.style.display = 'none';
+                textEl.style.display = 'inline';
+            }
+        }
+
+        function persistUserType(role) {
+            if (role) {
+                localStorage.setItem('userType', role);
+            }
+        }
+        
+        // Sign In Handler with improved validation
+        async function handleSignIn() {
+            try {
+                setLoading(true, 'login');
+                
+                const email = document.getElementById('loginEmail').value.trim();
+                const password = document.getElementById('loginPassword').value;
+                const userType = document.getElementById('loginRole').value;
+
+                persistUserType(userType);
+                
+                // Enhanced validation
+                if (!email || !password) {
+                    showMessage('Please enter both email and password', 'error');
+                    setLoading(false, 'login');
+                    return;
+                }
+                
+                // Basic email validation
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    showMessage('Please enter a valid email address', 'error');
+                    setLoading(false, 'login');
+                    return;
+                }
+                
+                if (password.length < 6) {
+                    showMessage('Password must be at least 6 characters', 'error');
+                    setLoading(false, 'login');
+                    return;
+                }
+                
+                // Firebase Sign In with error handling
+                const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                
+                if (!userCredential || !userCredential.user) {
+                    showMessage('Sign in failed. Please try again.', 'error');
+                    setLoading(false, 'login');
+                    return;
+                }
+                
+                const token = await userCredential.user.getIdToken();
+                
+                // Send to backend
+                const response = await fetch('/api/authenticate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        token: token,
+                        userType: userType
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    showMessage('Login successful! Redirecting...', 'success');
+                    setTimeout(() => {
+                        window.location.href = data.redirect;
+                    }, 1000);
+                } else {
+                    showMessage(data.error || 'Login failed', 'error');
+                    setLoading(false, 'login');
+                }
+                
+            } catch (error) {
+                console.error('Sign in error:', error);
+                // Handle specific Firebase errors
+                if (error.code === 'auth/user-not-found') {
+                    showMessage('User not found. Please check your email or sign up.', 'error');
+                } else if (error.code === 'auth/wrong-password') {
+                    showMessage('Incorrect password. Please try again.', 'error');
+                } else if (error.code === 'auth/invalid-email') {
+                    showMessage('Invalid email address.', 'error');
+                } else if (error.code === 'auth/user-disabled') {
+                    showMessage('This account has been disabled.', 'error');
+                } else if (error.code === 'auth/too-many-login-attempts') {
+                    showMessage('Too many failed login attempts. Please try again later.', 'error');
+                } else {
+                    showMessage(error.message || 'Sign in failed. Please try again.', 'error');
+                }
+                setLoading(false, 'login');
+            }
+        }
+        
+        // Sign Up Handler with improved validation
+        async function handleSignUp() {
+            try {
+                setLoading(true, 'signup');
+                
+                const email = document.getElementById('signupEmail').value.trim();
+                const password = document.getElementById('signupPassword').value;
+                const passwordConfirm = document.getElementById('signupPasswordConfirm').value;
+                const name = document.getElementById('signupName').value.trim();
+                const userType = document.getElementById('signupRole').value;
+
+                persistUserType(userType);
+                
+                // Enhanced validation
+                if (!email || !password || !name) {
+                    showMessage('Please fill all fields', 'error');
+                    setLoading(false, 'signup');
+                    return;
+                }
+                
+                // Name validation
+                if (name.length < 2 || name.length > 255) {
+                    showMessage('Name must be between 2 and 255 characters', 'error');
+                    setLoading(false, 'signup');
+                    return;
+                }
+                
+                // Email validation
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    showMessage('Please enter a valid email address', 'error');
+                    setLoading(false, 'signup');
+                    return;
+                }
+                
+                // Password validation
+                if (password.length < 6) {
+                    showMessage('Password must be at least 6 characters', 'error');
+                    setLoading(false, 'signup');
+                    return;
+                }
+                
+                if (password.length > 128) {
+                    showMessage('Password is too long (max 128 characters)', 'error');
+                    setLoading(false, 'signup');
+                    return;
+                }
+                
+                if (password !== passwordConfirm) {
+                    showMessage('Passwords do not match', 'error');
+                    setLoading(false, 'signup');
+                    return;
+                }
+                
+                // Firebase Sign Up with error handling
+                const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                
+                if (!userCredential || !userCredential.user) {
+                    showMessage('Sign up failed. Please try again.', 'error');
+                    setLoading(false, 'signup');
+                    return;
+                }
+                
+                // Update user profile
+                await userCredential.user.updateProfile({
+                    displayName: name
+                });
+                
+                const token = await userCredential.user.getIdToken();
+                
+                // Send to backend
+                const response = await fetch('/api/authenticate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        token: token,
+                        userType: userType
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    showMessage('Account created! Redirecting...', 'success');
+                    setTimeout(() => {
+                        window.location.href = data.redirect;
+                    }, 1000);
+                } else {
+                    showMessage(data.error || 'Signup failed', 'error');
+                    setLoading(false, 'signup');
+                }
+                
+            } catch (error) {
+                console.error('Sign up error:', error);
+                // Handle specific Firebase errors
+                if (error.code === 'auth/email-already-in-use') {
+                    showMessage('This email is already registered. Please sign in instead.', 'error');
+                } else if (error.code === 'auth/invalid-email') {
+                    showMessage('Invalid email address.', 'error');
+                } else if (error.code === 'auth/weak-password') {
+                    showMessage('Password is too weak. Please use a stronger password.', 'error');
+                } else if (error.code === 'auth/operation-not-allowed') {
+                    showMessage('Sign up is currently disabled. Please try again later.', 'error');
+                } else {
+                    showMessage(error.message || 'Sign up failed. Please try again.', 'error');
+                }
+                setLoading(false, 'signup');
+            }
+        }
+        
+        // Google Sign In Handler
+        async function handleGoogleSignIn() {
+            try {
+                setLoading(true, 'login');
+                
+                const provider = new firebase.auth.GoogleAuthProvider();
+                
+                // Configure provider for better error handling
+                provider.addScope('profile');
+                provider.addScope('email');
+                provider.setCustomParameters({
+                    'login_hint': '',
+                    'prompt': 'select_account'
+                });
+                
+                const result = await auth.signInWithPopup(provider);
+                
+                if (!result || !result.user) {
+                    showMessage('Google sign-in failed. Please try again.', 'error');
+                    setLoading(false, 'login');
+                    return;
+                }
+                
+                const token = await result.user.getIdToken();
+                const userType = document.getElementById('loginRole').value;
+
+                persistUserType(userType);
+                
+                // Send to backend with content-type header
+                const response = await fetch('/api/authenticate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        token: token,
+                        userType: userType
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    showMessage('Login successful! Redirecting...', 'success');
+                    setTimeout(() => {
+                        window.location.href = data.redirect;
+                    }, 1000);
+                } else {
+                    showMessage(data.error || 'Google sign-in failed', 'error');
+                    setLoading(false, 'login');
+                }
+                
+            } catch (error) {
+                console.error('Google sign-in error:', error);
+                // Handle specific error codes
+                if (error.code === 'auth/popup-closed-by-user') {
+                    showMessage('Sign-in popup was closed. Please try again.', 'error');
+                } else if (error.code === 'auth/popup-blocked') {
+                    showMessage('Sign-in popup was blocked. Please disable your popup blocker.', 'error');
+                } else {
+                    showMessage(error.message || 'Google sign-in failed', 'error');
+                }
+                setLoading(false, 'login');
+            }
+        }
+        
+        // Check if already logged in
+        let isAuthenticating = false;
+        auth.onAuthStateChanged(async (user) => {
+            if (!user || isAuthenticating) return;
+            isAuthenticating = true;
+            try {
+                const token = await user.getIdToken();
+                const storedRole = localStorage.getItem('userType') || 'student';
+                
+                // Verify the token is not expired
+                const decodedToken = (token.split('.')[1] ? JSON.parse(atob(token.split('.')[1])) : {});
+                if (decodedToken.exp && decodedToken.exp * 1000 < Date.now()) {
+                    // Token expired, logout and stay on login page
+                    await auth.signOut();
+                    isAuthenticating = false;
+                    return;
+                }
+                
+                const response = await fetch('/api/authenticate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ 
+                        token, 
+                        userType: storedRole 
+                    })
+                });
+                const data = await response.json();
+                if (data.success && data.redirect) {
+                    window.location.href = data.redirect;
+                }
+            } catch (error) {
+                console.error('Auto-login check failed', error);
+            } finally {
+                isAuthenticating = false;
+            }
+        });
+        
+        // Add logout function for testing
+        window.logout = async function() {
+            try {
+                await fetch('/api/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                });
+                await auth.signOut();
+                localStorage.removeItem('userType');
+                showMessage('Logged out successfully', 'success');
+                setTimeout(() => location.reload(), 1500);
+            } catch (error) {
+                console.error('Logout error:', error);
+            }
+        };
+    </script>
+</body>
+</html>

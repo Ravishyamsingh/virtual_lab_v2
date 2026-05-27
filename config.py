@@ -14,10 +14,13 @@ class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'dev-secret-key-change-in-production'
     
     # Session Configuration
+    SESSION_TYPE = 'filesystem'  # Use filesystem for session storage
     SESSION_COOKIE_SECURE = os.environ.get('SESSION_COOKIE_SECURE', 'False').lower() == 'true'
     SESSION_COOKIE_HTTPONLY = True
-    SESSION_COOKIE_SAMESITE = 'Lax'
-    PERMANENT_SESSION_LIFETIME = timedelta(hours=int(os.environ.get('SESSION_TIMEOUT_HOURS', '1')))
+    SESSION_COOKIE_SAMESITE = 'Strict'  # Stricter CSRF protection
+    PERMANENT_SESSION_LIFETIME = timedelta(hours=int(os.environ.get('SESSION_TIMEOUT_HOURS', '24')))
+    SESSION_COOKIE_NAME = 'firebase_session'
+    SESSION_REFRESH_EACH_REQUEST = True  # Refresh session on each request
     
     # Security Configuration
     WTF_CSRF_ENABLED = True
@@ -59,10 +62,35 @@ class Config:
     # Security Headers
     SECURITY_HEADERS = {
         'X-Content-Type-Options': 'nosniff',
-        'X-Frame-Options': 'DENY',
+        'X-Frame-Options': 'SAMEORIGIN',
         'X-XSS-Protection': '1; mode=block',
         'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
-        'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data:;"
+        'Content-Security-Policy': (
+            "default-src 'self' https:; "
+            "script-src 'self' 'unsafe-inline' 'unsafe-eval' "
+            "https://www.gstatic.com/firebasejs/ "
+            "https://apis.google.com "
+            "https://cdn.tailwindcss.com "
+            "https://cdnjs.cloudflare.com; "
+            "style-src 'self' 'unsafe-inline' "
+            "https://fonts.googleapis.com/ "
+            "https://cdn.tailwindcss.com "
+            "https://cdnjs.cloudflare.com; "
+            "font-src 'self' 'unsafe-inline' data: "
+            "https://fonts.gstatic.com "
+            "https://cdnjs.cloudflare.com; "
+            "img-src 'self' 'unsafe-inline' data: https: blob:; "
+            "connect-src 'self' "
+            "https://*.firebaseio.com "
+            "https://*.googleapis.com "
+            "https://identitytoolkit.googleapis.com "
+            "https://securetoken.googleapis.com "
+            "https://www.google-analytics.com "
+            "wss://*.firebaseio.com; "
+            "frame-src 'self' https://accounts.google.com https://apis.google.com https://www.gstatic.com https://*.firebaseapp.com; "
+            "child-src 'self' https://accounts.google.com https://apis.google.com https://*.firebaseapp.com; "
+            "object-src 'none';"
+        )
     }
     
     @staticmethod

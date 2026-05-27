@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logging Out - Cryptography Virtual Lab</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}" type="image/svg+xml">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 100%);
+            animation: gradient-shift 15s ease infinite;
+            background-size: 400% 400%;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .logout-container {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 0 32px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+        }
+
+        .logout-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        h1 {
+            color: white;
+            font-size: 28px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .status {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .success {
+            color: #10b981;
+            font-weight: 600;
+        }
+
+        .error {
+            color: #ef4444;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="logout-container">
+        <div class="logout-icon">👋</div>
+        <h1>Logging Out...</h1>
+        <p>Please wait while we securely log you out of all systems.</p>
+        <div class="status" id="status">
+            Processing logout...
+        </div>
+    </div>
+
+    <!-- Firebase SDK for signOut -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+
+    <script>
+        async function performLogout() {
+            try {
+                const statusEl = document.getElementById('status');
+                
+                // Step 1: Initialize Firebase
+                statusEl.innerHTML = '<span>Initializing...</span>';
+                
+                // Get config from window or use placeholder
+                let firebaseConfig = {
+                    apiKey: "{{ firebase_config.apiKey }}",
+                    authDomain: "{{ firebase_config.authDomain }}",
+                    projectId: "{{ firebase_config.projectId }}",
+                    storageBucket: "{{ firebase_config.storageBucket }}",
+                    messagingSenderId: "{{ firebase_config.messagingSenderId }}",
+                    appId: "{{ firebase_config.appId }}",
+                    databaseURL: "{{ firebase_config.databaseURL }}"
+                };
+
+                // Initialize Firebase
+                if (firebase.apps.length === 0) {
+                    firebase.initializeApp(firebaseConfig);
+                }
+
+                // Step 2: Sign out from Firebase
+                statusEl.innerHTML = '<span>Signing out from Firebase...</span>';
+                const auth = firebase.auth();
+                await auth.signOut();
+
+                // Step 3: Clear localStorage
+                statusEl.innerHTML = '<span>Clearing local data...</span>';
+                localStorage.clear();
+                sessionStorage.clear();
+
+                // Step 4: Clear all cookies
+                document.cookie.split(";").forEach((c) => {
+                    document.cookie = c
+                        .replace(/^ +/, "")
+                        .replace(/=.*/, `=;expires=${new Date().toUTCString()};path=/`);
+                });
+
+                // Step 5: Success message
+                statusEl.innerHTML = '<span class="success">✅ Logout successful!</span><br><span>Redirecting to login page...</span>';
+
+                // Step 6: Redirect to login
+                setTimeout(() => {
+                    window.location.href = '/login';
+                }, 1500);
+
+            } catch (error) {
+                console.error('Logout error:', error);
+                
+                // Even if Firebase logout fails, clear local data and redirect
+                localStorage.clear();
+                sessionStorage.clear();
+                
+                const statusEl = document.getElementById('status');
+                statusEl.innerHTML = '<span class="error">⚠️ Logout partially completed</span><br><span>Redirecting to login page...</span>';
+                
+                setTimeout(() => {
+                    window.location.href = '/login';
+                }, 1500);
+            }
+        }
+
+        // Start logout process when page loads
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', performLogout);
+        } else {
+            performLogout();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+{
+  "name": "cryptography-virtual-lab",
+  "version": "2.0.0",
+  "description": "Secure Cryptography Virtual Lab with Firebase Authentication",
+  "main": "index.js",
+  "scripts": {
+    "dev": "python app.py",
+    "build": "echo 'Build process for frontend assets'",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "format": "prettier --write ."
+  },
+  "keywords": [
+    "cryptography",
+    "virtual-lab",
+    "firebase",
+    "authentication",
+    "encryption",
+    "security"
+  ],
+  "author": "Cryptography Lab Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://your-repo.git"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0",
+    "python": ">=3.9"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "eslint": "^8.48.0",
+    "prettier": "^3.0.3",
+    "tailwindcss": "^3.3.3"
+  },
+  "dependencies": {
+    "lucide-react": "^0.292.0"
+  },
+  "optionalDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "next": "^14.0.0",
+    "vite": "^5.0.0"
+  },
+  "notes": {
+    "frontend": "Uses vanilla JavaScript with Tailwind CSS and Lucide Icons",
+    "backend": "Flask with Firebase Admin SDK",
+    "authentication": "Firebase Authentication with custom role-based access control",
+    "security": "Rate limiting, session management, token validation, CSRF protection",
+    "deployment": "Flask development server for local testing, ready for production WSGI servers (Gunicorn, uWSGI)"
+  },
+  "features": {
+    "authentication": [
+      "Email/Password authentication",
+      "Google Sign-In",
+      "Firebase token verification",
+      "Session management with Flask-Session"
+    ],
+    "security": [
+      "Rate limiting on auth endpoints (5 attempts/60sec)",
+      "Role-based access control (Student/Faculty)",
+      "CSRF protection",
+      "Secure session cookies",
+      "256-bit AES encryption support",
+      "Activity logging"
+    ],
+    "ui": [
+      "Modern glassmorphism design",
+      "Responsive layout",
+      "Smooth animations",
+      "Dark theme with cyan/emerald accent",
+      "Loading states",
+      "Error/success messages",
+      "Password visibility toggle",
+      "Remember me functionality"
+    ]
+  },
+  "installationSteps": {
+    "backend": [
+      "pip install -r requirements.txt",
+      "Configure .env with Firebase credentials",
+      "python app.py"
+    ],
+    "frontend": [
+      "Already built-in with Tailwind CSS",
+      "No build step required for current version"
+    ],
+    "optional": [
+      "For React integration: npm install react react-dom",
+      "For bundling: npm install vite @vitejs/plugin-react",
+      "For styling tools: npm install -D tailwindcss postcss autoprefixer"
+    ]
+  }
+}
